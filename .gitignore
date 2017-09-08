@@ -12,6 +12,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+/config/vatsim.yml
 
 # Ignore Byebug command history file.
 .byebug_history
