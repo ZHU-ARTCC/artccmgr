@@ -253,7 +253,7 @@ Devise.setup do |config|
 
   private_key = OpenSSL::PKey::RSA.new(VATSIM['sso']['key'], VATSIM['sso']['secret'])
 
-  config.omniauth :vatsim, 'Consumer Key', private_key,
+  config.omniauth :vatsim, VATSIM['sso']['consumer_key'], private_key,
     client_options: {
         site: VATSIM['sso']['url'],
         signature_method: 'RSA-SHA1',

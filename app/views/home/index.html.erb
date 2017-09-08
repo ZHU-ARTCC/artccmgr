@@ -1,0 +1,12 @@
+<% if flash[:notice] %>
+    <p><%= flash[:notice] %></p>
+<% end %>
+<% if flash[:alert] %>
+    <p<%= flash[:alert] %></p>
+<% end %>
+
+<% if user_signed_in? %>
+    Yay, you're logged in.
+<% else %>
+    <%= link_to 'Login with VATSIM', user_vatsim_omniauth_authorize_path %>
+<% end %>
