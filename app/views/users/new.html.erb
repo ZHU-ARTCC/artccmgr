@@ -1,2 +1,8 @@
-Welcome <%= session['devise.vatsim.name_first'].capitalize %>!
-<%= session['devise.vatsim.email'] %>
+Welcome <%= session['devise.vatsim.name_first'].capitalize %>
+<%= session['devise.vatsim.name_last'] %>!
+
+Would you like to create an account on this site?
+
+<%= form_for @user do |f| %>
+<%= f.submit 'Yes' %>
+<% end %>

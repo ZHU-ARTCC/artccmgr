@@ -7,6 +7,7 @@
 
 <% if user_signed_in? %>
     Yay, you're logged in.
+    <%= link_to 'Logout', users_sign_out_path, method: :delete %>
 <% else %>
     <%= link_to 'Login with VATSIM', user_vatsim_omniauth_authorize_path %>
 <% end %>

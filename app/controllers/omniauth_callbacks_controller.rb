@@ -7,9 +7,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       # validate @user, request.env['omniauth.auth']
       sign_in_and_redirect @user, event: :authentication
     else
-      reason = "Member not found on website"
-      set_flash_message(:notice, :failure, kind: 'VATSIM', reason: reason)
-      # @vatsim_data = request.env['omniauth.auth']
+      #reason = "Member not found on website"
+      #set_flash_message(:notice, :failure, kind: 'VATSIM', reason: reason)
 
       session['devise.vatsim.cid']          = request.env['omniauth.auth'].info.id
       session['devise.vatsim.name_first']   = request.env['omniauth.auth'].info.name_first
