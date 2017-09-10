@@ -10,12 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170908214813) do
+ActiveRecord::Schema.define(version: 20170910181621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
   enable_extension "citext"
+
+  create_table "assignments", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid "group_id"
+    t.uuid "permission_id"
+  end
+
+  create_table "groups", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string "name", null: false
+  end
+
+  create_table "permissions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.string "name", null: false
+  end
 
   create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.integer  "cid",                             null: false
@@ -24,6 +37,7 @@ ActiveRecord::Schema.define(version: 20170908214813) do
     t.string   "email",              default: "", null: false
     t.string   "rating",                          null: false
     t.datetime "reg_date",                        null: false
+    t.uuid     "group_id",                        null: false
     t.integer  "sign_in_count",      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
