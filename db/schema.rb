@@ -18,19 +18,20 @@ ActiveRecord::Schema.define(version: 20170908214813) do
   enable_extension "citext"
 
   create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.integer  "cid",                              null: false
-    t.string   "name_first",                       null: false
-    t.string   "name_last",                        null: false
-    t.string   "email",               default: "", null: false
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",       default: 0,  null: false
+    t.integer  "cid",                             null: false
+    t.string   "name_first",                      null: false
+    t.string   "name_last",                       null: false
+    t.string   "email",              default: "", null: false
+    t.string   "rating",                          null: false
+    t.datetime "reg_date",                        null: false
+    t.integer  "sign_in_count",      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["cid"], name: "index_users_on_cid", unique: true, using: :btree
   end
 
 end
