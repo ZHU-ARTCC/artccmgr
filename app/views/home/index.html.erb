@@ -12,7 +12,21 @@
     <br />
     You are in group: <%= current_user.group.name %>
     <br />
+    You have the following permissions:
+    <ul>
+      <% current_user.group.permissions.each do |permission| %>
+        <li><%= permission %></li>
+      <% end %>
+    </ul>
+    <br />
     <%= link_to 'Logout', users_sign_out_path, method: :delete %>
 <% else %>
+    You have the following permissions:
+    <ul>
+      <% Group.find_by(name: 'public').permissions.each do |permission| %>
+          <li><%= permission %></li>
+      <% end %>
+    </ul>
+    <br />
     <%= link_to 'Login with VATSIM', user_vatsim_omniauth_authorize_path %>
 <% end %>
