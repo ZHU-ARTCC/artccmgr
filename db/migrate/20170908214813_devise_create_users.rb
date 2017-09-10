@@ -8,6 +8,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.0]
       t.string    :email,       null: false, default: ''
       t.string    :rating,      null: false, length: 3
       t.datetime  :reg_date,    null: false
+      t.uuid      :group_id,    null: false
 
       ## Trackable
       t.integer  :sign_in_count, default: 0, null: false
