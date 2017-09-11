@@ -19,10 +19,16 @@ Permission.create name: 'feedback read published'
 Permission.create name: 'feedback update'
 Permission.create name: 'feedback delete'
 
+Permission.create name: 'position create'
+Permission.create name: 'position read'
+Permission.create name: 'position update'
+Permission.create name: 'position delete'
+
 # Default Groups and permissions
 Group.create name: 'public',
              permissions: [
-                 Permission.find_by(name: 'feedback read published')
+                 Permission.find_by(name: 'feedback read published'),
+                 Permission.find_by(name: 'position read')
              ]
 
 Group.create name: 'guest',

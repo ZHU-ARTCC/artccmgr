@@ -1,4 +1,4 @@
-class FeedbackPolicy < ApplicationPolicy
+class PositionPolicy < ApplicationPolicy
   class Scope
     attr_reader :user, :scope
 
@@ -10,7 +10,7 @@ class FeedbackPolicy < ApplicationPolicy
     def resolve
       @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
 
-      if group.permissions.pluck('name').include? 'feedback read'
+      if group.permissions.pluck('name').include? 'position read'
         scope.all.order(created_at: :desc)
       else
         scope.where(published: true).order(created_at: :desc)
@@ -20,7 +20,7 @@ class FeedbackPolicy < ApplicationPolicy
 
   def index?
     @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
-    group.permissions.pluck('name').include? 'feedback read published'
+    group.permissions.pluck('name').include? 'position read'
   end
 
   def show?
@@ -32,7 +32,7 @@ class FeedbackPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.permissions.pluck('name').include? 'feedback create'
+    @user.permissions.pluck('name').include? 'position create'
   end
 
   def update?
@@ -47,13 +47,4 @@ class FeedbackPolicy < ApplicationPolicy
     false
   end
 
-  def permitted_attributes
-    if @user.permissions.pluck('name').include? 'feedback update'
-      [ :cid, :name, :email, :callsign, :controller, :position, :service_level,
-        :comments, :fly_again, :published
-      ]
-    else
-      [ :callsign, :controller, :position, :service_level, :comments, :fly_again ]
-    end
-  end
 end
