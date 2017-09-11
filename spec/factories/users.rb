@@ -1,5 +1,7 @@
 FactoryGirl.define do
   factory :user do
+    group
+
     sequence(:cid){ |cid| cid }
     sequence(:name_first) { |x| "First#{x}" }
     sequence(:name_last)  { |y| "Last#{y}" }
@@ -8,6 +10,8 @@ FactoryGirl.define do
     rating    'OBS'
     reg_date  Time.now
 
-    group Group.find_by(name: 'guest')
+    trait :controller do
+      group { Group.find_or_create_by(name: 'controller') }
+    end
   end
 end

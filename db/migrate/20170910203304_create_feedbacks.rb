@@ -5,8 +5,8 @@ class CreateFeedbacks < ActiveRecord::Migration[5.0]
       t.string  :name,          null: false
       t.string  :email,         null: false
       t.string  :callsign,      null: false
-      t.string  :controller
-      t.string  :position
+      t.string  :controller,    null: false
+      t.string  :position,      null: false
       t.integer :service_level, null: false
       t.text    :comments,      null: false
       t.boolean :fly_again,     default: true
