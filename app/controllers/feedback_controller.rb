@@ -3,7 +3,8 @@ class FeedbackController < ApplicationController
   after_action :verify_authorized, except: :new
 
   def index
-    @feedback = Feedback.order(created_at: :desc).page params[:page]
+    #@feedback = Feedback.order(created_at: :desc).page params[:page]
+    @feedback = policy_scope(Feedback).page params[:page]
     authorize @feedback
   end
 

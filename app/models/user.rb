@@ -15,4 +15,8 @@ class User < ApplicationRecord
   validates :reg_date,    presence: true, allow_blank: false
   validates :group,       presence: true, allow_blank: false
 
+  def name
+    "#{name_first} #{name_last}"
+  end
+
 end

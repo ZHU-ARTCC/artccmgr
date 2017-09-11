@@ -15,49 +15,52 @@
 
 Permission.create name: 'feedback create'
 Permission.create name: 'feedback read'
+Permission.create name: 'feedback read published'
 Permission.create name: 'feedback update'
 Permission.create name: 'feedback delete'
 
 # Default Groups and permissions
 Group.create name: 'public',
              permissions: [
-                 Permission.find_by(name: 'feedback read')
+                 Permission.find_by(name: 'feedback read published')
              ]
 
 Group.create name: 'guest',
              permissions: [
                  Permission.find_by(name: 'feedback create'),
-                 Permission.find_by(name: 'feedback read'),
+                 Permission.find_by(name: 'feedback read published'),
              ]
 
 Group.create name: 'visiting controller',
              permissions: [
                  Permission.find_by(name: 'feedback create'),
-                 Permission.find_by(name: 'feedback read'),
+                 Permission.find_by(name: 'feedback read published'),
              ]
 
 Group.create name: 'controller',
              permissions: [
-                 Permission.find_by(name: 'feedback read'),
+                 Permission.find_by(name: 'feedback read published'),
              ]
 
 Group.create name: 'webmaster',
              permissions: [
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read'),
+                 Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'feedback update'),
                  Permission.find_by(name: 'feedback delete')
              ]
 
 Group.create name: 'facility engineer',
              permissions: [
-                 Permission.find_by(name: 'feedback read')
+                 Permission.find_by(name: 'feedback read published')
              ]
 
 Group.create name: 'events coordinator',
              permissions: [
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read'),
+                 Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'feedback update'),
                  Permission.find_by(name: 'feedback delete')
              ]
@@ -71,6 +74,7 @@ Group.create name: 'deputy air traffic manager',
              permissions: [
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read'),
+                 Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'feedback update'),
                  Permission.find_by(name: 'feedback delete')
              ]
@@ -79,6 +83,7 @@ Group.create name: 'air traffic manager',
              permissions: [
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read'),
+                 Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'feedback update'),
                  Permission.find_by(name: 'feedback delete')
              ]
