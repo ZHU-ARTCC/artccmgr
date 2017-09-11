@@ -44,4 +44,8 @@ RSpec.describe User, type: :model do
 
   it { should delegate_method(:permissions).to(:group) }
 
+  describe "#name_full" do
+    it { expect(user.name_full).to eq "#{user.name_first} #{user.name_last}" }
+  end
+
 end
