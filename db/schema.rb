@@ -23,14 +23,15 @@ ActiveRecord::Schema.define(version: 20170910203304) do
   end
 
   create_table "feedbacks", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.integer  "cid",        null: false
-    t.string   "name",       null: false
-    t.string   "callsign",   null: false
+    t.integer  "cid",                        null: false
+    t.string   "name",                       null: false
+    t.string   "callsign",                   null: false
     t.string   "controller"
-    t.string   "position",   null: false
-    t.string   "comments",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "position",                   null: false
+    t.string   "comments",                   null: false
+    t.boolean  "published",  default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "groups", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
