@@ -32,17 +32,32 @@ Group.create name: 'guest',
              ]
 
 Group.create name: 'visiting controller',
+             artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read published'),
              ]
 
 Group.create name: 'controller',
+             artcc_controllers: true,
+             permissions: [
+                 Permission.find_by(name: 'feedback read published'),
+             ]
+
+Group.create name: 'mentor',
+             artcc_controllers: true,
+             permissions: [
+                 Permission.find_by(name: 'feedback read published'),
+             ]
+
+Group.create name: 'instructor',
+             artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'feedback read published'),
              ]
 
 Group.create name: 'webmaster',
+             artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read'),
@@ -52,11 +67,13 @@ Group.create name: 'webmaster',
              ]
 
 Group.create name: 'facility engineer',
+             artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'feedback read published')
              ]
 
 Group.create name: 'events coordinator',
+             artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read'),
@@ -66,11 +83,13 @@ Group.create name: 'events coordinator',
              ]
 
 Group.create name: 'training administrator',
+             artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'feedback read')
              ]
 
 Group.create name: 'deputy air traffic manager',
+             artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read'),
@@ -80,6 +99,7 @@ Group.create name: 'deputy air traffic manager',
              ]
 
 Group.create name: 'air traffic manager',
+             artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read'),

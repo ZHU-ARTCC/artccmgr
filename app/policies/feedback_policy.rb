@@ -8,7 +8,9 @@ class FeedbackPolicy < ApplicationPolicy
     end
 
     def resolve
-      if user.permissons.pluck('name').include? 'feedback read'
+      @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+
+      if group.permissions.pluck('name').include? 'feedback read'
         scope.all.order(created_at: :desc)
       else
         scope.where(published: true).order(created_at: :desc)
@@ -43,6 +45,16 @@ class FeedbackPolicy < ApplicationPolicy
 
   def destroy?
     false
+  end
+
+  def permitted_attributes
+    if @user.permissions.pluck('name').include? 'feedback update'
+      [ :cid, :name, :email, :callsign, :controller, :position, :service_level,
+        :comments, :fly_again, :published
+      ]
+    else
+      [ :callsign, :controller, :position, :service_level, :comments, :fly_again ]
+    end
   end
 end
 

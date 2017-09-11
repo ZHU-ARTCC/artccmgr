@@ -1,12 +1,27 @@
 New feedback.
 
-<%= form_for :feedback  do |f| %>
+<%= form_for(:feedback, url: feedback_index_path) do |f| %>
     Submitter: <%= current_user.name_first %>
                <%= current_user.name_last %>
                (<%= current_user.cid %>)
     <br />
+    Email: <%= current_user.email %>
+    <br />
     Flight Callsign: <%= f.text_field :callsign %> <br/>
-    <% controllers = Group.find_by(name: 'controller').users.collect {|a| [ a.name, a.name ]} %>
-    <% controllers.unshift ['Unknown', 'Unknown'] %>
+    <% controllers = User.artcc_controllers.order(:name_first).collect {|a| [ a.name_full, a.name_full ]} %>
+    <% controllers.unshift ['Unknown (Not specified)', 'Unknown'] %>
     Controller: <%= f.select :controller, controllers %>
+    <br />
+    <% positions = Position.order(:callsign).collect{|p| ["#{p.callsign} (#{'%.3f' % p.frequency})", p.callsign]} %>
+    <% positions.unshift ['Unknown (Not specified)', 'Unknown'] %>
+    Position: <%= f.select :position, positions %>
+    <br/>
+    <% service_levels = [['Excellent', 5], ['Good', 4], ['Fair', 3], ['Poor', 2], ['Unsatisfactory', 1]] %>
+    Rate level of service: <%= f.select :service_level, service_levels %>
+    <br/>
+    Would you fly again? <%= f.select :fly_again, [['Yes', true], ['No', false]] %>
+    <br/>
+    Comments: <%= f.text_area :comments %>
+    <br/>
+    <%= f.submit 'Send Feadback' %>
 <% end %>

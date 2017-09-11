@@ -21,6 +21,7 @@ RSpec.describe User, type: :model do
 
     # Format validations
     it { expect(user).to validate_numericality_of(:cid) }
+    it { expect(user).to validate_length_of(:initials).is_at_most(2) }
     it { expect(user).to validate_length_of(:rating).is_at_most(3) }
 
     # Inclusion/acceptance of values
@@ -31,6 +32,8 @@ RSpec.describe User, type: :model do
     it { expect(user).to_not allow_value('').for(:rating) }
     it { expect(user).to_not allow_value('').for(:reg_date) }
 
+    it { expect(user).to allow_value('').for(:initials)}
+
   end # describe 'ActiveModel validations'
 
   describe 'ActiveRecord associations' do
@@ -38,5 +41,7 @@ RSpec.describe User, type: :model do
     it { expect(user).to belong_to(:group) }
 
   end # describe 'ActiveRecord associations'
+
+  it { should delegate_method(:permissions).to(:group) }
 
 end
