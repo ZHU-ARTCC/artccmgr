@@ -7,6 +7,7 @@ class CreateFeedbacks < ActiveRecord::Migration[5.0]
       t.string  :controller
       t.string  :position,    null: false
       t.string  :comments,    null: false
+      t.boolean :published,   default: false
 
       t.timestamps
     end
