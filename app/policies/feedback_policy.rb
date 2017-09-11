@@ -20,7 +20,7 @@ class FeedbackPolicy
   end
 
   def new?
-    @user.group.permissions.pluck('name').include? 'feedback create'
+    @user.permissions.pluck('name').include? 'feedback create'
   end
 
   def update?
