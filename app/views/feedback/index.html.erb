@@ -1,1 +1,29 @@
 Feedback index.
+<br/>
+
+<table border="1">
+  <tr>
+    <th>Date</th>
+    <th>Name</th>
+    <th>Callsign</th>
+    <th>Controller</th>
+    <th>Position</th>
+    <th>Service Level</th>
+    <th>Comments</th>
+    <th>Fly Again</th>
+    <th>Published</th>
+  </tr>
+  <% @feedback.each do |f| %>
+    <tr>
+      <td><%= f.created_at %></td>
+      <td><%= f.name %> (<%= f.cid %>)</td>
+      <td><%= f.callsign %></td>
+      <td><%= f.controller %></td>
+      <td><%= f.position %></td>
+      <td><%= f.service_level %></td>
+      <td><%= f.comments %></td>
+      <td><%= f.fly_again? %></td>
+      <td><%= f.published? %></td>
+    </tr>
+  <% end %>
+</table>
