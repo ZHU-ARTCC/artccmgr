@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :feedback
+  resources :positions
   resources :users
 end

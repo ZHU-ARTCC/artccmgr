@@ -1,0 +1,43 @@
+Positions
+<br/>
+Major Positions
+<br />
+<table border="1">
+  <tr>
+    <th>Callsign</th>
+    <th>Frequency</th>
+    <th>Position</th>
+    <th>Identification</th>
+    <th>Beacon Codes</th>
+  </tr>
+  <% @positions.where(major: true).order(:callsign).each do |f| %>
+      <tr>
+        <td><%= f.callsign %></td>
+        <td><%= f.frequency %></td>
+        <td><%= f.name %></td>
+        <td><%= f.identification %></td>
+        <td><%= f.beacon_codes %></td>
+      </tr>
+  <% end %>
+</table>
+
+Minor Positions
+<br />
+<table border="1">
+  <tr>
+    <th>Callsign</th>
+    <th>Frequency</th>
+    <th>Position</th>
+    <th>Identification</th>
+    <th>Beacon Codes</th>
+  </tr>
+  <% @positions.where(major: false).order(:callsign).each do |f| %>
+      <tr>
+        <td><%= f.callsign %></td>
+        <td><%= f.frequency %></td>
+        <td><%= f.name %></td>
+        <td><%= f.identification %></td>
+        <td><%= f.beacon_codes %></td>
+      </tr>
+  <% end %>
+</table>
