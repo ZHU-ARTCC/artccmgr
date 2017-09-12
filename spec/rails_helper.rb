@@ -5,6 +5,7 @@ require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+require 'devise'
 require 'pundit/matchers'
 require 'pundit/rspec'
 require 'support/factory_girl'
@@ -60,6 +61,9 @@ RSpec.configure do |config|
 
   # Include Shoulda Callback Matchers
   config.include(Shoulda::Callback::Matchers::ActiveModel)
+
+  # For Devise >= 4.1.0
+  config.include Devise::Test::ControllerHelpers, type: :controller
 end
 
 Shoulda::Matchers.configure do |config|

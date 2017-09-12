@@ -11,39 +11,57 @@ FactoryGirl.define do
     end
 
     trait :perm_feedback_create do
-      permissions { Permission.where(name: 'feedback create') }
+      after :build do |g|
+        g.permissions << Permission.where(name: 'feedback create')
+      end
     end
 
     trait :perm_feedback_delete do
-      permissions { Permission.where(name: 'feedback delete') }
+      after :build do |g|
+        g.permissions << Permission.where(name: 'feedback delete')
+      end
     end
 
     trait :perm_feedback_read do
-      permissions { Permission.where(name: 'feedback read') }
+      after :build do |g|
+        g.permissions << Permission.where(name: 'feedback read')
+      end
     end
 
     trait :perm_feedback_read_published do
-      permissions { Permission.where(name: 'feedback read published') }
+      after :build do |g|
+        g.permissions << Permission.where(name: 'feedback read published')
+      end
     end
 
     trait :perm_feedback_update do
-      permissions { Permission.where(name: 'feedback update') }
+      after :build do |g|
+        g.permissions << Permission.where(name: 'feedback update')
+      end
     end
 
     trait :perm_position_create do
-      permissions { Permission.where(name: 'position create') }
+      after :build do |g|
+        g.permissions << Permission.where(name: 'position create')
+      end
     end
 
     trait :perm_position_delete do
-      permissions { Permission.where(name: 'position delete') }
+      after :build do |g|
+        g.permissions << Permission.where(name: 'position delete')
+      end
     end
 
     trait :perm_position_read do
-      permissions { Permission.where(name: 'position read') }
+      after :build do |g|
+        g.permissions << Permission.where(name: 'position read')
+      end
     end
 
     trait :perm_position_update do
-      permissions { Permission.where(name: 'position update') }
+      after :build do |g|
+        g.permissions << Permission.where(name: 'position update')
+      end
     end
   end
 end

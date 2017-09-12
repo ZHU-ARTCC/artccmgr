@@ -11,6 +11,17 @@ FactoryGirl.define do
     service_level { rand(1..5) }
     fly_again     { [true, false].sample }
 
+    trait :invalid do
+      cid           { nil }
+      name          { nil }
+      email         { nil }
+      callsign      { nil }
+      controller    { nil }
+      position      { nil }
+      service_level { nil }
+      comments      { nil }
+    end
+
     trait :published do
       published { true }
     end
