@@ -20,11 +20,13 @@ class FeedbackPolicy < ApplicationPolicy
 
   def index?
     @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
-    group.permissions.pluck('name').include? 'feedback read published'
+    (group.permissions.pluck('name') & ['feedback read published', 'feedback read']).present?
   end
 
   def show?
-    scope.where(:id => record.id).exists?
+    # scope.where(:id => record.id).exists?
+    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    (group.permissions.pluck('name') & ['feedback read published', 'feedback read']).present?
   end
 
   def create?
@@ -32,19 +34,22 @@ class FeedbackPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.permissions.pluck('name').include? 'feedback create'
+    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    group.permissions.pluck('name').include? 'feedback create'
   end
 
   def update?
-    false
+    edit?
   end
 
   def edit?
-    false
+    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    group.permissions.pluck('name').include? 'feedback update'
   end
 
   def destroy?
-    false
+    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    group.permissions.pluck('name').include? 'feedback delete'
   end
 
   def permitted_attributes

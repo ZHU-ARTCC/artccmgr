@@ -4,14 +4,14 @@ FactoryGirl.define do
 
     sequence(:cid){ |cid| cid }
     sequence(:name_first) { |x| "First#{x}" }
-    sequence(:name_last)  { |y| "Last#{y}" }
+    sequence(:name_last)  { |y| "Last#{y}"  }
 
     email     { "#{name_first}.#{name_last}@example.com".downcase }
     rating    'OBS'
     reg_date  Time.now
 
     trait :controller do
-      group { Group.find_or_create_by(name: 'controller') }
+      group { build(:group, :controllers) }
     end
   end
 end
