@@ -7,4 +7,8 @@ class Position < ApplicationRecord
   validates :beacon_codes, allow_blank: true, length: {maximum: 9}
   validates :major, inclusion: { in: [ true, false ] }
 
+  def callsign=(callsign)
+    callsign.nil? ? super(callsign) : super(callsign.upcase)
+  end
+
 end
