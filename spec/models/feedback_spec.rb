@@ -24,6 +24,9 @@ RSpec.describe Feedback, type: :model do
     it { expect(feedback).to validate_numericality_of(:service_level).is_greater_than(0).is_less_than_or_equal_to(5) }
 
     # Inclusion/acceptance of values
+    it { expect(feedback).to allow_value('Unknown').for(:controller) }
+    it { expect(feedback).to allow_value('Unknown').for(:position) }
+
     it { expect(feedback).to_not allow_value('').for(:cid) }
     it { expect(feedback).to_not allow_value('').for(:name) }
     it { expect(feedback).to_not allow_value('').for(:email) }
