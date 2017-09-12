@@ -5,7 +5,7 @@ FactoryGirl.define do
     sequence(:identification){ |x| "Identification #{x}" }
     sequence(:beacon_codes){ |x| "0000-#{x}" }
 
-    frequency { rand(118.0...137.0).round(3) }
+    frequency { (('%.1f' % rand(118.0...136.9).round(1).to_s) + ['00', '25', '50', '75'].sample.to_s).to_f }
     major     { [true, false].sample }
   end
 end

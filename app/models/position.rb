@@ -8,6 +8,7 @@ class Position < ApplicationRecord
   validates :major, inclusion: { in: [ true, false ] }
 
   validate :valid_callsign
+  validate :valid_frequency
 
   def callsign=(callsign)
     callsign.nil? ? super(callsign) : super(callsign.upcase)
@@ -18,6 +19,14 @@ class Position < ApplicationRecord
   def valid_callsign
     unless callsign =~ /^[A-Z]{3}_([A-Z0-9]{1,3}_)?[(FSS|CTR|APP|DEP|TWR|GND|DEL)]{3}$/
       self.errors[:callsign] << 'invalid format'
+    end
+  end
+
+  def valid_frequency
+    unless frequency.nil?
+      unless '%.3f' % frequency =~ /^\d{3}.\d{1}(00|25|50|75){1}$/
+        self.errors[:frequency] << 'invalid'
+      end
     end
   end
 
