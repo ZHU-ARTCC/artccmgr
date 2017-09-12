@@ -2,8 +2,12 @@ FactoryGirl.define do
   factory :group do
     sequence(:name){|i| "group #{i}"}
 
-    trait :controllers do
+    trait :artcc_controllers do
       artcc_controllers true
+    end
+
+    trait :visiting_controllers do
+      visiting_controllers true
     end
 
     trait :perm_feedback_create do

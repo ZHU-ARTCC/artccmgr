@@ -44,6 +44,29 @@ RSpec.describe User, type: :model do
 
   it { should delegate_method(:permissions).to(:group) }
 
+  describe "#all_controllers" do
+    it 'should return all controllers both ARTCC and Visiting' do
+      create_list(:user, 2, :artcc_controller)
+      create_list(:user, 3, :visiting_controller)
+
+      expect(User.all_controllers.size).to eq 5
+    end
+  end
+
+  describe "#artcc_controllers" do
+    it 'should return ARTCC controllers' do
+      create_list(:user, 5, :artcc_controller)
+      expect(User.artcc_controllers.size).to eq 5
+    end
+  end
+
+  describe "#visiting_controllers" do
+    it 'should return Visiting controllers' do
+      create_list(:user, 5, :visiting_controller)
+      expect(User.visiting_controllers.size).to eq 5
+    end
+  end
+
   describe "#name_full" do
     it { expect(user.name_full).to eq "#{user.name_first} #{user.name_last}" }
   end
