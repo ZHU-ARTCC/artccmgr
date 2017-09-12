@@ -186,7 +186,7 @@ RSpec.describe FeedbackController, type: :controller do
         expect(@feedback.name).to eq 'John Smith'
       end
 
-      it 'redirects to the updated contact' do
+      it 'redirects to the updated feedback' do
         put :update, params: { id: @feedback, feedback: attributes_for(:feedback) }
         expect(response).to redirect_to @feedback
       end

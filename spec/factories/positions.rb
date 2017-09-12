@@ -7,5 +7,14 @@ FactoryGirl.define do
 
     frequency { (('%.1f' % rand(118.0...136.9).round(1).to_s) + ['00', '25', '50', '75'].sample.to_s).to_f }
     major     { [true, false].sample }
+
+    trait :invalid do
+      name            { nil }
+      frequency       { nil }
+      callsign        { nil }
+      identification  { nil }
+      beacon_codes    { nil }
+      major           { nil }
+    end
   end
 end

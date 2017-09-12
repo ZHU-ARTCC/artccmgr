@@ -31,4 +31,7 @@ class PositionPolicy < ApplicationPolicy
     group.permissions.pluck('name').include? 'position delete'
   end
 
+  def permitted_attributes
+    [ :name, :frequency, :callsign, :identification, :beacon_codes, :major ]
+  end
 end
