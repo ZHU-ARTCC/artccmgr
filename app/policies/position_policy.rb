@@ -1,22 +1,4 @@
 class PositionPolicy < ApplicationPolicy
-  class Scope
-    attr_reader :user, :scope
-
-    def initialize(user, scope)
-      @user  = user
-      @scope = scope
-    end
-
-    def resolve
-      @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
-
-      if group.permissions.pluck('name').include? 'position read'
-        scope.all.order(created_at: :desc)
-      else
-        scope.where(published: true).order(created_at: :desc)
-      end
-    end
-  end
 
   def index?
     @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
@@ -24,7 +6,7 @@ class PositionPolicy < ApplicationPolicy
   end
 
   def show?
-    scope.where(:id => record.id).exists?
+    index?
   end
 
   def create?
@@ -36,15 +18,17 @@ class PositionPolicy < ApplicationPolicy
   end
 
   def update?
-    false
+    edit?
   end
 
   def edit?
-    false
+    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    group.permissions.pluck('name').include? 'position update'
   end
 
   def destroy?
-    false
+    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    group.permissions.pluck('name').include? 'position delete'
   end
 
 end
