@@ -16,8 +16,16 @@ class User < ApplicationRecord
   validates :reg_date,    presence: true, allow_blank: false
   validates :group,       presence: true, allow_blank: false
 
+  scope :all_controllers, -> do
+    artcc_controllers.or(visiting_controllers)
+  end
+
   scope :artcc_controllers, -> do
     joins(:group).where(groups: { artcc_controllers: true})
+  end
+
+  scope :visiting_controllers, -> do
+    joins(:group).where(groups: { visiting_controllers: true})
   end
 
   def name_full

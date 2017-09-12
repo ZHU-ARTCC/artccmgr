@@ -10,8 +10,12 @@ FactoryGirl.define do
     rating    'OBS'
     reg_date  Time.now
 
-    trait :controller do
-      group { build(:group, :controllers) }
+    trait :artcc_controller do
+      group { build(:group, :artcc_controllers) }
+    end
+
+    trait :visiting_controller do
+      group { build(:group, :visiting_controllers)}
     end
   end
 end

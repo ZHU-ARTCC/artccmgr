@@ -8,7 +8,7 @@ New feedback.
     Email: <%= current_user.email %>
     <br />
     Flight Callsign: <%= f.text_field :callsign %> <br/>
-    <% controllers = User.artcc_controllers.order(:name_first).collect {|a| [ a.name_full, a.name_full ]} %>
+    <% controllers = User.all_controllers.order(:name_first).collect {|a| [ a.name_full, a.name_full ]} %>
     <% controllers.unshift ['Unknown (Not specified)', 'Unknown'] %>
     Controller: <%= f.select :controller, controllers %>
     <br />
