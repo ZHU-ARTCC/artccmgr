@@ -11,4 +11,8 @@ class Feedback < ApplicationRecord
   validates :fly_again,     inclusion: { in: [ true, false ] }
   validates :comments,      presence: true, allow_blank: false
   validates :published,     inclusion: { in: [ true, false ] }
+
+  def callsign=(callsign)
+    callsign.nil? ? super(callsign) : super(callsign.upcase)
+  end
 end

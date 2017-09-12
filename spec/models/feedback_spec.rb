@@ -41,4 +41,8 @@ RSpec.describe Feedback, type: :model do
   describe 'ActiveRecord associations' do
   end # describe 'ActiveRecord associations'
 
+  describe 'callsign should be forced upper case' do
+    it { expect(build(:feedback, callsign: 'test').callsign).to eq 'TEST' }
+  end
+
 end
