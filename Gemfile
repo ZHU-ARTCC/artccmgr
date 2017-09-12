@@ -50,6 +50,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails', '~> 3.6'
   gem 'factory_girl_rails'
+  gem 'pundit-matchers', '~> 1.3.1'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'shoulda-callback-matchers'
 end
