@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :position do
-    sequence(:callsign){ |x| "TES_T_#{x}" }
+    sequence(:callsign){ |x| "TST_#{x}_CTR" }
     sequence(:name){ |n| "Position #{n}" }
     sequence(:identification){ |x| "Identification #{x}" }
     sequence(:beacon_codes){ |x| "0000-#{x}" }
