@@ -16,7 +16,7 @@ class Position < ApplicationRecord
   private
 
   def valid_callsign
-    unless callsign =~ /^[A-Z]{3}_([A-Z0-9]{1,3}_)?[(FSS|CTR|APP|TWR|GND|DEL)]{3}$/
+    unless callsign =~ /^[A-Z]{3}_([A-Z0-9]{1,3}_)?[(FSS|CTR|APP|DEP|TWR|GND|DEL)]{3}$/
       self.errors[:callsign] << 'invalid format'
     end
   end
