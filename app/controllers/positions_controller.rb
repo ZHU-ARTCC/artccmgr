@@ -1,6 +1,6 @@
 class PositionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
-  after_action :verify_authorized#, only: [:create, :new, :update, :destroy]
+  after_action :verify_authorized
 
   def index
     @positions = Position.all
