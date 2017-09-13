@@ -4,6 +4,8 @@ class Event
     belongs_to :position
     belongs_to :user, optional: true
 
+    has_many :signups
+
     validates :event, presence: true, allow_blank: false
     validates :position, uniqueness: { scope: :event, message: 'already assigned to event' }
     validates :user, uniqueness: { scope: :event, message: 'already assigned', allow_nil: true }
