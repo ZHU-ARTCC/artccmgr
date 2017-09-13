@@ -28,15 +28,31 @@ RSpec.describe Group, type: :model do
 
   end # describe 'ActiveRecord associations'
 
-  describe 'that is both members of ARTCC and visiting controllers' do
-
+  describe 'that have both members of this ARTCC and visiting controllers' do
     # Controllers cannot be both members of the ARTCC and Visiting controllers
     it {
       expect(
         build(:group, artcc_controllers: true, visiting_controllers: true)
       ).to_not be_valid
     }
+  end
 
-  end # describe 'Custom validations'
+  describe 'that have members of this ARTCC' do
+    # Controllers can be members of the ARTCC
+    it {
+      expect(
+        build(:group, artcc_controllers: true, visiting_controllers: false)
+      ).to be_valid
+    }
+  end
+
+  describe 'that have visiting controllers' do
+    # Controllers can be visiting controllers
+    it {
+      expect(
+        build(:group, artcc_controllers: false, visiting_controllers: true)
+      ).to be_valid
+    }
+  end
 
 end
