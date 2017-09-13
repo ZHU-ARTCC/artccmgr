@@ -29,23 +29,19 @@ RSpec.describe Event::Pilot, type: :model do
 
   end # describe 'ActiveRecord associations'
 
-  describe 'already set as a controller' do
-
-    it 'should not be allowed' do
-      controller_sign_up = create(:event_controller)
-      event = controller_sign_up.event
-      user  = controller_sign_up.user
-      expect(build(:event_pilot, event: event, user: user)).to_not be_valid
-    end
-
-  end
-
   describe 'already signed up' do
 
     it 'should not be allowed to sign up again' do
       event_pilot_sign_up = create(:event_pilot)
       event = event_pilot_sign_up.event
       user  = event_pilot_sign_up.user
+      expect(build(:event_pilot, event: event, user: user)).to_not be_valid
+    end
+
+    it 'should not be allowed to sign up if already a controller' do
+      controller_sign_up = create(:event_controller)
+      event = controller_sign_up.event
+      user  = controller_sign_up.user
       expect(build(:event_pilot, event: event, user: user)).to_not be_valid
     end
 
