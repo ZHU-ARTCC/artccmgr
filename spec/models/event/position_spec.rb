@@ -28,6 +28,7 @@ RSpec.describe Event::Position, type: :model do
     it { expect(event_position).to belong_to(:event) }
     it { expect(event_position).to belong_to(:user) }
     it { expect(event_position).to belong_to(:position) }
+    it { expect(event_position).to have_many(:signups) }
 
   end # describe 'ActiveRecord associations'
 
