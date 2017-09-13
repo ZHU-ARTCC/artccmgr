@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :omniauthable, :trackable
 
   belongs_to  :group
+  has_many    :events, through: :event_positions
+  has_many    :event_positions, class_name: 'Event::Controller'
+
   delegate    :permissions, to: :group
 
   validates :cid,         presence: true, numericality: :only_integer, allow_blank: false
