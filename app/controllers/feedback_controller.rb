@@ -43,9 +43,6 @@ class FeedbackController < ApplicationController
     if user_signed_in?
       @feedback = Feedback.new
       authorize @feedback
-
-      @controllers = User.all_controllers.order(:name_first)
-      @positions   = Position.all.order(:callsign)
     else
       redirect_to user_vatsim_omniauth_authorize_path
     end

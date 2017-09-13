@@ -15,13 +15,13 @@ New feedback.
     Email: <%= current_user.email %>
     <br />
     Flight Callsign: <%= f.text_field :callsign %> <br/>
-    <% @controllers = @controllers.collect{|a| [ a.name_full, a.name_full ]} %>
-    <% @controllers.unshift ['Unknown (Not specified)', 'Unknown'] %>
-    Controller: <%= f.select :controller, @controllers %>
+    <% controllers = User.all_controllers.order(:name_first).collect{|a| [ a.name_full, a.name_full ]} %>
+    <% controllers.unshift ['Unknown (Not specified)', 'Unknown'] %>
+    Controller: <%= f.select :controller, controllers %>
     <br />
-    <% @positions = @positions.collect{|p| ["#{p.callsign} (#{'%.3f' % p.frequency})", p.callsign]} %>
-    <% @positions.unshift ['Unknown (Not specified)', 'Unknown'] %>
-    Position: <%= f.select :position, @positions %>
+    <% positions = Position.all.order(:callsign).collect{|p| ["#{p.callsign} (#{'%.3f' % p.frequency})", p.callsign]} %>
+    <% positions.unshift ['Unknown (Not specified)', 'Unknown'] %>
+    Position: <%= f.select :position, positions %>
     <br/>
     <% service_levels = [['Excellent', 5], ['Good', 4], ['Fair', 3], ['Poor', 2], ['Unsatisfactory', 1]] %>
     Rate level of service: <%= f.select :service_level, service_levels %>
