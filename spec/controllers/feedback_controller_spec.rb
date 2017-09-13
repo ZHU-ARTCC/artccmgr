@@ -119,21 +119,6 @@ RSpec.describe FeedbackController, type: :controller do
       expect(assigns(:feedback)).to be_kind_of Feedback
     end
 
-    it 'assigns all possible controllers to @controllers' do
-      sign_in create(:user, group: create(:group, :perm_feedback_create))
-      create_list(:user, 5, :artcc_controller)
-      create_list(:user, 3, :visiting_controller)
-      get :new
-      expect(assigns(:controllers).size).to eq 8
-    end
-
-    it 'assigns all possible positions to @positions' do
-      sign_in create(:user, group: create(:group, :perm_feedback_create))
-      create_list(:position, 10)
-      get :new
-      expect(assigns(:positions).size).to eq 10
-    end
-
     it 'renders the :new view' do
       sign_in create(:user, group: create(:group, :perm_feedback_create))
       get :new
