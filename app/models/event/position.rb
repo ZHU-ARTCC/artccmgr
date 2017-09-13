@@ -6,7 +6,7 @@ class Event
 
     validates :event, presence: true, allow_blank: false
     validates :position, uniqueness: { scope: :event, message: 'already assigned to event' }
-    validates :user, uniqueness: { scope: :event, message: 'already signed up', allow_nil: true }
+    validates :user, uniqueness: { scope: :event, message: 'already assigned', allow_nil: true }
 
     validate :not_a_pilot
 
