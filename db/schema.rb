@@ -22,19 +22,19 @@ ActiveRecord::Schema.define(version: 20170913194515) do
     t.uuid "permission_id"
   end
 
-  create_table "event_controllers", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.uuid     "event_id",    null: false
-    t.uuid     "user_id"
-    t.uuid     "position_id", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "event_pilots", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid     "event_id",   null: false
     t.uuid     "user_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "event_positions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid     "event_id",    null: false
+    t.uuid     "user_id"
+    t.uuid     "position_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "events", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

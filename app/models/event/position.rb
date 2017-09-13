@@ -1,5 +1,5 @@
 class Event
-  class Controller < ApplicationRecord
+  class Position < ApplicationRecord
     belongs_to :event
     belongs_to :position
     belongs_to :user, optional: true

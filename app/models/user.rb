@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :omniauthable, :trackable
 
   belongs_to  :group
-  has_many    :event_positions, class_name: 'Event::Controller'
+  has_many    :event_positions, class_name: 'Event::Position'
   has_many    :event_flights, class_name: 'Event::Pilot'
 
   delegate    :permissions, to: :group

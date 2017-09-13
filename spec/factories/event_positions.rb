@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :event_controller, class: 'Event::Controller' do
+  factory :event_position, class: 'Event::Position' do
     association :event
     association :position
 
