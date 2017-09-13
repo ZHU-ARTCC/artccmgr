@@ -39,7 +39,7 @@ RSpec.describe Event::Pilot, type: :model do
     end
 
     it 'should not be allowed to sign up if already a controller' do
-      controller_sign_up = create(:event_controller)
+      controller_sign_up = create(:event_position)
       event = controller_sign_up.event
       user  = controller_sign_up.user
       expect(build(:event_pilot, event: event, user: user)).to_not be_valid
