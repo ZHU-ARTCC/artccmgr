@@ -4,8 +4,8 @@ class User < ApplicationRecord
   devise :omniauthable, :trackable
 
   belongs_to  :group
-  has_many    :events, through: :event_positions
   has_many    :event_positions, class_name: 'Event::Controller'
+  has_many    :event_flights, class_name: 'Event::Pilot'
 
   delegate    :permissions, to: :group
 
@@ -19,17 +19,9 @@ class User < ApplicationRecord
   validates :reg_date,    presence: true, allow_blank: false
   validates :group,       presence: true, allow_blank: false
 
-  scope :all_controllers, -> do
-    artcc_controllers.or(visiting_controllers)
-  end
-
-  scope :artcc_controllers, -> do
-    joins(:group).where(groups: { artcc_controllers: true})
-  end
-
-  scope :visiting_controllers, -> do
-    joins(:group).where(groups: { visiting_controllers: true})
-  end
+  scope :all_controllers, -> { artcc_controllers.or(visiting_controllers) }
+  scope :artcc_controllers, -> { joins(:group).where(groups: { artcc_controllers: true}) }
+  scope :visiting_controllers, -> { joins(:group).where(groups: { visiting_controllers: true}) }
 
   def name_full
     "#{name_first} #{name_last}"
