@@ -30,6 +30,11 @@ RSpec.describe Event, type: :model do
   end # describe 'ActiveModel validations'
 
   describe 'ActiveRecord associations' do
+
+    it { expect(event).to have_many(:controllers) }
+    it { expect(event).to have_many(:pilots) }
+    it { expect(event).to have_many(:sign_ups) }
+
   end # describe 'ActiveRecord associations'
 
 end
