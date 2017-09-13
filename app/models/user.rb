@@ -5,7 +5,8 @@ class User < ApplicationRecord
 
   belongs_to  :group
   has_many    :event_positions, class_name: 'Event::Position'
-  has_many    :event_flights, class_name: 'Event::Pilot'
+  has_many    :event_flights, class_name: 'Event::Pilot', dependent: :destroy
+  has_many    :event_signups, class_name: 'Event::Signup', dependent: :destroy
 
   delegate    :permissions, to: :group
 

@@ -39,8 +39,9 @@ RSpec.describe User, type: :model do
   describe 'ActiveRecord associations' do
 
     it { expect(user).to belong_to(:group) }
-    it { expect(user).to have_many(:event_flights) }
+    it { expect(user).to have_many(:event_flights).dependent(:destroy) }
     it { expect(user).to have_many(:event_positions) }
+    it { expect(user).to have_many(:event_signups).dependent(:destroy) }
 
   end # describe 'ActiveRecord associations'
 
