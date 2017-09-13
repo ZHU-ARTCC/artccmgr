@@ -12,7 +12,6 @@ RSpec.describe Event::Controller, type: :model do
 
     # Basic validations
     it { expect(event_controller).to validate_presence_of(:event) }
-    it { expect(event_controller).to validate_presence_of(:position) }
 
     # Format validations
 
@@ -32,9 +31,16 @@ RSpec.describe Event::Controller, type: :model do
 
   end # describe 'ActiveRecord associations'
 
-  describe 'already set as a pilot' do
+  describe 'user already assigned' do
 
-    it 'should not be allowed' do
+    it 'should not be allowed to sign up again' do
+      event_controller_sign_up = create(:event_controller, :staffed)
+      event = event_controller_sign_up.event
+      user  = event_controller_sign_up.user
+      expect(build(:event_controller, event: event, user: user)).to_not be_valid
+    end
+
+    it 'should not be allowed to sign up if already an event pilot' do
       pilot_sign_up = create(:event_pilot)
       event = pilot_sign_up.event
       user  = pilot_sign_up.user
@@ -43,13 +49,13 @@ RSpec.describe Event::Controller, type: :model do
 
   end
 
-  describe 'already signed up' do
+  describe 'position already assigned to event' do
 
-    it 'should not be allowed to sign up again' do
-      event_controller_sign_up = create(:event_controller)
-      event = event_controller_sign_up.event
-      user  = event_controller_sign_up.user
-      expect(build(:event_controller, event: event, user: user)).to_not be_valid
+    it 'should not be allowed to be added again' do
+      event_controller = create(:event_controller)
+      event = event_controller.event
+      position = event_controller.position
+      expect(build(:event_controller, position: position, event: event)).to_not be_valid
     end
 
   end
