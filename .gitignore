@@ -18,4 +18,6 @@
 .byebug_history
 
 # Ignore Vagrantfile used in development
-Vagrantfile
+/.vagrant/*
+/Vagrantfile
+/*.log
