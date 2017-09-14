@@ -15,5 +15,5 @@ Rails.application.routes.draw do
 
   resources :feedback
   resources :positions
-  resources :users
+  resources :roster, as: :user
 end

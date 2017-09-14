@@ -24,18 +24,25 @@ Permission.create name: 'position read'
 Permission.create name: 'position update'
 Permission.create name: 'position delete'
 
+Permission.create name: 'user create'
+Permission.create name: 'user read'
+Permission.create name: 'user update'
+Permission.create name: 'user delete'
+
 # Default Groups and permissions
 Group.create name: 'public',
              permissions: [
                  Permission.find_by(name: 'feedback read published'),
-                 Permission.find_by(name: 'position read')
+                 Permission.find_by(name: 'position read'),
+                 Permission.find_by(name: 'user read')
              ]
 
 Group.create name: 'guest',
              permissions: [
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read published'),
-                 Permission.find_by(name: 'position read')
+                 Permission.find_by(name: 'position read'),
+                 Permission.find_by(name: 'user read')
              ]
 
 Group.create name: 'visiting controller',
@@ -43,28 +50,32 @@ Group.create name: 'visiting controller',
              permissions: [
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read published'),
-                 Permission.find_by(name: 'position read')
+                 Permission.find_by(name: 'position read'),
+                 Permission.find_by(name: 'user read')
              ]
 
 Group.create name: 'controller',
              artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'feedback read published'),
-                 Permission.find_by(name: 'position read')
+                 Permission.find_by(name: 'position read'),
+                 Permission.find_by(name: 'user read')
              ]
 
 Group.create name: 'mentor',
              artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'feedback read published'),
-                 Permission.find_by(name: 'position read')
+                 Permission.find_by(name: 'position read'),
+                 Permission.find_by(name: 'user read')
              ]
 
 Group.create name: 'instructor',
              artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'feedback read published'),
-                 Permission.find_by(name: 'position read')
+                 Permission.find_by(name: 'position read'),
+                 Permission.find_by(name: 'user read')
              ]
 
 Group.create name: 'webmaster',
@@ -75,14 +86,22 @@ Group.create name: 'webmaster',
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'feedback update'),
                  Permission.find_by(name: 'feedback delete'),
-                 Permission.find_by(name: 'position read')
+                 Permission.find_by(name: 'position create'),
+                 Permission.find_by(name: 'position read'),
+                 Permission.find_by(name: 'position update'),
+                 Permission.find_by(name: 'position delete'),
+                 Permission.find_by(name: 'user create'),
+                 Permission.find_by(name: 'user read'),
+                 Permission.find_by(name: 'user update'),
+                 Permission.find_by(name: 'user delete'),
              ]
 
 Group.create name: 'facility engineer',
              artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'feedback read published'),
-                 Permission.find_by(name: 'position read')
+                 Permission.find_by(name: 'position read'),
+                 Permission.find_by(name: 'user read')
              ]
 
 Group.create name: 'events coordinator',
@@ -93,14 +112,16 @@ Group.create name: 'events coordinator',
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'feedback update'),
                  Permission.find_by(name: 'feedback delete'),
-                 Permission.find_by(name: 'position read')
+                 Permission.find_by(name: 'position read'),
+                 Permission.find_by(name: 'user read')
              ]
 
 Group.create name: 'training administrator',
              artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'feedback read'),
-                 Permission.find_by(name: 'position read')
+                 Permission.find_by(name: 'position read'),
+                 Permission.find_by(name: 'user read')
              ]
 
 Group.create name: 'deputy air traffic manager',
@@ -111,7 +132,14 @@ Group.create name: 'deputy air traffic manager',
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'feedback update'),
                  Permission.find_by(name: 'feedback delete'),
-                 Permission.find_by(name: 'position read')
+                 Permission.find_by(name: 'position create'),
+                 Permission.find_by(name: 'position read'),
+                 Permission.find_by(name: 'position update'),
+                 Permission.find_by(name: 'position delete'),
+                 Permission.find_by(name: 'user create'),
+                 Permission.find_by(name: 'user read'),
+                 Permission.find_by(name: 'user update'),
+                 Permission.find_by(name: 'user delete')
              ]
 
 Group.create name: 'air traffic manager',
@@ -122,5 +150,12 @@ Group.create name: 'air traffic manager',
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'feedback update'),
                  Permission.find_by(name: 'feedback delete'),
-                 Permission.find_by(name: 'position read')
+                 Permission.find_by(name: 'position create'),
+                 Permission.find_by(name: 'position read'),
+                 Permission.find_by(name: 'position update'),
+                 Permission.find_by(name: 'position delete'),
+                 Permission.find_by(name: 'user create'),
+                 Permission.find_by(name: 'user read'),
+                 Permission.find_by(name: 'user update'),
+                 Permission.find_by(name: 'user delete')
              ]
