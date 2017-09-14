@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many    :event_flights, class_name: 'Event::Pilot', dependent: :destroy
   has_many    :event_signups, class_name: 'Event::Signup', dependent: :destroy
 
+  has_and_belongs_to_many :certifications, join_table: 'user_certifications'
+
   delegate    :permissions, to: :group
 
   validates :cid,         presence: true, numericality: :only_integer, allow_blank: false

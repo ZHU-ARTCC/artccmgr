@@ -1,5 +1,7 @@
 class Position < ApplicationRecord
 
+  belongs_to :certification, optional: true
+
   validates :name, presence: true, allow_blank: false
   validates :frequency, presence: true, numericality: { greater_than_or_equal_to: 118, less_than: 137}
   validates :callsign, presence: true, allow_blank: false, uniqueness: {case_sensitive: false}, length: {maximum: 11}
