@@ -16,5 +16,13 @@ FactoryGirl.define do
       beacon_codes    { nil }
       major           { nil }
     end
+
+    trait :major do
+      major { true }
+    end
+
+    trait :minor do
+      major { false }
+    end
   end
 end
