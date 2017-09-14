@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Artccmgr</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>ARTCC Manager</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,6 +12,43 @@
   </head>
 
   <body>
-    <%= yield %>
+    <!-- Masthead -->
+    <div class="d-none d-sm-block header-image">
+      <div class="masthead">
+        <h1 class="align-middle display-4">ARTCC Manager</h1>
+        <p class="lead">
+          A full featured ARTCC management system.
+        </p>
+      </div>
+    </div>
+    <!-- End Masthead -->
+
+    <!-- Navigation -->
+    <%= render 'layouts/navbar' %>
+    <!-- End Navigation -->
+
+    <!-- Body -->
+    <div class="container">
+      <div class="row top-buffer">
+        <div class="col-lg-3">
+          <%= render 'layouts/sidebar' %>
+        </div>
+
+        <div class="col-lg-9">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+    <!-- End Body -->
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted text-small">
+          Footer text.
+        </span>
+      </div>
+    </footer>
+    <!-- End Footer -->
   </body>
 </html>

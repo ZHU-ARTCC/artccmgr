@@ -42,6 +42,9 @@ gem 'omniauth-vatsim'
 # Use Pundit for authorization
 gem 'pundit'
 
+# Use Bootstrap for the frontend
+gem 'bootstrap', '~> 4.0.0.beta'
+
 # Use Kaminari for pagination
 gem 'kaminari'
 
