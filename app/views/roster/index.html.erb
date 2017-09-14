@@ -1,0 +1,39 @@
+Controllers:
+<br/>
+<table border="1">
+  <tr>
+    <th>CID</th>
+    <th>Initials</th>
+    <th>Name</th>
+    <th>Rating</th>
+  </tr>
+  <% @controllers.order(:name_last).each do |c| %>
+  <tr>
+    <td><%= c.cid %></td>
+    <td><%= c.initials %></td>
+    <td><%= c.name_full %></td>
+    <td><%= c.rating %></td>
+  </tr>
+  <% end %>
+</table>
+
+<br/>
+
+Visiting Controllers:
+<br/>
+<table border="1">
+  <tr>
+    <th>CID</th>
+    <th>Initials</th>
+    <th>Name</th>
+    <th>Rating</th>
+  </tr>
+  <% @visiting_controllers.order(:name_last).each do |c| %>
+      <tr>
+        <td><%= c.cid %></td>
+        <td><%= c.initials %></td>
+        <td><%= c.name_full %></td>
+        <td><%= c.rating %></td>
+      </tr>
+  <% end %>
+</table>

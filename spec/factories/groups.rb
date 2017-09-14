@@ -63,5 +63,29 @@ FactoryGirl.define do
         g.permissions << Permission.where(name: 'position update')
       end
     end
+
+    trait :perm_user_create do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'user create')
+      end
+    end
+
+    trait :perm_user_delete do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'user delete')
+      end
+    end
+
+    trait :perm_user_read do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'user read')
+      end
+    end
+
+    trait :perm_user_update do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'user update')
+      end
+    end
   end
 end
