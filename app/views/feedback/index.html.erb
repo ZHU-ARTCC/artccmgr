@@ -1,29 +1,90 @@
-Feedback index.
-<br/>
+<% content_for(:title, 'Feedback') %>
 
-<table border="1">
-  <tr>
-    <th>Date</th>
-    <th>Name</th>
-    <th>Callsign</th>
-    <th>Controller</th>
-    <th>Position</th>
-    <th>Service Level</th>
-    <th>Comments</th>
-    <th>Fly Again</th>
-    <th>Published</th>
-  </tr>
-  <% @feedback.each do |f| %>
-    <tr>
-      <td><%= f.created_at %></td>
-      <td><%= f.name %> (<%= f.cid %>)</td>
-      <td><%= f.callsign %></td>
-      <td><%= f.controller %></td>
-      <td><%= f.position %></td>
-      <td><%= f.service_level %></td>
-      <td><%= f.comments %></td>
-      <td><%= f.fly_again? %></td>
-      <td><%= f.published? %></td>
-    </tr>
-  <% end %>
-</table>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto">Feedback Archive</div>
+          <div class="col-auto">
+            <%= link_to 'Leave Feedback', new_feedback_path, class: 'btn btn-sm btn-outline-info' %>
+          </div>
+        </div>
+      </div>
+      <div class="card-body pl-0 pr-0">
+        <% if @feedback.empty? %>
+          <p class="text-center font-italic top-buffer">There is currently no feedback</p>
+        <% end %>
+        <% @feedback.each do |f| %>
+        <div class="ml-2 mr-2 pl-2 pr-2 pb-2 pt-2">
+          <div class="row">
+            <div class="col-md-3 col-auto mr-auto">
+              <h5><%= f.position %></h5>
+            </div>
+            <div class="col-auto">
+              <%= f.created_at.strftime('%B %d, %Y') %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7 col-auto mr-auto">
+              <small><%= f.controller %></small>
+            </div>
+            <div class="col-auto">
+              <% f.service_level.times do %>&#9733;<% end %>
+            </div>
+          </div>
+          <div class="row top-buffer">
+            <div class="col-md-12">
+              <blockquote class="blockquote pl-4">
+                <p class="mb-0">"<%= f.comments %>"</p>
+                <footer class="blockquote-footer"><%= f.name %> (<%= f.callsign %>)</footer>
+              </blockquote>
+            </div>
+          </div>
+
+          <%= render 'controls', feedback: f %>
+        </div>
+        <div class="row top-buffer"></div>
+        <% end %>
+
+        <div class="row">
+          <div class="d-flex mx-auto">
+            <%= paginate @feedback, theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--Feedback index.-->
+<!--<br/>-->
+
+<!--<table border="1">-->
+  <!--<tr>-->
+    <!--<th>Date</th>-->
+    <!--<th>Name</th>-->
+    <!--<th>Callsign</th>-->
+    <!--<th>Controller</th>-->
+    <!--<th>Position</th>-->
+    <!--<th>Service Level</th>-->
+    <!--<th>Comments</th>-->
+    <!--<th>Fly Again</th>-->
+    <!--<th>Published</th>-->
+  <!--</tr>-->
+  <!--<%# @feedback.each do |f| %>-->
+    <!--<tr>-->
+      <!--<td><%#= f.created_at %></td>-->
+      <!--<td><%#= f.name %> (<%#= f.cid %>)</td>-->
+      <!--<td><%#= f.callsign %></td>-->
+      <!--<td><%#= f.controller %></td>-->
+      <!--<td><%#= f.position %></td>-->
+      <!--<td><%#= f.service_level %></td>-->
+      <!--<td><%#= f.comments %></td>-->
+      <!--<td><%#= f.fly_again? %></td>-->
+      <!--<td><%#= f.published? %></td>-->
+    <!--</tr>-->
+  <!--<%# end %>-->
+<!--</table>-->
