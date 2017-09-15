@@ -1,0 +1,24 @@
+<% if policy(feedback).update? || policy(feedback).destroy? %>
+    <div class="row">
+      <div class="col-auto mr-auto">
+        <% if policy(feedback).edit? %>
+          <%= link_to 'Edit', feedback_path(feedback), class: 'btn btn-sm btn-info ml-2' %>
+        <% end %>
+
+        <% if policy(feedback).destroy? %>
+          <%= link_to 'Delete', feedback_path(feedback), method: :delete, data: { confirm: 'Are you sure? '}, class: 'btn btn-sm btn-danger ml-2' %>
+        <% end %>
+      </div>
+      <div class="col-auto">
+        <% unless feedback.fly_again? %>
+          <span class="badge badge-danger">Would not fly again</span>
+        <% end %>
+
+        <% if feedback.published? %>
+            <span class="badge badge-success ml-2">Published</span>
+        <% else %>
+            <span class="badge badge-warning ml-2">Unpublished</span>
+        <% end %>
+      </div>
+    </div>
+<% end %>
