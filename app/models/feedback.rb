@@ -1,5 +1,5 @@
 class Feedback < ApplicationRecord
-  paginates_per 50
+  paginates_per 10
 
   validates :cid,           presence: true, allow_blank: false
   validates :name,          presence: true, allow_blank: false
