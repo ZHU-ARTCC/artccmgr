@@ -29,6 +29,22 @@
 
     <!-- Body -->
     <div class="container">
+
+      <% flash.each do |type, contents| %>
+      <!-- Alerts -->
+      <div class="row top-buffer">
+        <div class="col-lg-12">
+          <div class="alert alert-<%= type %> alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <%= contents %>
+          </div>
+        </div>
+      </div>
+      <!-- End Alerts -->
+      <% end %>
+
       <div class="row top-buffer">
         <div class="col-lg-3">
           <%= render 'shared/sidebar' %>

@@ -27,6 +27,11 @@ html {
   min-height: 100%;
 }
 
+.alert-error { @extend .alert-danger; }
+.alert-alert { @extend .alert-primary; }
+//.alert-success { @extend .alert-success; }
+.alert-notice { @extend .alert-info; }
+
 .dropdown:hover>.dropdown-menu {
   display: block;
 }
