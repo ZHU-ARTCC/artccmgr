@@ -1,5 +1,21 @@
 <% content_for(:title, 'Home') %>
 
+<% unless @events.empty? %>
+<!-- Events Carousel -->
+<div id="carouselEvents" class="carousel slide d-none d-sm-block" data-ride="carousel">
+  <div class="carousel-inner">
+    <% @events.each_with_index do |event, index| %>
+    <div class="carousel-item <%= 'active' if index == 0 %>">
+      <img class="d-block w-100" src="http://placehold.it/800x200" alt="<%= event.name %>">
+    </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="row top-buffer"></div>
+<!-- Events Carousel -->
+<% end %>
+
 <div class="card card-body bg-light">
   <h3> Welcome to ARTCC!</h3>
   <p class="top-buffer">
@@ -7,6 +23,8 @@
     fun to fly to and perhaps which are the busiest.
   </p>
 </div>
+
+
 
 <% if flash[:notice] %>
     <p><%= flash[:notice] %></p>
