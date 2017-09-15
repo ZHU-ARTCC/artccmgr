@@ -1,5 +1,5 @@
 <% if policy(feedback).update? || policy(feedback).destroy? %>
-    <div class="row">
+    <div class="row bg-secondary ml-2 mr-2 pt-1 pb-1 rounded">
       <div class="col-auto mr-auto">
         <% if policy(feedback).edit? %>
           <%= link_to 'Edit', feedback_path(feedback), class: 'btn btn-sm btn-info ml-2' %>

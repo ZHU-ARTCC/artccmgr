@@ -18,20 +18,40 @@
           <small class="font-weight-bold">Baro</small>
         </th>
       </tr>
+
+      <% @metar.keys.sort.each do |station| %>
       <tr class="pl-0 pr-0">
-        <td class="pt-1 pb-1 text-center">
-          <small>KIAH</small>
+        <td class="pt-1 pb-1 text-center" data-toggle="tooltip" data-placement="bottom" title="<%= @metar[station][:raw] %>">
+          <small><%= station %></small>
         </td>
-        <td class="pt-1 pb-1 text-center bg-success text-white">
-          <small>VFR</small>
-        </td>
-        <th class="pt-1 pb-1 text-center">
-          <small>Calm</small>
+        <% case @metar[station][:rules] %>
+        <% when 'VFR' %>
+          <td class="pt-1 pb-1 text-center bg-success text-white">
+            <small>VFR</small>
+          </td>
+        <% when 'MVFR' %>
+          <td class="pt-1 pb-1 text-center bg-warning text-white">
+            <small>MVFR</small>
+          </td>
+        <% when 'IFR' %>
+          <td class="pt-1 pb-1 text-center bg-danger text-white">
+            <small>IFR</small>
+          </td>
+        <% end %>
+
+        <th class="pt-1 pb-1 pl-0 pr-0 text-center">
+          <small>
+            <%= @metar[station][:wind] %>
+          </small>
         </th>
         <th class="pt-1 pb-1 text-center">
-          <small>29.92</small>
+          <small>
+            <%= @metar[station][:baro] %>
+          </small>
         </th>
       </tr>
+
+      <% end %>
     </table>
   </div>
 </div>
