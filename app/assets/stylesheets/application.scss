@@ -29,7 +29,6 @@ html {
 
 .alert-error { @extend .alert-danger; }
 .alert-alert { @extend .alert-primary; }
-//.alert-success { @extend .alert-success; }
 .alert-notice { @extend .alert-info; }
 
 .dropdown:hover>.dropdown-menu {
@@ -47,9 +46,9 @@ html {
 }
 
 .header-image {
-  background: linear-gradient(rgba(20,20,20, .5), rgba(20,20,20, .5)), url(http://placehold.it/2400x200);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background:
+          linear-gradient(rgba(20,20,20, .5), rgba(20,20,20, .5)),
+          url(http://placehold.it/2400x200);
   width: 100%;
   height: 200px;
 }

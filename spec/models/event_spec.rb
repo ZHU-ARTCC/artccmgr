@@ -37,4 +37,8 @@ RSpec.describe Event, type: :model do
 
   end # describe 'ActiveRecord associations'
 
+  it 'end time cannot be before start time' do
+    expect(build(:event, start_time: Time.now, end_time: Time.now - 1.hour)).to_not be_valid
+  end
+
 end
