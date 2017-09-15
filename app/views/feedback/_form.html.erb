@@ -17,12 +17,18 @@
     <div class="form-group row">
       <%= f.label :callsign, class: 'col-sm-3 col-form-label' %>
       <div class="col-sm-9">
-        <%= f.text_field :callsign, class: 'form-control text-uppercase' %>
+        <% @feedback.errors[:callsign].present? ? callsign_invalid = 'is-invalid' : callsign_invalid = nil %>
+        <%= f.text_field :callsign, class: "form-control text-uppercase #{callsign_invalid}" %>
+        <% unless callsign_invalid.nil? %>
+          <div class="invalid-feedback">
+            Please provide the callsign you were using.
+          </div>
+        <% end %>
       </div>
     </div>
 
     <% controllers = User.all_controllers.order(:name_first).collect{|a| [ a.name_full, a.name_full ]} %>
-    <% controllers.unshift ['Unknown (Not specified)', 'Unknown'] %>
+    <% controllers.unshift ['Unknown (Not specified)', 'Not specified'] %>
 
     <div class="form-group row">
       <%= f.label :controller, class: 'col-sm-3 col-form-label' %>
@@ -32,7 +38,7 @@
     </div>
 
     <% positions = Position.all.order(:callsign).collect{|p| ["#{p.callsign} (#{'%.3f' % p.frequency})", p.callsign]} %>
-    <% positions.unshift ['Unknown (Not specified)', 'Unknown'] %>
+    <% positions.unshift ['Unknown (Not specified)', 'Not specified'] %>
 
     <div class="form-group row">
       <%= f.label :position, class: 'col-sm-3 col-form-label' %>
@@ -60,7 +66,13 @@
     <div class="form-group row">
       <%= f.label :comments, class: 'col-sm-3 col-form-label' %>
       <div class="col-sm-9">
-        <%= f.text_area :comments, class: 'form-control' %>
+        <% @feedback.errors[:comments].present? ? comments_invalid = 'is-invalid' : comments_invalid = nil %>
+        <%= f.text_area :comments, class: "form-control #{comments_invalid}" %>
+        <% unless comments_invalid.nil? %>
+            <div class="invalid-feedback">
+              Please provide your comments.
+            </div>
+        <% end %>
       </div>
     </div>
 

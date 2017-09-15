@@ -37,7 +37,11 @@
             <div class="col-md-12">
               <blockquote class="blockquote pl-4">
                 <p class="mb-0">"<%= f.comments %>"</p>
-                <footer class="blockquote-footer"><%= f.name %> (<%= f.callsign %>)</footer>
+                <footer class="blockquote-footer">
+                  <%= f.name %>
+                  (<%= link_to f.cid, "https://stats.vatsim.net/search_id.php?id=#{f.cid}" %>)
+                  operating as <%= f.callsign %>
+                </footer>
               </blockquote>
             </div>
           </div>
