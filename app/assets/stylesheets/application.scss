@@ -48,7 +48,7 @@ html {
 .header-image {
   background:
           linear-gradient(rgba(20,20,20, .5), rgba(20,20,20, .5)),
-          url(http://placehold.it/2400x200);
+          asset-url('artccmgr.png');
   width: 100%;
   height: 200px;
 }
