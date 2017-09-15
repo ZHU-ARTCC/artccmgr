@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>ARTCC Manager</title>
+    <title><%= Artccmgr::Application::ORG_NAME %> - <%= yield(:title) %></title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -15,9 +15,9 @@
     <!-- Masthead -->
     <div class="d-none d-sm-block header-image">
       <div class="masthead">
-        <h1 class="align-middle display-4">ARTCC Manager</h1>
+        <h1 class="align-middle display-4"><%= Artccmgr::Application::ORG_NAME %></h1>
         <p class="lead">
-          A full featured ARTCC management system.
+          <%= Artccmgr::Application::TAG_LINE %>
         </p>
       </div>
     </div>
@@ -45,7 +45,7 @@
     <footer class="footer">
       <div class="container">
         <span class="text-muted text-small">
-          Footer text.
+          <%= Artccmgr::Application::ORG_NAME %> is a subsidiary of VATSIM. For flight simulation purposes only.
         </span>
       </div>
     </footer>

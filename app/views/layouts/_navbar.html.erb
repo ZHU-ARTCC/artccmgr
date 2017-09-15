@@ -8,14 +8,14 @@
 
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <li class="nav-item">
+          <%= link_to 'Home', root_path, class: "nav-link #{active_class(root_path)}" %>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="#">Events</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
+          <%= link_to 'Feedback', feedback_index_path, class: "nav-link #{active_class(feedback_index_path)}" %>
         </li>
       </ul>
       <div class="form-inline my-2 my-lg-0">

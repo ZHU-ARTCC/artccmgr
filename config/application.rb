@@ -21,5 +21,10 @@ module Artccmgr
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    ORG_ICAO = 'ZTV'
+    ORG_NAME = 'ARTCC Manager'
+
+    TAG_LINE = 'A full featured ARTCC management system.'
   end
 end
