@@ -12,6 +12,8 @@ require "action_cable/engine"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
+require 'rss' # for news feeds
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -21,5 +23,11 @@ module Artccmgr
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    ORG_ICAO = 'ZTV'
+    ORG_NAME = 'ARTCC Manager'
+    TAG_LINE = 'A full featured ARTCC management system.'
+
+    RSS_FEED_URL = 'https://forums.vatusa.net/index.php?type=rss;action=.xml'
   end
 end

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <%= link_to 'Houston ARTCC', root_path, class: 'navbar-brand d-block d-sm-none d-md-none d-lg-none d-xl-none' %>
+    <%= link_to Artccmgr::Application::ORG_NAME, root_path, class: 'navbar-brand d-block d-sm-none d-md-none d-lg-none d-xl-none' %>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -8,14 +8,14 @@
 
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <li class="nav-item">
+          <%= link_to 'Home', root_path, class: "nav-link #{active_class(root_path)}" %>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="#">Events</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
+          <%= link_to 'Feedback', feedback_index_path, class: "nav-link #{active_class(feedback_index_path)}" %>
         </li>
       </ul>
       <div class="form-inline my-2 my-lg-0">
