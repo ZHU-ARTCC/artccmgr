@@ -24,9 +24,6 @@ RSpec.describe Event, type: :model do
     it { expect(event).to_not allow_value('').for(:start_time) }
     it { expect(event).to_not allow_value('').for(:end_time) }
 
-    it { expect(event).to allow_value(Time.now).for(:start_time) }
-    it { expect(event).to allow_value(Time.now).for(:end_time) }
-
   end # describe 'ActiveModel validations'
 
   describe 'ActiveRecord associations' do

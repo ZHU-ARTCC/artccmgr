@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
+  resources :events
   resources :feedback
   resources :positions
   resources :roster, as: :user
