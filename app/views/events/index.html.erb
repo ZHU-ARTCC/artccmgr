@@ -28,7 +28,9 @@
 
           <% events.each do |event| %>
             <div>
-              <small><%= event.start_time.strftime("%H:%M") %></small> <%= link_to event.name, event %>
+              <small>
+                <%= event.start_time.strftime("%H:%M") %></small>
+                <%= link_to event.name, event, title: "#{event.start_time.strftime('%d %b %Y %H:%M %Z')} - #{event.name}" %>
             </div>
           <% end %>
         <% end %>
