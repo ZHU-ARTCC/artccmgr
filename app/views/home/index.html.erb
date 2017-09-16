@@ -8,7 +8,7 @@
       <div class="carousel-inner">
         <% @events.each_with_index do |event, index| %>
         <div class="carousel-item <%= 'active' if index == 0 %>">
-          <img class="d-block w-100" src="http://placehold.it/800x200" alt="<%= event.name %>">
+          <%= link_to image_tag('http://placehold.it/800x200', alt: event.name, title: "#{event.name} - #{event.start_time.strftime('%m %b %Y %H:%M %Z')}"), event_path(event) %>
         </div>
         <% end %>
       </div>
@@ -40,6 +40,14 @@
       </div>
       <div class="card-body pb-0 pl-0 pr-0 pt-0">
         <table class="table table-sm table-bordered table-responsive mb-0">
+          <% if @news.empty? %>
+          <tr>
+            <td class="text-center">
+              <span class="text-italic">Unable to retrieve news.</span>
+            </td>
+          </tr>
+          <% end %>
+
           <% @news.each do |article| %>
           <tr>
             <td class="pl-3 pr-3">

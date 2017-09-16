@@ -45,12 +45,18 @@ gem 'pundit'
 # Use Bootstrap for the frontend
 gem 'bootstrap', '~> 4.0.0.beta'
 
+# Use Font Awesome for icons
+gem 'font-awesome-rails'
+
 # Use Kaminari for pagination
 gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
 
 # Use metar-parser for METAR reports
 gem 'metar-parser', git: 'https://github.com/joeyates/metar-parser.git'
+
+# Use simple_calendar for events page
+gem 'simple_calendar', '~> 2.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

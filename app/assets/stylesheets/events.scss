@@ -1,0 +1,34 @@
+// Place all the styles related to the events controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import "bootstrap";
+@import "simple_calendar";
+
+.event-title-btn {
+  @extend .btn;
+  @extend .text-light;
+  font-size: 1.5em;
+  padding: 0;
+}
+
+.event-title-rss-btn {
+  @extend .event-title-btn;
+  color: darkorange !important;
+}
+
+.simple-calendar {
+  .calendar-heading {
+    a {
+      @extend .btn;
+      @extend .btn-outline-success;
+      margin-bottom: 1em;
+    }
+
+    .calendar-title { @extend .h2; }
+
+    text-align: center;
+  }
+
+  .day { @extend .small; }
+}

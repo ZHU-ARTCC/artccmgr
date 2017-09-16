@@ -10,6 +10,30 @@ FactoryGirl.define do
       visiting_controllers true
     end
 
+    trait :perm_event_create do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'event create')
+      end
+    end
+
+    trait :perm_event_delete do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'event delete')
+      end
+    end
+
+    trait :perm_event_read do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'event read')
+      end
+    end
+
+    trait :perm_event_update do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'event update')
+      end
+    end
+
     trait :perm_feedback_create do
       after :build do |g|
         g.permissions << Permission.where(name: 'feedback create')
