@@ -8,7 +8,7 @@
       <div class="carousel-inner">
         <% @events.each_with_index do |event, index| %>
         <div class="carousel-item <%= 'active' if index == 0 %>">
-          <%= link_to image_tag('http://placehold.it/800x200', alt: event.name, title: "#{event.name} - #{event.start_time.strftime('%m %b %Y %H:%M %Z')}"), event_path(event) %>
+          <%= link_to image_tag('http://placehold.it/800x200', alt: event.name, title: "#{event.name} - #{event.start_time.strftime('%d %b %Y %H:%M %Z')}"), event_path(event) %>
         </div>
         <% end %>
       </div>
