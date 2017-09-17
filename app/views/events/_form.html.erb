@@ -59,7 +59,7 @@
         <%= f.label :positions, class: 'col-sm-3 col-form-label' %>
         <div class="col-sm-9">
           <% @event.errors[:positions].present? ? positions_invalid = 'is-invalid' : positions_invalid = nil %>
-          <% positions = options_from_collection_for_select(Position.all, :id, :to_s) %>
+          <% positions = options_from_collection_for_select(Position.all.order(:callsign), :id, :to_s) %>
           <%= f.select :positions, positions, {}, multiple: true, class: 'form-control', id: 'event-positions-select' %>
           <% unless positions_invalid.nil? %>
               <div class="invalid-feedback">

@@ -15,7 +15,7 @@ class EventsController < ApplicationController
     authorize Event, :create?
     @event = Event.new
 
-    if @event.update_attributes(permitted_attributes(@event))
+    if @event.update_attributes(attributes)
       redirect_to event_path(@event), success: 'Event created'
     else
       flash.now[:alert] = 'Unable to create event'

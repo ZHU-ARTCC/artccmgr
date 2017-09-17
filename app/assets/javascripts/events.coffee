@@ -5,4 +5,4 @@
 $(document).on 'turbolinks:load', ->
   $('#event-positions-select').multiselect
     buttonClass: 'form-control'
-    buttonWidth: '100%'
+    buttonWidth: '250px'

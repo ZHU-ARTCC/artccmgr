@@ -1,7 +1,7 @@
 class Event
   class Position < ApplicationRecord
     belongs_to :event
-    belongs_to :position
+    belongs_to :position, class_name: '::Position'
     belongs_to :user, optional: true
 
     has_many :signups
