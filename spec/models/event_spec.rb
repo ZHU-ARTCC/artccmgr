@@ -28,11 +28,15 @@ RSpec.describe Event, type: :model do
 
   describe 'ActiveRecord associations' do
 
-    it { expect(event).to have_many(:positions).dependent(:destroy) }
+    it { expect(event).to have_many(:event_positions).dependent(:destroy) }
     it { expect(event).to have_many(:pilots).dependent(:destroy) }
     it { expect(event).to have_many(:signups).dependent(:destroy) }
 
   end # describe 'ActiveRecord associations'
+
+  it 'end time cannot be before current time' do
+    expect(build(:event, start_time: Time.now - 1.hour)).to_not be_valid
+  end
 
   it 'end time cannot be before start time' do
     expect(build(:event, start_time: Time.now, end_time: Time.now - 1.hour)).to_not be_valid

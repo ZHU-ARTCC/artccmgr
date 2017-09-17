@@ -18,6 +18,16 @@ Permission.create name: 'event read'
 Permission.create name: 'event update'
 Permission.create name: 'event delete'
 
+Permission.create name: 'event signup create'
+Permission.create name: 'event signup read'
+Permission.create name: 'event signup update'
+Permission.create name: 'event signup delete'
+
+Permission.create name: 'event pilot signup create'
+Permission.create name: 'event pilot signup read'
+Permission.create name: 'event pilot signup update'
+Permission.create name: 'event pilot signup delete'
+
 Permission.create name: 'feedback create'
 Permission.create name: 'feedback read'
 Permission.create name: 'feedback read published'
@@ -46,6 +56,7 @@ Group.create name: 'public',
 Group.create name: 'guest',
              permissions: [
                  Permission.find_by(name: 'event read'),
+                 Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'position read'),
@@ -56,6 +67,8 @@ Group.create name: 'visiting controller',
              artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'event read'),
+                 Permission.find_by(name: 'event signup create'),
+                 Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'position read'),
@@ -66,6 +79,8 @@ Group.create name: 'controller',
              artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'event read'),
+                 Permission.find_by(name: 'event signup create'),
+                 Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'user read')
@@ -75,6 +90,8 @@ Group.create name: 'mentor',
              artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'event read'),
+                 Permission.find_by(name: 'event signup create'),
+                 Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'user read')
@@ -84,6 +101,8 @@ Group.create name: 'instructor',
              artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'event read'),
+                 Permission.find_by(name: 'event signup create'),
+                 Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'user read')
@@ -96,6 +115,14 @@ Group.create name: 'webmaster',
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'event update'),
                  Permission.find_by(name: 'event delete'),
+                 Permission.find_by(name: 'event signup create'),
+                 Permission.find_by(name: 'event signup read'),
+                 Permission.find_by(name: 'event signup update'),
+                 Permission.find_by(name: 'event signup delete'),
+                 Permission.find_by(name: 'event pilot signup create'),
+                 Permission.find_by(name: 'event pilot signup read'),
+                 Permission.find_by(name: 'event pilot signup update'),
+                 Permission.find_by(name: 'event pilot signup delete'),
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read'),
                  Permission.find_by(name: 'feedback read published'),
@@ -115,6 +142,8 @@ Group.create name: 'facility engineer',
              artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'event read'),
+                 Permission.find_by(name: 'event signup create'),
+                 Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'user read')
@@ -127,6 +156,8 @@ Group.create name: 'events coordinator',
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'event update'),
                  Permission.find_by(name: 'event delete'),
+                 Permission.find_by(name: 'event signup create'),
+                 Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read'),
                  Permission.find_by(name: 'feedback read published'),
@@ -140,6 +171,8 @@ Group.create name: 'training administrator',
              artcc_controllers: true,
              permissions: [
                  Permission.find_by(name: 'event read'),
+                 Permission.find_by(name: 'event signup create'),
+                 Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback read'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'user read')
@@ -152,6 +185,14 @@ Group.create name: 'deputy air traffic manager',
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'event update'),
                  Permission.find_by(name: 'event delete'),
+                 Permission.find_by(name: 'event signup create'),
+                 Permission.find_by(name: 'event signup read'),
+                 Permission.find_by(name: 'event signup update'),
+                 Permission.find_by(name: 'event signup delete'),
+                 Permission.find_by(name: 'event pilot signup create'),
+                 Permission.find_by(name: 'event pilot signup read'),
+                 Permission.find_by(name: 'event pilot signup update'),
+                 Permission.find_by(name: 'event pilot signup delete'),
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read'),
                  Permission.find_by(name: 'feedback read published'),
@@ -174,6 +215,14 @@ Group.create name: 'air traffic manager',
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'event update'),
                  Permission.find_by(name: 'event delete'),
+                 Permission.find_by(name: 'event signup create'),
+                 Permission.find_by(name: 'event signup read'),
+                 Permission.find_by(name: 'event signup update'),
+                 Permission.find_by(name: 'event signup delete'),
+                 Permission.find_by(name: 'event pilot signup create'),
+                 Permission.find_by(name: 'event pilot signup read'),
+                 Permission.find_by(name: 'event pilot signup update'),
+                 Permission.find_by(name: 'event pilot signup delete'),
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read'),
                  Permission.find_by(name: 'feedback read published'),

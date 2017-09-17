@@ -17,6 +17,9 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+# Ignore Public uploads
+/public/uploads/*
+
 # Ignore Vagrantfile used in development
 /.vagrant/*
 /Vagrantfile

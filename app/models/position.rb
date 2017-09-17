@@ -16,6 +16,11 @@ class Position < ApplicationRecord
     callsign.nil? ? super(callsign) : super(callsign.upcase)
   end
 
+  # Used in forms to present a friendly name "TST_10_CTR (133.95)"
+  def to_s
+    "#{callsign} (#{frequency})"
+  end
+
   private
 
   def valid_callsign

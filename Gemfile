@@ -7,7 +7,7 @@ end
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.1.4'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
@@ -35,6 +35,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+gem 'cocoon'
+
 # Use Devise and Omniauth for authentication
 gem 'devise'
 gem 'omniauth-vatsim'
@@ -44,6 +46,10 @@ gem 'pundit'
 
 # Use Bootstrap for the frontend
 gem 'bootstrap', '~> 4.0.0.beta'
+gem 'bootstrap-multiselect_rails', '~> 0.9.4'
+
+# Use friendly_id for prettier URIs
+gem 'friendly_id', '~> 5.1.0'
 
 # Use Font Awesome for icons
 gem 'font-awesome-rails'
@@ -51,6 +57,10 @@ gem 'font-awesome-rails'
 # Use Kaminari for pagination
 gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
+
+# Use CarrierWave/MiniMagick for image uploading
+gem 'carrierwave', '~> 0.10.0'
+gem 'mini_magick', '~> 4.3'
 
 # Use metar-parser for METAR reports
 gem 'metar-parser', git: 'https://github.com/joeyates/metar-parser.git'
@@ -67,6 +77,7 @@ group :development, :test do
   gem 'pundit-matchers', '~> 1.3.1'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'shoulda-callback-matchers'
+  gem 'timecop'
 end
 
 group :development do

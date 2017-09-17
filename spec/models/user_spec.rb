@@ -48,7 +48,7 @@ RSpec.describe User, type: :model do
 
   it { should delegate_method(:permissions).to(:group) }
 
-  describe "#all_controllers" do
+  describe '#all_controllers' do
     it 'should return all controllers both ARTCC and Visiting' do
       create_list(:user, 2, :artcc_controller)
       create_list(:user, 3, :visiting_controller)
@@ -57,21 +57,35 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe "#artcc_controllers" do
+  describe '#artcc_controllers' do
     it 'should return ARTCC controllers' do
       create_list(:user, 5, :artcc_controller)
       expect(User.artcc_controllers.size).to eq 5
     end
   end
 
-  describe "#visiting_controllers" do
+  describe '#visiting_controllers' do
     it 'should return Visiting controllers' do
       create_list(:user, 5, :visiting_controller)
       expect(User.visiting_controllers.size).to eq 5
     end
   end
 
-  describe "#name_full" do
+  describe '#is_controller?' do
+    it 'should return true when user is a local controller' do
+      expect(create(:user, :artcc_controller).is_controller?).to be true
+    end
+
+    it 'should return true when the user is a visiting controller' do
+      expect(create(:user, :visiting_controller).is_controller?).to be true
+    end
+
+    it 'should return false when user is not a controller' do
+      expect(create(:user).is_controller?).to be false
+    end
+  end
+
+  describe '#name_full' do
     it { expect(user.name_full).to eq "#{user.name_first} #{user.name_last}" }
   end
 

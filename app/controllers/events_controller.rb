@@ -25,7 +25,7 @@ class EventsController < ApplicationController
 
   def destroy
     authorize Event, :destroy?
-    @event = policy_scope(Event).find(params[:id])
+    @event = policy_scope(Event).friendly.find(params[:id])
 
     if @event.destroy
       redirect_to events_path, success: 'Event has been deleted'
@@ -35,23 +35,24 @@ class EventsController < ApplicationController
   end
 
   def edit
-    @event = policy_scope(Event).find(params[:id])
+    @event = policy_scope(Event).friendly.find(params[:id])
     authorize @event
   end
 
   def new
     @event = Event.new
+    @event.event_positions.build
     authorize @event
   end
 
   def show
-    @event = policy_scope(Event).find(params[:id])
+    @event = policy_scope(Event).friendly.find(params[:id])
     authorize @event
   end
 
   def update
     authorize Event, :update?
-    @event = policy_scope(Event).find(params[:id])
+    @event = policy_scope(Event).friendly.find(params[:id])
 
     if @event.update_attributes(permitted_attributes(@event))
       redirect_to event_path(@event), success: 'Event has been updated'

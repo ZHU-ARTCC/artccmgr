@@ -181,6 +181,7 @@ RSpec.describe EventsController, type: :controller do
 
       it 'redirects to the updated event' do
         put :update, params: { id: @event, event: attributes_for(:event) }
+        @event.reload
         expect(response).to redirect_to @event
       end
     end
