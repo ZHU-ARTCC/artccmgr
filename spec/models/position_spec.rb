@@ -101,4 +101,9 @@ RSpec.describe Position, type: :model do
     it { expect(build(:position, callsign: 'TST_ABC_DEL')).to be_valid }
   end
 
+  it 'responds to #to_s with a friendly string' do
+    position = build(:position)
+    expect(position.to_s).to eq "#{position.callsign} (#{position.frequency})"
+  end
+
 end

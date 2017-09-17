@@ -44,6 +44,7 @@ gem 'pundit'
 
 # Use Bootstrap for the frontend
 gem 'bootstrap', '~> 4.0.0.beta'
+gem 'bootstrap-multiselect_rails', '~> 0.9.4'
 
 # Use Font Awesome for icons
 gem 'font-awesome-rails'

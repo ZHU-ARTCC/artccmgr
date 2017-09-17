@@ -1,0 +1,74 @@
+<div class="container">
+  <%= form_for(:event, url: events_path) do |f| %>
+
+      <div class="form-group row">
+        <%= f.label :name, 'Event Name', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @event.errors[:name].present? ? name_invalid = 'is-invalid' : name_invalid = nil %>
+          <%= f.text_field :name, class: "form-control text-uppercase #{name_invalid}" %>
+          <% unless name_invalid.nil? %>
+              <div class="invalid-feedback">
+                <%= @event.errors[:name].join(', ').capitalize %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :start_time, 'Start Time', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9 form-inline">
+          <% @event.errors[:start_time].present? ? start_time_invalid = 'is-invalid' : start_time_invalid = nil %>
+          <%= f.datetime_select :start_time, {}, class: "form-control #{start_time_invalid}" %>
+          &nbsp; <%= Time.zone.to_s %>
+          <% unless start_time_invalid.nil? %>
+              <div class="invalid-feedback">
+                <%= @event.errors[:start_time].join(', ').capitalize %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :end_time, 'End Time', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9 form-inline">
+          <% @event.errors[:end_time].present? ? end_time_invalid = 'is-invalid' : end_time_invalid = nil %>
+          <%= f.datetime_select :end_time, {}, class: "form-control #{end_time_invalid}" %>
+          &nbsp; <%= Time.zone.to_s %>
+          <% unless end_time_invalid.nil? %>
+              <div class="invalid-feedback">
+                <%= @event.errors[:end_time].join(', ').capitalize %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :description, class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @event.errors[:description].present? ? description_invalid = 'is-invalid' : description_invalid = nil %>
+          <%= f.text_area :description, size: "30x10", class: "form-control #{description_invalid}" %>
+          <% unless description_invalid.nil? %>
+              <div class="invalid-feedback">
+                <%= @event.errors[:description].join(', ').capitalize %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :positions, class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @event.errors[:positions].present? ? positions_invalid = 'is-invalid' : positions_invalid = nil %>
+          <%#= f.text_area :position, size: "30x10", class: "form-control #{description_invalid}" %>
+          <% positions = options_from_collection_for_select(Position.all, :id, :to_s) %>
+          <%= f.select :positions, positions, {}, multiple: true, class: 'form-control', id: 'event-positions-select' %>
+          <% unless positions_invalid.nil? %>
+              <div class="invalid-feedback">
+                <%= @event.errors[:positions].join(', ').capitalize %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+  <% end %>
+</div>
