@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'rss'
 
 RSpec.describe EventsController, type: :controller do
 
@@ -7,6 +8,11 @@ RSpec.describe EventsController, type: :controller do
       event = create(:event)
       get :index
       expect(assigns(:events)).to eq([event])
+    end
+
+    it 'responds to RSS' do
+      get :index, format: :rss
+      expect(response.status).to eq 200
     end
 
     it 'renders the :index view' do
