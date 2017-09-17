@@ -3,4 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'turbolinks:load', ->
-  $('#event-positions-select').multiselect()
+  $('#event-positions-select').multiselect
+    buttonClass: 'form-control'
+    buttonWidth: '100%'

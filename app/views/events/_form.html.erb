@@ -5,7 +5,7 @@
         <%= f.label :name, 'Event Name', class: 'col-sm-3 col-form-label' %>
         <div class="col-sm-9">
           <% @event.errors[:name].present? ? name_invalid = 'is-invalid' : name_invalid = nil %>
-          <%= f.text_field :name, class: "form-control text-uppercase #{name_invalid}" %>
+          <%= f.text_field :name, class: "form-control #{name_invalid}" %>
           <% unless name_invalid.nil? %>
               <div class="invalid-feedback">
                 <%= @event.errors[:name].join(', ').capitalize %>
@@ -59,7 +59,6 @@
         <%= f.label :positions, class: 'col-sm-3 col-form-label' %>
         <div class="col-sm-9">
           <% @event.errors[:positions].present? ? positions_invalid = 'is-invalid' : positions_invalid = nil %>
-          <%#= f.text_area :position, size: "30x10", class: "form-control #{description_invalid}" %>
           <% positions = options_from_collection_for_select(Position.all, :id, :to_s) %>
           <%= f.select :positions, positions, {}, multiple: true, class: 'form-control', id: 'event-positions-select' %>
           <% unless positions_invalid.nil? %>
@@ -70,5 +69,11 @@
         </div>
       </div>
 
+      <div class="form-group row">
+        <div class="col-sm-12 text-center">
+          <%= f.submit 'Create Event', class: 'btn btn-primary' %>
+          <%= link_to 'Cancel', events_path, class: 'btn btn-outline-info' %>
+        </div>
+      </div>
   <% end %>
 </div>
