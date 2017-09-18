@@ -15,7 +15,7 @@ class Event
     # an active event controller
     def not_a_controller
       unless event.nil?
-        errors[:user] << 'already controller in this event' unless event.positions.find_by(user: user).nil?
+        errors[:user] << 'already controller in this event' unless event.event_positions.find_by(user: user).nil?
       end
     end
 

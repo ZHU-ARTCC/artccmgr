@@ -19,6 +19,7 @@ class EventsController < ApplicationController
       redirect_to event_path(@event), success: 'Event created'
     else
       flash.now[:alert] = 'Unable to create event'
+      puts "DEBUG: #{@event.errors.full_messages}"
       render :new
     end
   end
@@ -41,6 +42,7 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    @event.event_positions.build
     authorize @event
   end
 

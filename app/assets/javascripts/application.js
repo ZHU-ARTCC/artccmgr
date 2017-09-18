@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require cocoon
 //= require turbolinks
 //= require popper
 //= require bootstrap-multiselect

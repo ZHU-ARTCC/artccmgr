@@ -3,6 +3,16 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'turbolinks:load', ->
-  $('#event-positions-select').multiselect
-    buttonClass: 'form-control'
-    buttonWidth: '250px'
+  addPosition = ->
+    newdiv = $('.more_group:last').clone()
+    newid = Number(newdiv.attr('id').replace(/event_positions_attributes_(\d+)/, '$1')) + 1
+    newdiv.attr 'id', 'event_positions_attributes_' + newid
+    $.each newdiv.find(':input'), ->
+      thisname = $(this).attr('id')
+      thisname = thisname.replace(/\d+/, newid)
+      $(this).attr 'name', thisname
+      $(this).attr 'id', thisname
+      $(this).val ''
+      return
+    $('#groups').append newdiv
+    return

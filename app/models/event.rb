@@ -1,7 +1,10 @@
 class Event < ApplicationRecord
-  has_many :positions, class_name: 'Event::Position', dependent: :destroy
+  has_many :event_positions, class_name: 'Event::Position', dependent: :destroy, index_errors: true, inverse_of: :event
   has_many :pilots, class_name: 'Event::Pilot', dependent: :destroy
   has_many :signups, class_name: 'Event::Signup', dependent: :destroy
+
+  accepts_nested_attributes_for :event_positions, allow_destroy: true, reject_if: lambda { |a| a[:callsign].blank? }
+  validates_associated :event_positions
 
   validates :name, presence: true, allow_blank: false
   validates :description, presence: true, allow_blank: false

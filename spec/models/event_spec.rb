@@ -28,7 +28,7 @@ RSpec.describe Event, type: :model do
 
   describe 'ActiveRecord associations' do
 
-    it { expect(event).to have_many(:positions).dependent(:destroy) }
+    it { expect(event).to have_many(:event_positions).dependent(:destroy) }
     it { expect(event).to have_many(:pilots).dependent(:destroy) }
     it { expect(event).to have_many(:signups).dependent(:destroy) }
 

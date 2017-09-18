@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170914182252) do
+ActiveRecord::Schema.define(version: 20170918164343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,61 +23,61 @@ ActiveRecord::Schema.define(version: 20170914182252) do
   end
 
   create_table "certifications", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string   "name",       null: false
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "event_pilots", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.uuid     "event_id",   null: false
-    t.uuid     "user_id",    null: false
+    t.uuid "event_id", null: false
+    t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "event_positions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.uuid     "event_id",    null: false
-    t.uuid     "user_id"
-    t.uuid     "position_id", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.uuid "event_id", null: false
+    t.uuid "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "callsign"
   end
 
   create_table "event_signups", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.uuid     "event_id",    null: false
-    t.uuid     "position_id", null: false
-    t.uuid     "user_id",     null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.uuid "event_id", null: false
+    t.uuid "position_id", null: false
+    t.uuid "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "events", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string   "name",        null: false
-    t.datetime "start_time",  null: false
-    t.datetime "end_time",    null: false
-    t.text     "description", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string "name", null: false
+    t.datetime "start_time", null: false
+    t.datetime "end_time", null: false
+    t.text "description", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "feedbacks", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.integer  "cid",                           null: false
-    t.string   "name",                          null: false
-    t.string   "email",                         null: false
-    t.string   "callsign",                      null: false
-    t.string   "controller",                    null: false
-    t.string   "position",                      null: false
-    t.integer  "service_level",                 null: false
-    t.text     "comments",                      null: false
-    t.boolean  "fly_again",     default: true
-    t.boolean  "published",     default: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.integer "cid", null: false
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "callsign", null: false
+    t.string "controller", null: false
+    t.string "position", null: false
+    t.integer "service_level", null: false
+    t.text "comments", null: false
+    t.boolean "fly_again", default: true
+    t.boolean "published", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "groups", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string  "name",                                 null: false
-    t.boolean "artcc_controllers",    default: false
+    t.string "name", null: false
+    t.boolean "artcc_controllers", default: false
     t.boolean "visiting_controllers", default: false
   end
 
@@ -86,41 +86,41 @@ ActiveRecord::Schema.define(version: 20170914182252) do
   end
 
   create_table "positions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.string   "name",                                                     null: false
-    t.decimal  "frequency",        precision: 6, scale: 3,                 null: false
-    t.string   "callsign",                                                 null: false
-    t.string   "identification",                                           null: false
-    t.string   "beacon_codes"
-    t.boolean  "major",                                    default: false, null: false
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
-    t.uuid     "certification_id"
+    t.string "name", null: false
+    t.decimal "frequency", precision: 6, scale: 3, null: false
+    t.string "callsign", null: false
+    t.string "identification", null: false
+    t.string "beacon_codes"
+    t.boolean "major", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "certification_id"
   end
 
   create_table "user_certifications", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.uuid     "user_id",          null: false
-    t.uuid     "certification_id", null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.uuid "user_id", null: false
+    t.uuid "certification_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.integer  "cid",                             null: false
-    t.string   "name_first",                      null: false
-    t.string   "name_last",                       null: false
-    t.string   "email",              default: "", null: false
-    t.string   "rating",                          null: false
-    t.datetime "reg_date",                        null: false
-    t.uuid     "group_id",                        null: false
-    t.integer  "sign_in_count",      default: 0,  null: false
+    t.integer "cid", null: false
+    t.string "name_first", null: false
+    t.string "name_last", null: false
+    t.string "email", default: "", null: false
+    t.string "rating", null: false
+    t.datetime "reg_date", null: false
+    t.uuid "group_id", null: false
+    t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
-    t.string   "initials"
-    t.index ["cid"], name: "index_users_on_cid", unique: true, using: :btree
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "initials"
+    t.index ["cid"], name: "index_users_on_cid", unique: true
   end
 
 end

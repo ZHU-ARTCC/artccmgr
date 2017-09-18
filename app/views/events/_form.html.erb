@@ -1,5 +1,5 @@
 <div class="container">
-  <%= form_for(:event, url: events_path) do |f| %>
+  <%= form_for @event do |f| %>
 
       <div class="form-group row">
         <%= f.label :name, 'Event Name', class: 'col-sm-3 col-form-label' %>
@@ -59,8 +59,23 @@
         <%= f.label :positions, class: 'col-sm-3 col-form-label' %>
         <div class="col-sm-9">
           <% @event.errors[:positions].present? ? positions_invalid = 'is-invalid' : positions_invalid = nil %>
-          <% positions = options_from_collection_for_select(Position.all.order(:callsign), :id, :to_s) %>
-          <%= f.select :positions, positions, {}, multiple: true, class: 'form-control', id: 'event-positions-select' %>
+          <% @positions = options_from_collection_for_select(Position.all.order(:callsign), :callsign, :to_s) %>
+
+          <%= f.fields_for :event_positions do |ep| %>
+            <%= render 'event_position_fields', f: ep %>
+          <% end %>
+
+          <div class="form-group row event-positions">
+            <div class="col-sm-12">
+              <%= link_to_add_association 'Add Position',
+                                          f, :event_positions,
+                                          class: 'btn btn-outline-success',
+                                          'data-association-insertion-method': :before,
+                                          'data-association-insertion-node': '.event-positions'
+              %>
+            </div>
+          </div>
+
           <% unless positions_invalid.nil? %>
               <div class="invalid-feedback">
                 <%= @event.errors[:positions].join(', ').capitalize %>
