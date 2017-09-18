@@ -1,0 +1,84 @@
+<% content_for(:title, "Events - #{@event.name}") %>
+
+<div class="row">
+  <div class="col-lg-12 text-center d-none d-md-block">
+    <%= image_tag('http://placehold.it/800x200', alt: @event.name, title: "#{@event.name} - #{@event.start_time.strftime('%d %b %Y %H:%M %Z')}") %>
+  </div>
+</div>
+
+<div class="row top-buffer"></div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto">
+            <%= @event.name %>
+          </div>
+          <div class="col-auto">
+            <%= @event.start_time.strftime('%B %e, %Y %H:%M %Z') %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row top-buffer"></div>
+
+<div class="row">
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">
+            Event Information
+          </div>
+          <div class="col-auto">
+            <% if policy(Event).edit? %>
+              <%= link_to 'Edit Event', edit_event_path(@event), class: 'btn btn-sm btn-outline-warning', title: 'Edit Event' %>
+            <% end %>
+            <%= link_to 'Sign Up', new_event_signup_path(@event), class: 'btn btn-sm btn-success' %>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <%= simple_format @event.description %>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="top-buffer d-lg-none"></div>
+
+    <div class="card">
+      <div class="card-header bg-dark text-light">
+        Position Assignments
+      </div>
+
+      <div class="card-body">
+        <% @event.event_positions.each do |position| %>
+          <div class="row">
+            <div class="col-sm-4 pr-0">
+              <small><%= position.callsign %></small>
+            </div>
+
+            <div class="col-sm-8 pl-0 text-right">
+              <small>
+                <% if position.user.nil? %>
+                  <i>No assignment</i>
+                <% else %>
+                  <b><%= position.user.name_full %></b>
+                <% end %>
+              </small>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
