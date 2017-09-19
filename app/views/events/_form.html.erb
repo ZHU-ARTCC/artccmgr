@@ -59,8 +59,6 @@
         <%= f.label :positions, class: 'col-sm-3 col-form-label' %>
         <div class="col-sm-9">
           <% @event.errors[:positions].present? ? positions_invalid = 'is-invalid' : positions_invalid = nil %>
-          <% @positions = options_from_collection_for_select(Position.all.order(:callsign), :callsign, :to_s) %>
-
           <%= f.fields_for :event_positions do |ep| %>
             <%= render 'event_position_fields', f: ep %>
           <% end %>
@@ -86,7 +84,7 @@
 
       <div class="form-group row">
         <div class="col-sm-12 text-center">
-          <%= f.submit 'Create Event', class: 'btn btn-primary' %>
+          <%= f.submit 'Save Event', class: 'btn btn-primary' %>
           <%= link_to 'Cancel', events_path, class: 'btn btn-outline-info' %>
         </div>
       </div>

@@ -56,7 +56,18 @@
 
     <div class="card">
       <div class="card-header bg-dark text-light">
-        Position Assignments
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">
+            Position Assignments
+          </div>
+          <% if policy(Event).edit? %>
+            <div class="col-auto">
+              <%= link_to edit_event_path(@event), class: 'btn btn-sm btn-outline-warning', title: 'Manage Positions' do %>
+                <%= fa_icon :wrench %>
+              <% end %>
+          </div>
+          <% end %>
+        </div>
       </div>
 
       <div class="card-body">

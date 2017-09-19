@@ -1,6 +1,7 @@
 <div class="form-group row nested-fields">
   <div class="col-sm-8">
-    <%= f.select :callsign, @positions, {}, multiple: false, class: 'form-control' %>
+    <% positions = options_from_collection_for_select(Position.all.order(:callsign), :callsign, :to_s, f.object.callsign) %>
+    <%= f.select :callsign, positions, {}, multiple: false, class: 'form-control' %>
   </div>
   <div class="col-sm-4">
     <%= link_to_remove_association 'Remove', f, class: 'btn btn-outline-danger' %>
