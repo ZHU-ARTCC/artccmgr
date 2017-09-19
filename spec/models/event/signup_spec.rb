@@ -12,8 +12,8 @@ RSpec.describe Event::Signup, type: :model do
 
     # Basic validations
     # belongs_to associations are required by default in Rails 5
-    # it { expect(event_signup).to validate_presence_of(:position) }
-    # it { expect(event_signup).to validate_presence_of(:user) }
+    it { expect(event_signup).to validate_presence_of(:position) }
+    it { expect(event_signup).to validate_presence_of(:user) }
 
     # Format validations
 

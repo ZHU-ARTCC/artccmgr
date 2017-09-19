@@ -4,6 +4,8 @@ class Event
     belongs_to :position, class_name: 'Event::Position'
     belongs_to :user
 
-    validates :user, uniqueness: { scope: [:event, :position] }
+    validates :event, presence: true, allow_blank: false
+    validates :position, presence: true, allow_blank: false
+    validates :user, presence: true, allow_blank: false, uniqueness: { scope: [:event, :position] }
   end
 end

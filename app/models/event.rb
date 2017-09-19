@@ -1,4 +1,7 @@
 class Event < ApplicationRecord
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   mount_uploader :image, ImageUploader
 
   has_many :event_positions, class_name: 'Event::Position', dependent: :destroy, index_errors: true, inverse_of: :event
@@ -30,6 +33,11 @@ class Event < ApplicationRecord
     unless end_time.nil? || start_time.nil?
       errors[:end_time] << "can't be before start time" if end_time < start_time
     end
+  end
+
+  # Determines when a new friendly id should be generated
+  def should_generate_new_friendly_id?
+    true
   end
 
 end

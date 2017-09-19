@@ -12,7 +12,7 @@ RSpec.describe Event::Pilot, type: :model do
 
     # Basic validations
     it { expect(event_pilot).to validate_presence_of(:event) }
-    it { expect(event_pilot).to validate_presence_of(:user).with_message('must exist') }
+    it { expect(event_pilot).to validate_presence_of(:user) }
 
     # Format validations
 

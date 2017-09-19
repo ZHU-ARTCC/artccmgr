@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :events do
-    resources :signups
+    resources :signups, only: [:destroy, :new]
   end
   resources :feedback
   resources :positions
