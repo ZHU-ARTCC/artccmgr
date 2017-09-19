@@ -55,6 +55,10 @@ gem 'font-awesome-rails'
 gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
 
+# Use CarrierWave/MiniMagick for image uploading
+gem 'carrierwave', '~> 0.10.0'
+gem 'mini_magick', '~> 4.3'
+
 # Use metar-parser for METAR reports
 gem 'metar-parser', git: 'https://github.com/joeyates/metar-parser.git'
 

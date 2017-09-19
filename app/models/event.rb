@@ -1,4 +1,6 @@
 class Event < ApplicationRecord
+  mount_uploader :image, ImageUploader
+
   has_many :event_positions, class_name: 'Event::Position', dependent: :destroy, index_errors: true, inverse_of: :event
   has_many :pilots, class_name: 'Event::Pilot', dependent: :destroy
   has_many :signups, class_name: 'Event::Signup', dependent: :destroy

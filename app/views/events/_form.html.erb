@@ -43,6 +43,34 @@
       </div>
 
       <div class="form-group row">
+        <%= f.label :image, 'Image', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9 form-inline">
+          <% @event.errors[:image].present? ? image_invalid = 'is-invalid' : image_invalid = nil %>
+          <% if f.object.image? %>
+            <div class="row">
+              <div class="col-sm-12">
+                <%= image_tag @event.image, alt: @event.name, class: 'img-fluid' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12 form-inline">
+                <%= f.check_box :remove_image, class: 'form-control' %>
+                <%= f.label :remove_image %>
+              </div>
+            </div>
+          <% else %>
+            <%= f.file_field :image, class: "form-control #{image_invalid}" %>
+              <div class="pl-1"><small>Optimal size: 800x200</small></div>
+          <% end %>
+          <% unless image_invalid.nil? %>
+              <div class="invalid-feedback">
+                <%= @event.errors[:image].join(', ').capitalize %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
         <%= f.label :description, class: 'col-sm-3 col-form-label' %>
         <div class="col-sm-9">
           <% @event.errors[:description].present? ? description_invalid = 'is-invalid' : description_invalid = nil %>
