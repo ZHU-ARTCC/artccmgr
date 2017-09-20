@@ -13,12 +13,14 @@ RSpec.describe Event::Pilot, type: :model do
     # Basic validations
     it { expect(event_pilot).to validate_presence_of(:event) }
     it { expect(event_pilot).to validate_presence_of(:user) }
+    it { expect(event_pilot).to validate_presence_of(:callsign) }
 
     # Format validations
 
     # Inclusion/acceptance of values
     it { expect(event_pilot).to_not allow_value(nil).for(:event) }
     it { expect(event_pilot).to_not allow_value(nil).for(:user) }
+    it { expect(event_pilot).to_not allow_value(nil).for(:callsign) }
 
   end # describe 'ActiveModel validations'
 
@@ -28,6 +30,14 @@ RSpec.describe Event::Pilot, type: :model do
     it { expect(event_pilot).to belong_to(:user) }
 
   end # describe 'ActiveRecord associations'
+
+  describe 'callsign' do
+
+    it 'should capitalize the callsign' do
+      expect(build(:event_pilot, callsign: 'testing').callsign).to eq 'TESTING'
+    end
+
+  end
 
   describe 'already signed up' do
 

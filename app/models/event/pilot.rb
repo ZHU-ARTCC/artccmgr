@@ -4,10 +4,15 @@ class Event
     belongs_to :user
 
     validates :event, presence: true, allow_blank: false
+    validates :callsign, presence: true, allow_blank: false
     validates :user, presence: true, allow_nil: false
     validates :user, uniqueness: { scope: :event, message: 'already signed up' }
 
     validate :not_a_controller
+
+    def callsign=(callsign)
+      callsign.nil? ? super(callsign) : super(callsign.upcase)
+    end
 
     private
 
