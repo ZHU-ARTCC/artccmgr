@@ -14,8 +14,16 @@ Rails.application.routes.draw do
   root to: 'home#index'
 
   resources :events do
-    resources :signups, only: [:destroy, :new]
+    get 'signup' => 'events/signups#new'
+
+    resources :signups, except: [:new], controller: 'events/signups'
+
+    resources :pilots, only: [:create, :destroy], controller: 'events/pilots' do
+      get 'signup' => 'events/pilots#new'
+    end
+
   end
+
   resources :feedback
   resources :positions
   resources :roster, as: :user

@@ -1,0 +1,36 @@
+<% content_for :title, "#{@event.name} - Signup" %>
+
+<% if current_user.is_controller? && !@event.pilots.include?(current_user) %>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header bg-dark text-light">
+          <%= @event.name %> Controller Registration
+        </div>
+
+        <div class="card-body pl-0 pr-0">
+          <%= render 'atc_form', atc: @signup %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row top-buffer"></div>
+<% end %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header bg-dark text-light">
+        <%= @event.name %> Pilot Registration
+      </div>
+
+      <div class="card-body pl-0 pr-0">
+        <%= render 'pilot_form', pilot: @pilot %>
+      </div>
+
+    </div>
+  </div>
+</div>
+

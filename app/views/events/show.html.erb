@@ -39,7 +39,7 @@
             <% if policy(Event).edit? %>
               <%= link_to 'Edit Event', edit_event_path(@event), class: 'btn btn-sm btn-outline-warning', title: 'Edit Event' %>
             <% end %>
-            <%= link_to 'Sign Up', new_event_signup_path(@event), class: 'btn btn-sm btn-success', title: 'Sign Up' %>
+            <%= link_to 'Sign Up', event_signup_path(@event), class: 'btn btn-sm btn-success', title: 'Sign Up' %>
           </div>
         </div>
       </div>
@@ -62,7 +62,7 @@
           </div>
           <% if policy(Event).edit? %>
             <div class="col-auto">
-              <%= link_to edit_event_path(@event), class: 'btn btn-sm btn-outline-warning', title: 'Manage Assignments' do %>
+              <%= link_to event_signups_path(@event), class: 'btn btn-sm btn-outline-warning', title: 'Manage Assignments' do %>
                 <%= fa_icon :wrench %>
               <% end %>
           </div>

@@ -3,7 +3,7 @@ class Event
     belongs_to :event
     belongs_to :user, optional: true
 
-    has_many :signups
+    has_many :requests, class_name: 'Event::PositionRequest', dependent: :destroy
 
     validates :event, presence: true, allow_blank: false
     validates :callsign, presence: true, allow_blank: false, uniqueness: { scope: :event, case_sensitive: false, message: 'already assigned to event' }

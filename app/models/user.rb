@@ -26,6 +26,11 @@ class User < ApplicationRecord
   scope :artcc_controllers, -> { joins(:group).where(groups: { artcc_controllers: true}) }
   scope :visiting_controllers, -> { joins(:group).where(groups: { visiting_controllers: true}) }
 
+  # Determines if this user is a controller at this facility
+  def is_controller?
+    User.all_controllers.include?(self)
+  end
+
   def name_full
     "#{name_first} #{name_last}"
   end

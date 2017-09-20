@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170919173537) do
+ActiveRecord::Schema.define(version: 20170920200229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
   enable_extension "citext"
+  enable_extension "pgcrypto"
 
   create_table "assignments", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid "group_id"
@@ -35,6 +36,13 @@ ActiveRecord::Schema.define(version: 20170919173537) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "event_position_requests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "signup_id", null: false
+    t.uuid "position_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "event_positions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid "event_id", null: false
     t.uuid "user_id"
@@ -45,7 +53,6 @@ ActiveRecord::Schema.define(version: 20170919173537) do
 
   create_table "event_signups", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid "event_id", null: false
-    t.uuid "position_id", null: false
     t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
