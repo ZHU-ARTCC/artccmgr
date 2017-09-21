@@ -74,22 +74,29 @@
       </div>
 
       <div class="card-body pt-0 pb-0">
-        <% @event.event_positions.order(:callsign).each do |position| %>
-          <div class="row">
-            <div class="col-sm-4 pl-0 pr-0">
-              <small><%= position.callsign %></small>
-            </div>
+        <% positions = @event.event_positions.order(:callsign) %>
+        <% if positions.empty? %>
+            <p class="text-center mb-0">
+              <small><i>No positions</i></small>
+            </p>
+        <% else %>
+          <% positions.each do |position| %>
+            <div class="row">
+              <div class="col-sm-4 pl-0 pr-0">
+                <small><%= position.callsign %></small>
+              </div>
 
-            <div class="col-sm-8 ml-0 pl-0 pr-0 text-right">
-              <small>
-                <% if position.user.nil? %>
-                  <i>No assignment</i>
-                <% else %>
-                  <b><%= position.user.name_full %> (<%= position.user.rating %>)</b>
-                <% end %>
-              </small>
+              <div class="col-sm-8 ml-0 pl-0 pr-0 text-right">
+                <small>
+                  <% if position.user.nil? %>
+                    <i>No assignment</i>
+                  <% else %>
+                    <b><%= position.user.name_full %> (<%= position.user.rating %>)</b>
+                  <% end %>
+                </small>
+              </div>
             </div>
-          </div>
+          <% end %>
         <% end %>
       </div>
     </div>
