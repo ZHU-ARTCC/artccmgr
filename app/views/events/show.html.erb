@@ -17,7 +17,8 @@
             <%= @event.name %>
           </div>
           <div class="col-auto">
-            <%= @event.start_time.strftime('%B %e, %Y %H:%M %Z') %>
+            <%= @event.start_time.strftime('%B %e, %Y %H%M') %> -
+            <%= @event.end_time.strftime('%H%M %Z') %>
           </div>
         </div>
       </div>
@@ -61,7 +62,7 @@
             Position Assignments
           </div>
           <% if policy(Event).edit? %>
-            <div class="col-auto">
+            <div class="col-auto pl-0">
               <%= link_to event_signups_path(@event), class: 'btn btn-sm btn-outline-warning', title: 'Manage Assignments' do %>
                 <%= fa_icon :wrench %>
               <% end %>
@@ -71,7 +72,7 @@
       </div>
 
       <div class="card-body pt-0">
-        <% @event.event_positions.each do |position| %>
+        <% @event.event_positions.order(:callsign).each do |position| %>
           <div class="row">
             <div class="col-sm-4 pl-0 pr-0">
               <small><%= position.callsign %></small>
