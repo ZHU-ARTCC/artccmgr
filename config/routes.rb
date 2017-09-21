@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
     resources :signups, except: [:new], controller: 'events/signups'
     resources :pilots, only: [:create, :destroy], controller: 'events/pilots'
+    resources :positions, except: [:create, :destroy, :new, :show], controller: 'events/positions'
   end
 
   resources :feedback
