@@ -14,9 +14,17 @@ class Event
 
     validate :not_over
 
+    # Determines whether a user has signed up for the event as a controller
+    # Example: event.signups.has_user?(User.first)
+    #
+    def self.has_user?(user)
+      !self.joins(:user).where(user: user).empty?
+    end
+
     private
 
     # Validates the event has not already ended
+    #
     def not_over
       unless event.nil?
         errors[:event] << 'is already over' unless event.end_time > Time.now

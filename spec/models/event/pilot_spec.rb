@@ -63,4 +63,22 @@ RSpec.describe Event::Pilot, type: :model do
     expect(build(:event_pilot, event: event)).to_not be_valid
   end
 
+  describe '#has_user?' do
+
+    it 'returns true when the user has already registered for the event' do
+      event_pilot_sign_up = create(:event_pilot)
+      event = event_pilot_sign_up.event
+      user  = event_pilot_sign_up.user
+      expect(event.pilots.has_user?(user)).to be true
+    end
+
+    it 'returns false if the user has not registered for the event' do
+      event_sign_up = create(:event_signup)
+      event = event_sign_up.event
+      user  = create(:user)
+      expect(event.pilots.has_user?(user)).to be false
+    end
+
+  end
+
 end

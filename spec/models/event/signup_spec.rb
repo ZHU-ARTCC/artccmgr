@@ -30,17 +30,39 @@ RSpec.describe Event::Signup, type: :model do
 
   end # describe 'ActiveRecord associations'
 
-  it 'prohibits duplicate signup for same event' do
-    event_sign_up = create(:event_signup)
-    event = event_sign_up.event
-    user = event_sign_up.user
-    expect(build(:event_signup, event: event, user: user)).to_not be_valid
-  end
+  describe 'custom validations' do
 
-  it 'prohibits signing up for events after they have ended' do
-    event = build(:event, start_time: Time.now + 5.minutes, end_time: Time.now + 10.minutes)
-    Timecop.travel(Time.now + 20.minutes)
-    expect(build(:event_signup, event: event)).to_not be_valid
+    it 'prohibits duplicate signup for same event' do
+      event_sign_up = create(:event_signup)
+      event = event_sign_up.event
+      user = event_sign_up.user
+      expect(build(:event_signup, event: event, user: user)).to_not be_valid
+    end
+
+    it 'prohibits signing up for events after they have ended' do
+      event = build(:event, start_time: Time.now + 5.minutes, end_time: Time.now + 10.minutes)
+      Timecop.travel(Time.now + 20.minutes)
+      expect(build(:event_signup, event: event)).to_not be_valid
+    end
+
+  end # describe 'custom validations'
+
+  describe '#has_user?' do
+
+    it 'returns true when the user has already signed up for the event' do
+      event_sign_up = create(:event_signup)
+      event = event_sign_up.event
+      user  = event_sign_up.user
+      expect(event.signups.has_user?(user)).to be true
+    end
+
+    it 'returns false if the user has not signed up for the event' do
+      event_sign_up = create(:event_signup)
+      event = event_sign_up.event
+      user  = create(:user)
+      expect(event.signups.has_user?(user)).to be false
+    end
+
   end
 
 end

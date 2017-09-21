@@ -11,6 +11,15 @@ class Event
     validate :not_a_controller
     validate :not_over
 
+    # Determines whether a user has signed up for the event as a pilot
+    # Example: event.pilots.has_user?(User.first)
+    #
+    def self.has_user?(user)
+      !self.joins(:user).where(user: user).empty?
+    end
+
+    # Formats the callsign to uppercase
+    #
     def callsign=(callsign)
       callsign.nil? ? super(callsign) : super(callsign.upcase)
     end
