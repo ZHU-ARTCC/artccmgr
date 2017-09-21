@@ -58,11 +58,11 @@
     <div class="card">
       <div class="card-header bg-dark text-light">
         <div class="row">
-          <div class="col-auto mr-auto pt-1">
+          <div class="col-auto mr-auto pt-1 pl-1">
             Position Assignments
           </div>
           <% if policy(Event).edit? %>
-            <div class="col-auto pl-0">
+            <div class="col-auto pl-0 pr-1">
               <%= link_to event_signups_path(@event), class: 'btn btn-sm btn-outline-warning', title: 'Manage Assignments' do %>
                 <%= fa_icon :wrench %>
               <% end %>
@@ -71,7 +71,7 @@
         </div>
       </div>
 
-      <div class="card-body pt-0">
+      <div class="card-body pt-0 pb-0">
         <% @event.event_positions.order(:callsign).each do |position| %>
           <div class="row">
             <div class="col-sm-4 pl-0 pr-0">
@@ -90,7 +90,36 @@
           </div>
         <% end %>
       </div>
-
     </div>
+
+    <div class="row top-buffer"></div>
+
+    <div class="card">
+      <div class="card-header bg-dark text-light pl-2">
+        Pilot Registrations
+      </div>
+
+      <div class="card-body pt-0 pb-0">
+        <% pilots = @event.pilots.order(:callsign) %>
+        <% if pilots.empty? %>
+          <p class="text-center mb-0">
+            <small><i>No registrations</i></small>
+          </p>
+        <% else %>
+          <% pilots.each do |pilot| %>
+            <div class="row">
+              <div class="col-sm-4 pl-0 pr-0">
+                <small><%= pilot.callsign %></small>
+              </div>
+
+              <div class="col-sm-8 ml-0 pl-0 pr-0 text-right">
+                <small><%= pilot.user.name_full %></small>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
   </div>
 </div>
