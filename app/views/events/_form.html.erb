@@ -86,7 +86,7 @@
       <div class="form-group row">
         <%= f.label :positions, class: 'col-sm-3 col-form-label' %>
         <div class="col-sm-9">
-          <% @event.errors[:positions].present? ? positions_invalid = 'is-invalid' : positions_invalid = nil %>
+          <% @event.errors[:event_positions].present? ? positions_invalid = 'is-invalid' : positions_invalid = nil %>
           <%= f.fields_for :event_positions do |ep| %>
             <%= render 'event_position_fields', f: ep %>
           <% end %>
@@ -104,7 +104,7 @@
 
           <% unless positions_invalid.nil? %>
               <div class="invalid-feedback">
-                <%= @event.errors[:positions].join(', ').capitalize %>
+                <%= @event.errors[:event_positions].join(', ').capitalize %>
               </div>
           <% end %>
         </div>

@@ -1,7 +1,13 @@
 <div class="form-group row nested-fields">
   <div class="col-sm-8">
     <% positions = options_from_collection_for_select(Position.all.order(:callsign), :callsign, :to_s, f.object.callsign) %>
-    <%= f.select :callsign, positions, {prompt: 'Select position'}, multiple: false, class: 'form-control position-options' %>
+    <% f.object.errors[:callsign].present? ? position_invalid = 'is-invalid' : position_invalid = nil %>
+    <%= f.select :callsign, positions, {prompt: 'Select position'}, multiple: false, class: "form-control position-options #{position_invalid}" %>
+    <% if position_invalid %>
+      <div class="invalid-feedback">
+        <%= f.object.errors[:callsign].join(', ').capitalize %>
+      </div>
+    <% end %>
   </div>
   <div class="col-sm-4">
     <%= link_to_remove_association 'Remove', f, class: 'btn btn-outline-danger' %>
