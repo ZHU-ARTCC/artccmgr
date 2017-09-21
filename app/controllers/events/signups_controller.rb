@@ -7,6 +7,7 @@ class Events::SignupsController < ApplicationController
     @event = Event.friendly.find(params[:event_id])
     @signup = Event::Signup.new(event: @event, user: current_user)
     @pilot  = Event::Pilot.new(event: @event)
+    authorize(@signup)
 
     if @signup.update_attributes(permitted_attributes(@signup))
       redirect_to event_path(@event), success: 'Thank you for signing up!'
