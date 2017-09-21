@@ -22,7 +22,6 @@ class Events::SignupsController < ApplicationController
       @event  = Event.friendly.find(params[:event_id])
       @signup = Event::Signup.new(event: @event)
       @pilot  = Event::Pilot.new(event: @event)
-      authorize @signup
 
       @signup.requests.build
       @signup.requests.each{|r| r.build_position; r.position.event = @event}

@@ -110,12 +110,17 @@
         <% else %>
           <% pilots.each do |pilot| %>
             <div class="row">
-              <div class="col-sm-4 pl-0 pr-0">
+              <div class="col-sm-3 pl-0 pr-0">
                 <small><%= pilot.callsign %></small>
               </div>
 
-              <div class="col-sm-8 ml-0 pl-0 pr-0 text-right">
-                <small><%= pilot.user.name_full %></small>
+              <div class="col-sm-9 ml-0 pl-0 pr-0 text-right">
+                <small>
+                  <%= pilot.user.name_full %>
+                  <% if policy(pilot).destroy? %>
+                    <%= link_to 'Remove', event_pilot_path(@event, pilot), method: :delete, class: 'badge badge-danger' %>
+                  <% end %>
+                </small>
               </div>
             </div>
           <% end %>
@@ -125,3 +130,4 @@
 
   </div>
 </div>
+

@@ -3,5 +3,9 @@ FactoryGirl.define do
     association :event
     association :user
     sequence(:callsign){|c| "CALLSIGN#{c}"}
+
+    trait :invalid do
+      callsign { nil }
+    end
   end
 end

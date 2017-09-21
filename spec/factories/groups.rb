@@ -58,6 +58,30 @@ FactoryGirl.define do
       end
     end
 
+    trait :perm_event_pilot_signup_create do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'event pilot signup create')
+      end
+    end
+
+    trait :perm_event_pilot_signup_delete do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'event pilot signup delete')
+      end
+    end
+
+    trait :perm_event_pilot_signup_read do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'event pilot signup read')
+      end
+    end
+
+    trait :perm_event_pilot_signup_update do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'event pilot signup update')
+      end
+    end
+
     trait :perm_feedback_create do
       after :build do |g|
         g.permissions << Permission.where(name: 'feedback create')

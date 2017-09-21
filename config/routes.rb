@@ -17,11 +17,7 @@ Rails.application.routes.draw do
     get 'signup' => 'events/signups#new'
 
     resources :signups, except: [:new], controller: 'events/signups'
-
-    resources :pilots, only: [:create, :destroy], controller: 'events/pilots' do
-      get 'signup' => 'events/pilots#new'
-    end
-
+    resources :pilots, only: [:create, :destroy], controller: 'events/pilots'
   end
 
   resources :feedback
