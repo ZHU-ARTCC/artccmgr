@@ -35,7 +35,7 @@ class EventPolicy < ApplicationPolicy
 
   def permitted_attributes
     if (@user.group.permissions.pluck('name') & ['event create', 'event update']).present?
-      [ :name, :description, :start_time, :end_time, :image, :remove_image, :pilots, :signups, event_positions_attributes: [ :id, :callsign, :_destroy ] ]
+      [ :name, :description, :start_time, :end_time, :image, :remove_image, :pilots, :signups, event_positions_attributes: [ :id, :callsign, :user, :_destroy ] ]
     end
   end
 end

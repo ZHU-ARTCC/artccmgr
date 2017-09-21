@@ -10,5 +10,9 @@ FactoryGirl.define do
     trait :assigned_position do
       association :position, factory: :event_position
     end
+
+    trait :with_request do
+      association :request, factory: :event_position_request
+    end
   end
 end

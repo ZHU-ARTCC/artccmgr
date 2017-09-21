@@ -4,19 +4,6 @@ RSpec.describe Events::SignupsController, type: :controller do
 
   let(:event){ create(:event) }
 
-  # describe 'GET #index' do
-  #   it 'populates the @event' do
-  #     event = create(:event)
-  #     get :index
-  #     expect(assigns(:event)).to eq([event])
-  #   end
-  #
-  #   it 'renders the :index view' do
-  #     get :index
-  #     expect(response).to render_template :index
-  #   end
-  # end
-
   describe 'POST #create' do
     context 'when not logged in' do
       it 'does not create Event Singup' do

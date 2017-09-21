@@ -31,6 +31,7 @@ class User < ApplicationRecord
     User.all_controllers.include?(self)
   end
 
+  # Displays first name and last name in one string
   def name_full
     "#{name_first} #{name_last}"
   end
