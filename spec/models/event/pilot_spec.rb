@@ -57,4 +57,10 @@ RSpec.describe Event::Pilot, type: :model do
 
   end
 
+  it 'prohibits registering for events after they have ended' do
+    event = build(:event, start_time: Time.now + 5.minutes, end_time: Time.now + 10.minutes)
+    Timecop.travel(Time.now + 20.minutes)
+    expect(build(:event_pilot, event: event)).to_not be_valid
+  end
+
 end

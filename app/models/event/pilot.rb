@@ -9,6 +9,7 @@ class Event
     validates :user, uniqueness: { scope: :event, message: 'already signed up' }
 
     validate :not_a_controller
+    validate :not_over
 
     def callsign=(callsign)
       callsign.nil? ? super(callsign) : super(callsign.upcase)
@@ -21,6 +22,13 @@ class Event
     def not_a_controller
       unless event.nil?
         errors[:user] << 'already controller in this event' unless event.event_positions.find_by(user: user).nil?
+      end
+    end
+
+    # Validates the event has not already ended
+    def not_over
+      unless event.nil?
+        errors[:event] << 'is already over' unless event.end_time > Time.now
       end
     end
 

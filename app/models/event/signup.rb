@@ -11,5 +11,16 @@ class Event
 
     validates :event, presence: true, allow_blank: false
     validates :user, presence: true, allow_blank: false, uniqueness: { scope: :event }
+
+    validate :not_over
+
+    private
+
+    # Validates the event has not already ended
+    def not_over
+      unless event.nil?
+        errors[:event] << 'is already over' unless event.end_time > Time.now
+      end
+    end
   end
 end

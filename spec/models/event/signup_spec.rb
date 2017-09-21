@@ -37,4 +37,10 @@ RSpec.describe Event::Signup, type: :model do
     expect(build(:event_signup, event: event, user: user)).to_not be_valid
   end
 
+  it 'prohibits signing up for events after they have ended' do
+    event = build(:event, start_time: Time.now + 5.minutes, end_time: Time.now + 10.minutes)
+    Timecop.travel(Time.now + 20.minutes)
+    expect(build(:event_signup, event: event)).to_not be_valid
+  end
+
 end

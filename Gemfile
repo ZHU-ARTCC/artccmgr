@@ -77,6 +77,7 @@ group :development, :test do
   gem 'pundit-matchers', '~> 1.3.1'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'shoulda-callback-matchers'
+  gem 'timecop'
 end
 
 group :development do
