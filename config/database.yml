@@ -88,6 +88,4 @@ test:
 #
 production:
   <<: *default
-  database: artccmgr_production
-  username: artccmgr
-  password: <%= ENV['ARTCCMGR_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
