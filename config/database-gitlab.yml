@@ -5,3 +5,4 @@ test:
   host: postgres
   database: artccmgr_test
   user: artccmgr
+  password: artccmgr
