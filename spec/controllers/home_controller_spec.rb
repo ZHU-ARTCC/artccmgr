@@ -10,7 +10,7 @@ RSpec.describe HomeController, type: :controller do
     end
 
     it 'handles news RSS download failures' do
-      Artccmgr::Application::RSS_FEED_URL = 'https://notaurl'
+      Settings.rss_news_feed = 'https://notaurl'
       get :index
       expect(assigns(:news)).to be_a_kind_of Array
     end

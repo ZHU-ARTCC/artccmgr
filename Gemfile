@@ -35,6 +35,10 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Use Railsconfig for Application configuration
+gem 'config'
+
+# Use cocoon for nested jQuery forms
 gem 'cocoon'
 
 # Use Devise and Omniauth for authentication

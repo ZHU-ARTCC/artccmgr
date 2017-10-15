@@ -4,22 +4,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title><%= Artccmgr::Application::ORG_NAME %> - <%= yield(:title) %></title>
+    <title><%= Settings.artcc_name %> - <%= yield(:title) %></title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <link rel="alternate" type="application/rss+xml" title="<%=Artccmgr::Application::ORG_NAME %> Events" href="<%= events_url(format: :rss)%>">
+    <link rel="alternate" type="application/rss+xml" title="<%= Settings.artcc_name %> Events" href="<%= events_url(format: :rss)%>">
   </head>
 
   <body>
     <!-- Masthead -->
     <div class="d-none d-sm-block header-image">
       <div class="masthead">
-        <h1 class="align-middle display-4"><%= Artccmgr::Application::ORG_NAME %></h1>
+        <h1 class="align-middle display-4"><%= Settings.artcc_name %></h1>
         <p class="lead d-none d-md-block">
-          <%= Artccmgr::Application::TAG_LINE %>
+          <%= Settings.artcc_tagline %>
         </p>
       </div>
     </div>
