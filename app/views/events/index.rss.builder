@@ -3,8 +3,8 @@
 xml.instruct! :xml, :version => "1.0"
 xml.rss :version => "2.0" do
   xml.channel do
-    xml.title "#{Artccmgr::Application::ORG_NAME} Events"
-    xml.author Artccmgr::Application::ORG_NAME
+    xml.title "#{Settings.artcc_name} Events"
+    xml.author Settings.artcc_name
     xml.description "Events Calendar"
     xml.lastBuildDate Time.now
     xml.link root_url
