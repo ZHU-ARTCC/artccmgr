@@ -6,7 +6,7 @@ class HomeController < ApplicationController
 
     @news = Rails.cache.fetch('news-feed', expires_in: 30.minutes) do
       begin
-        RSS::Parser.parse(open(Settings.news_rss_url).read, false).items[0..5]
+        RSS::Parser.parse(open(Settings.news_rss_url).read).items[0..5]
       rescue
         []
       end
