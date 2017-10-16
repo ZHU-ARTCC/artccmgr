@@ -1,26 +1,31 @@
-# README
+# ARTCC Manager
 
 ImageMagick required for image management!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+How to get started with development:
 
-Things you may want to cover:
-
-* Ruby version
+* Ruby version 2.3.3
 
 * System dependencies
 
+    ```bundle install```
+
 * Configuration
+
+    config/database.yml
+    
+    config/settings.yml
+    
+    config/secrets.yml
 
 * Database creation
 
+    ```rake db:setup```
+
 * Database initialization
+
+    ```rake db:seed```
 
 * How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+    ```rake spec```
