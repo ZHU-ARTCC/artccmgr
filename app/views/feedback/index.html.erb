@@ -38,9 +38,13 @@
               <blockquote class="blockquote pl-4">
                 <p class="mb-0">"<%= f.comments %>"</p>
                 <footer class="blockquote-footer">
-                  <%= f.name %>
-                  (<%= link_to f.cid, "https://stats.vatsim.net/search_id.php?id=#{f.cid}" %>)
-                  operating as <%= f.callsign %>
+                  <% if f.anonymous? %>
+                    Anonymous
+                  <% else %>
+                    <%= f.name %>
+                    (<%= link_to f.cid, "https://stats.vatsim.net/search_id.php?id=#{f.cid}" %>)
+                    operating as <%= f.callsign %>
+                  <% end %>
                 </footer>
               </blockquote>
             </div>
@@ -60,35 +64,3 @@
     </div>
   </div>
 </div>
-
-
-
-<!--Feedback index.-->
-<!--<br/>-->
-
-<!--<table border="1">-->
-  <!--<tr>-->
-    <!--<th>Date</th>-->
-    <!--<th>Name</th>-->
-    <!--<th>Callsign</th>-->
-    <!--<th>Controller</th>-->
-    <!--<th>Position</th>-->
-    <!--<th>Service Level</th>-->
-    <!--<th>Comments</th>-->
-    <!--<th>Fly Again</th>-->
-    <!--<th>Published</th>-->
-  <!--</tr>-->
-  <!--<%# @feedback.each do |f| %>-->
-    <!--<tr>-->
-      <!--<td><%#= f.created_at %></td>-->
-      <!--<td><%#= f.name %> (<%#= f.cid %>)</td>-->
-      <!--<td><%#= f.callsign %></td>-->
-      <!--<td><%#= f.controller %></td>-->
-      <!--<td><%#= f.position %></td>-->
-      <!--<td><%#= f.service_level %></td>-->
-      <!--<td><%#= f.comments %></td>-->
-      <!--<td><%#= f.fly_again? %></td>-->
-      <!--<td><%#= f.published? %></td>-->
-    <!--</tr>-->
-  <!--<%# end %>-->
-<!--</table>-->

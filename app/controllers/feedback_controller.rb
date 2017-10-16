@@ -11,9 +11,12 @@ class FeedbackController < ApplicationController
     authorize Feedback, :create?
     @feedback = Feedback.new
 
-    @feedback.cid   = current_user.cid
-    @feedback.name  = current_user.name_full
-    @feedback.email = current_user.email
+    # Do not set the following parameters if feedback is send anonymously
+    unless params['feedback']['anonymous'] == '1'
+      @feedback.cid   = current_user.cid
+      @feedback.name  = current_user.name_full
+      @feedback.email = current_user.email
+    end
 
     if @feedback.update_attributes(permitted_attributes(@feedback))
       redirect_to feedback_index_path, success: 'Your feedback has been sent'

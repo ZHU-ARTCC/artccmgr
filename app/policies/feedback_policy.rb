@@ -54,11 +54,11 @@ class FeedbackPolicy < ApplicationPolicy
 
   def permitted_attributes
     if @user.permissions.pluck('name').include? 'feedback update'
-      [ :cid, :name, :email, :callsign, :controller, :position, :service_level,
+      [ :anonymous, :cid, :name, :email, :callsign, :controller, :position, :service_level,
         :comments, :fly_again, :published
       ]
     else
-      [ :callsign, :controller, :position, :service_level, :comments, :fly_again ]
+      [ :anonymous, :callsign, :controller, :position, :service_level, :comments, :fly_again ]
     end
   end
 end

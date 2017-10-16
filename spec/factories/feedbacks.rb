@@ -22,6 +22,14 @@ FactoryGirl.define do
       comments      { nil }
     end
 
+    trait :anonymous do
+	    anonymous { true }
+	    cid      { nil }
+	    name     { nil }
+	    email    { nil }
+	    callsign { nil }
+    end
+
     trait :published do
       published { true }
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170920222044) do
+ActiveRecord::Schema.define(version: 20171016052116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,10 +71,10 @@ ActiveRecord::Schema.define(version: 20170920222044) do
   end
 
   create_table "feedbacks", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.integer "cid", null: false
-    t.string "name", null: false
-    t.string "email", null: false
-    t.string "callsign", null: false
+    t.integer "cid"
+    t.string "name"
+    t.string "email"
+    t.string "callsign"
     t.string "controller", null: false
     t.string "position", null: false
     t.integer "service_level", null: false
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20170920222044) do
     t.boolean "published", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "anonymous", default: false
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|

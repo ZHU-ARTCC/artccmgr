@@ -36,6 +36,12 @@ RSpec.describe Feedback, type: :model do
     it { expect(feedback).to_not allow_value('').for(:service_level) }
     it { expect(feedback).to_not allow_value('').for(:comments) }
 
+	  # Anonymous Mode
+    it { expect(build(:feedback, anonymous: true)).to allow_value('').for(:cid) }
+    it { expect(build(:feedback, anonymous: true)).to allow_value('').for(:name) }
+    it { expect(build(:feedback, anonymous: true)).to allow_value('').for(:email) }
+    it { expect(build(:feedback, anonymous: true)).to allow_value('').for(:callsign) }
+
   end # describe 'ActiveModel validations'
 
   describe 'ActiveRecord associations' do
