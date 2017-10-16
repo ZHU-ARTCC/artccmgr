@@ -35,6 +35,9 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# use Crono for job scheduling
+gem 'crono'
+
 # Use Railsconfig for Application configuration
 gem 'config'
 

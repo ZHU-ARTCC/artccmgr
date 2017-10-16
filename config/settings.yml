@@ -1,0 +1,19 @@
+# ARTCC Settings
+artcc_icao: 'ZTV'
+artcc_name: 'ARTCC Manager'
+artcc_tagline: 'A full featured ARTCC management system.'
+
+# See config/database.yml for Database configuration
+# See config/secrets.yml for VATSIM SSO configuration
+
+# METAR/Airport Conditions Settings
+# update interval in hours
+metar_update_interval: 1
+# minutes after the top of the hour to run
+metar_update_time: 01
+
+# New Feed Settings (in XML format)
+news_rss_url: 'https://forums.vatusa.net/index.php?type=rss;action=.xml'
+
+# Statistics settings
+stats_url: 'https://stats.vatsim.net/search_id.php?id='

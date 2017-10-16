@@ -81,6 +81,9 @@ GEM
       activesupport (>= 3.0)
       deep_merge (~> 1.1.1)
       dry-validation (~> 0.10.4)
+    crono (1.1.2)
+      activerecord (>= 4.0)
+      activesupport (>= 4.0)
     deep_merge (1.1.1)
     devise (4.3.0)
       bcrypt (~> 3.0)
@@ -311,6 +314,7 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 4.2)
   config
+  crono
   devise
   factory_girl_rails
   font-awesome-rails

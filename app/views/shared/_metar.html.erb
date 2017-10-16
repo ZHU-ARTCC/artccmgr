@@ -19,38 +19,35 @@
         </th>
       </tr>
 
-      <%# @metar.keys.sort.each do |station| %>
-      <!--<tr class="pl-0 pr-0">-->
-        <!--<td class="pt-1 pb-1 text-center" data-toggle="tooltip" data-placement="bottom" title="<%#= @metar[station][:raw] %>">-->
-          <!--<small><%#= station %></small>-->
-        <!--</td>-->
-        <!--<%# case @metar[station][:rules] %>-->
-        <!--<%# when 'VFR' %>-->
-          <!--<td class="pt-1 pb-1 text-center bg-success text-white">-->
-            <!--<small>VFR</small>-->
-          <!--</td>-->
-        <!--<%# when 'MVFR' %>-->
-          <!--<td class="pt-1 pb-1 text-center bg-warning text-white">-->
-            <!--<small>MVFR</small>-->
-          <!--</td>-->
-        <!--<%# when 'IFR' %>-->
-          <!--<td class="pt-1 pb-1 text-center bg-danger text-white">-->
-            <!--<small>IFR</small>-->
-          <!--</td>-->
-        <!--<%# end %>-->
+      <% if @metar.empty? %>
+        <tr class="pl-0 pr-0">
+          <td colspan="4" class="text-center">
+            <i>No information available</i>
+          </td>
+        </tr>
+      <% end %>
 
-        <!--<th class="pt-1 pb-1 pl-0 pr-0 text-center">-->
-          <!--<small>-->
-            <!--<%#= @metar[station][:wind] %>-->
-          <!--</small>-->
-        <!--</th>-->
-        <!--<th class="pt-1 pb-1 text-center">-->
-          <!--<small>-->
-            <!--<%#= @metar[station][:baro] %>-->
-          <!--</small>-->
-        <!--</th>-->
-      <!--</tr>-->
-      <%# end %>
+      <% @metar.each do |station| %>
+      <tr class="pl-0 pr-0" data-toggle="tooltip" data-placement="bottom" title="<%= station.metar %>">
+        <td class="pt-1 pb-1 text-center">
+          <small><%= station.icao %></small>
+        </td>
+        <td class="pt-1 pb-1 text-center <%= station.rules.downcase %> text-white">
+          <small><%= station.rules %></small>
+        </td>
+
+        <th class="pt-1 pb-1 pl-0 pr-0 text-center">
+          <small>
+            <%= station.wind %>
+          </small>
+        </th>
+        <th class="pt-1 pb-1 text-center">
+          <small>
+            <%= station.altimeter %>
+          </small>
+        </th>
+      </tr>
+      <% end %>
     </table>
   </div>
 </div>

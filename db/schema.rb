@@ -10,13 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016052116) do
+ActiveRecord::Schema.define(version: 20171016201355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
   enable_extension "citext"
   enable_extension "pgcrypto"
+
+  create_table "airports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "icao", limit: 4, null: false
+    t.string "name", null: false
+    t.boolean "show_metar", default: false
+  end
 
   create_table "assignments", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid "group_id"
@@ -27,6 +33,16 @@ ActiveRecord::Schema.define(version: 20171016052116) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "crono_jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "job_id", null: false
+    t.text "log"
+    t.datetime "last_performed_at"
+    t.boolean "healthy"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_crono_jobs_on_job_id", unique: true
   end
 
   create_table "event_pilots", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -144,6 +160,16 @@ ActiveRecord::Schema.define(version: 20171016052116) do
     t.datetime "updated_at", null: false
     t.string "initials"
     t.index ["cid"], name: "index_users_on_cid", unique: true
+  end
+
+  create_table "weathers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "airport_id", null: false
+    t.string "rules", null: false
+    t.string "wind", null: false
+    t.decimal "altimeter", precision: 4, scale: 2, null: false
+    t.string "metar", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

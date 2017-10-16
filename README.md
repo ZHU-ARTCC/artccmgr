@@ -29,3 +29,12 @@ How to get started with development:
 * How to run the test suite
 
     ```rake spec```
+
+* How to run the application (in development)
+
+    ```rails s```
+    
+    If you would like jobs to run while developing:
+    
+    ```bundle exec crono```
+    
