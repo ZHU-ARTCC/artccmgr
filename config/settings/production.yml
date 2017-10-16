@@ -1,0 +1,7 @@
+artcc_icao: 'ZTV'
+artcc_name: 'ARTCC Manager'
+artcc_tagline: 'A full featured ARTCC management system.'
+
+news_rss_url: 'https://forums.vatusa.net/index.php?type=rss;action=.xml'
+
+stats_url: 'https://stats.vatsim.net/search_id.php?id='

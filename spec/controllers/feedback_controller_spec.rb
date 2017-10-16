@@ -35,7 +35,7 @@ RSpec.describe FeedbackController, type: :controller do
         }.to change(Feedback, :count).by 1
       end
 
-      it "redirects to the feedback #index" do
+      it 'redirects to the feedback #index' do
         post :create, params: { feedback: attributes_for(:feedback) }
         expect(response).to redirect_to feedback_index_path
       end
@@ -90,23 +90,6 @@ RSpec.describe FeedbackController, type: :controller do
     end
   end
 
-  describe "GET #edit" do
-    before :each do
-      sign_in create(:user, group: create(:group, :perm_feedback_read, :perm_feedback_update))
-      @feedback = create(:feedback)
-    end
-
-    it 'assigns the requested feedback to @feedback' do
-      get :edit, params: { id: @feedback }
-      expect(assigns(:feedback)).to eq @feedback
-    end
-
-    it 'renders the #edit view' do
-      get :edit, params: { id: @feedback }
-      expect(response).to render_template :edit
-    end
-  end
-
   describe 'GET #new' do
     it 'redirects to login if no user logged in' do
       get :new
@@ -123,19 +106,6 @@ RSpec.describe FeedbackController, type: :controller do
       sign_in create(:user, group: create(:group, :perm_feedback_create))
       get :new
       expect(response).to render_template :new
-    end
-  end
-
-  describe 'GET #show' do
-    it 'assigns the requested feedback to @feedback' do
-      feedback = create(:feedback, :published)
-      get :show, params: { id: feedback }
-      expect(assigns(:feedback)).to eq(feedback)
-    end
-
-    it 'renders the #show view' do
-      get :show, params: { id: create(:feedback, :published) }
-      expect(response).to render_template :show
     end
   end
 
@@ -162,10 +132,10 @@ RSpec.describe FeedbackController, type: :controller do
         expect(assigns(:feedback)).to eq @feedback
       end
 
-      it "changes @feedbacks's attributes" do
+      it 'changes @feedbacks\'s attributes' do
         put :update, params: {
             id: @feedback,
-            feedback: attributes_for(:feedback, name: "John Smith")
+            feedback: attributes_for(:feedback, name: 'John Smith')
         }
         @feedback.reload
         expect(@feedback.name).to eq 'John Smith'
@@ -173,7 +143,7 @@ RSpec.describe FeedbackController, type: :controller do
 
       it 'redirects to the updated feedback' do
         put :update, params: { id: @feedback, feedback: attributes_for(:feedback) }
-        expect(response).to redirect_to @feedback
+        expect(response).to redirect_to feedback_index_path
       end
     end
 
@@ -187,7 +157,7 @@ RSpec.describe FeedbackController, type: :controller do
         expect(assigns(:feedback)).to eq @feedback
       end
 
-      it "does not change @feedback's attributes" do
+      it 'does not change @feedback\'s attributes' do
         put :update, params: { id: @feedback,
             feedback: attributes_for(:feedback, name: nil)
         }

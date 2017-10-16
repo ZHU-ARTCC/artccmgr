@@ -19,9 +19,10 @@ class FeedbackController < ApplicationController
     end
 
     if @feedback.update_attributes(permitted_attributes(@feedback))
-      redirect_to feedback_index_path, success: 'Your feedback has been sent'
+      flash[:success] = t('feedback.alerts.create.success') unless t('feedback.alerts.create.success').blank?
+      redirect_to feedback_index_path
     else
-      flash.now[:alert] = 'Unable to send feedback'
+      flash.now[:alert] = t('feedback.alerts.create.errors')
       render :new
     end
   end
@@ -31,15 +32,10 @@ class FeedbackController < ApplicationController
     @feedback = policy_scope(Feedback).find(params[:id])
 
     if @feedback.destroy
-      redirect_to feedback_index_path, success: 'Feedback has been deleted'
+      redirect_to feedback_index_path, success: t('feedback.alerts.destroy.success')
     else
-      redirect_to feedback_index_path, alert: 'Unable to delete feedback'
+      redirect_to feedback_index_path, alert: t('feedback.alerts.destroy.errors')
     end
-  end
-
-  def edit
-    @feedback = policy_scope(Feedback).find(params[:id])
-    authorize @feedback
   end
 
   def new
@@ -51,19 +47,15 @@ class FeedbackController < ApplicationController
     end
   end
 
-  def show
-    @feedback = policy_scope(Feedback).find(params[:id])
-    authorize @feedback
-  end
-
   def update
     authorize Feedback, :update?
     @feedback = policy_scope(Feedback).find(params[:id])
 
     if @feedback.update_attributes(permitted_attributes(@feedback))
-      redirect_to feedback_path(@feedback), success: 'Feedback has been updated'
+      flash[:success] = t('feedback.alerts.update.success')
+      redirect_to feedback_index_path
     else
-      flash.now[:alert] = 'Unable to update feedback'
+      flash.now[:alert] = t('feedback.alerts.update.errors')
       render :edit
     end
   end

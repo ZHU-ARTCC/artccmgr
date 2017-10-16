@@ -42,7 +42,7 @@
                     Anonymous
                   <% else %>
                     <%= f.name %>
-                    (<%= link_to f.cid, "https://stats.vatsim.net/search_id.php?id=#{f.cid}" %>)
+                    (<%= link_to f.cid, "#{Settings.stats_url}#{f.cid}" %>)
                     operating as <%= f.callsign %>
                   <% end %>
                 </footer>

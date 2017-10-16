@@ -20,7 +20,18 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  feedback:
+    alerts:
+      create:
+        success: 'Thank you for providing your feedback, it will be reviewed before published'
+        errors:  'Unable to send feedback'
+      destroy:
+        success: 'Feedback has been deleted'
+        errors:  'Unable to delete feedback'
+      update:
+        success: 'Feedback has been updated'
+        errors:  'Unable to update feedback'
+
   simple_calendar:
     next: '>>'
     previous: '<<'

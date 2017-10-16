@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     resources :positions, except: [:create, :destroy, :new, :show], controller: 'events/positions'
   end
 
-  resources :feedback
+  resources :feedback, except: [:edit, :show]
   resources :positions
   resources :roster, as: :user
 end
