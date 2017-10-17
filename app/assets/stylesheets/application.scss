@@ -34,8 +34,20 @@ html {
 .alert-alert { @extend .alert-primary; }
 .alert-notice { @extend .alert-info; }
 
-.dropdown:hover>.dropdown-menu {
-  display: block;
+.dropdown-menu{
+  background-color: rgba(52, 58, 64, 0.9);
+  //border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin-top: 7px;
+}
+
+.dropdown-item{
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dropdown-item:hover{
+  color: #000 !important;
 }
 
 .footer {
