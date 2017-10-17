@@ -1,4 +1,6 @@
 class Position < ApplicationRecord
+  extend FriendlyId
+  friendly_id :callsign
 
   belongs_to :certification, optional: true
 
@@ -12,11 +14,26 @@ class Position < ApplicationRecord
   validate :valid_callsign
   validate :valid_frequency
 
+  # Capitalizes callsigns on assignment
+  #
   def callsign=(callsign)
     callsign.nil? ? super(callsign) : super(callsign.upcase)
   end
 
+  # Titleizes radio identification name
+  #
+  def identification=(id)
+    id.nil? ? super(id) : super(id.titleize)
+  end
+
+  # Titleizes names
+  #
+  def name=(name)
+    name.nil? ? super(name) : super(name.titleize)
+  end
+
   # Used in forms to present a friendly name "TST_10_CTR (133.95)"
+  #
   def to_s
     "#{callsign} (#{frequency})"
   end

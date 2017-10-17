@@ -1,43 +1,119 @@
-Positions
-<br/>
-Major Positions
-<br />
-<table border="1">
-  <tr>
-    <th>Callsign</th>
-    <th>Frequency</th>
-    <th>Position</th>
-    <th>Identification</th>
-    <th>Beacon Codes</th>
-  </tr>
-  <% @positions.where(major: true).order(:callsign).each do |f| %>
-      <tr>
-        <td><%= f.callsign %></td>
-        <td><%= f.frequency %></td>
-        <td><%= f.name %></td>
-        <td><%= f.identification %></td>
-        <td><%= f.beacon_codes %></td>
-      </tr>
-  <% end %>
-</table>
+<% content_for(:title, 'Positions') %>
 
-Minor Positions
-<br />
-<table border="1">
-  <tr>
-    <th>Callsign</th>
-    <th>Frequency</th>
-    <th>Position</th>
-    <th>Identification</th>
-    <th>Beacon Codes</th>
-  </tr>
-  <% @positions.where(major: false).order(:callsign).each do |f| %>
-      <tr>
-        <td><%= f.callsign %></td>
-        <td><%= f.frequency %></td>
-        <td><%= f.name %></td>
-        <td><%= f.identification %></td>
-        <td><%= f.beacon_codes %></td>
-      </tr>
-  <% end %>
-</table>
+<!-- Major Facilities -->
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card border-0">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">
+            Major Facilities
+          </div>
+          <% if policy(Position).create? -%>
+          <div class="col-auto">
+            <%= link_to new_position_path(type: :major), class: 'event-title-btn', 'data-toggle': :tooltip, 'data-placement': :bottom, title: 'Add Position' do %>
+              <%= fa_icon('plus-square') %>
+            <% end %>
+          </div>
+          <% end -%>
+        </div>
+      </div>
+
+      <div class="card-body pb-0 pl-0 pr-0 pt-0">
+        <table class="table table-sm table-bordered table-responsive mb-0">
+          <tbody>
+            <tr class="bg-light">
+              <th class="text-center">
+                <small>Name</small>
+              </th>
+              <th class="text-center">
+                <small>Frequency</small>
+              </th>
+              <th class="text-center">
+                <small>Callsign</small>
+              </th>
+              <th class="text-center">
+                <small>Identification</small>
+              </th>
+              <th class="text-center">
+                <small>Beacon Codes</small>
+              </th>
+            </tr>
+            <% if @positions.where(major: true).empty? %>
+              <tr>
+                <td colspan="5" class="text-center">
+                  <small><i>No information available</i></small>
+                </td>
+              </tr>
+            <% end %>
+
+            <% @positions.where(major: true).order(:callsign).each do |p| -%>
+              <%= render 'position', position: p %>
+            <% end -%>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="top-buffer"></div>
+
+<!-- Minor Facilities -->
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card border-0">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">
+            Minor Facilities
+          </div>
+          <% if policy(Position).create? -%>
+            <div class="col-auto">
+              <%= link_to new_position_path(type: :minor), class: 'event-title-btn', 'data-toggle': :tooltip, 'data-placement': :bottom, title: 'Add Position' do %>
+                  <%= fa_icon('plus-square') %>
+              <% end %>
+            </div>
+          <% end -%>
+        </div>
+      </div>
+
+      <div class="card-body pb-0 pl-0 pr-0 pt-0">
+        <table class="table table-sm table-bordered table-responsive mb-0">
+          <tbody>
+          <tr class="bg-light">
+            <th class="text-center">
+              <small>Name</small>
+            </th>
+            <th class="text-center">
+              <small>Frequency</small>
+            </th>
+            <th class="text-center">
+              <small>Callsign</small>
+            </th>
+            <th class="text-center">
+              <small>Identification</small>
+            </th>
+            <th class="text-center">
+              <small>Beacon Codes</small>
+            </th>
+          </tr>
+          <% if @positions.where(major: false).empty? %>
+            <tr>
+              <td colspan="5" class="text-center">
+                <small><i>No information available</i></small>
+              </td>
+            </tr>
+          <% end %>
+
+          <% @positions.where(major: false).order(:callsign).each do |p| -%>
+              <%= render 'position', position: p %>
+          <% end -%>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

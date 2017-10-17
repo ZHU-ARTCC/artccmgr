@@ -170,7 +170,7 @@ RSpec.describe PositionsController, type: :controller do
 
       it 'redirects to the updated position' do
         put :update, params: { id: @position, position: attributes_for(:position) }
-        expect(response).to redirect_to @position
+        expect(response).to redirect_to positions_path
       end
     end
 

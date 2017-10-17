@@ -1,0 +1,32 @@
+<tr>
+  <td>
+    <small><%= position.name %></small>
+    <% if policy(position).update? %>
+        <%= link_to edit_position_path(position),
+                    class: 'badge badge-secondary float-right mt-1 ml-1',
+                    'data-toggle': :tooltip,
+                    'data-placement': :bottom,
+                    title: 'Edit' do %>
+            <%= fa_icon :pencil %>
+        <% end %>
+    <% end %>
+
+    <% if position.primary? -%>
+      <span class="badge badge-primary float-right mt-1" data-toggle="tooltip" data-placement="bottom" title="Primary combined facility">
+        Primary
+      </span>
+    <% end -%>
+  </td>
+  <td class="text-center">
+    <small><%= '%.3f' % position.frequency %></small>
+  </td>
+  <td class="text-center">
+    <small><%= position.callsign %></small>
+  </td>
+  <td class="text-center">
+    <small><%= position.identification %></small>
+  </td>
+  <td class="text-center">
+    <small><%= position.beacon_codes %></small>
+  </td>
+</tr>

@@ -21,7 +21,7 @@ class PositionsController < ApplicationController
 
   def destroy
     authorize Position, :destroy?
-    @position = policy_scope(Position).find(params[:id])
+    @position = policy_scope(Position).friendly.find(params[:id])
 
     if @position.destroy
       redirect_to positions_path, success: 'Position has been deleted'
@@ -31,26 +31,34 @@ class PositionsController < ApplicationController
   end
 
   def edit
-    @position = policy_scope(Position).find(params[:id])
+    @position = policy_scope(Position).friendly.find(params[:id])
     authorize @position
   end
 
   def new
     @position = Position.new
+
+    # Preselect major/minor if parameter is set
+    if params['type']
+      @position.major = true  if params['type'] == 'major'
+      @position.major = false if params['type'] == 'minor'
+    end
+
     authorize @position
   end
 
   def show
-    @position = policy_scope(Position).find(params[:id])
+    @position = policy_scope(Position).friendly.find(params[:id])
     authorize @position
   end
 
   def update
     authorize Position, :update?
-    @position = policy_scope(Position).find(params[:id])
+    @position = policy_scope(Position).friendly.find(params[:id])
 
     if @position.update_attributes(permitted_attributes(@position))
-      redirect_to position_path(@position), success: 'Position has been updated'
+      flash[:success] = "#{@position.name} has been updated"
+      redirect_to positions_path
     else
       flash.now[:alert] = 'Unable to update position'
       render :edit

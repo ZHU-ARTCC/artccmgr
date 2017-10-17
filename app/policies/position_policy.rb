@@ -14,7 +14,8 @@ class PositionPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.permissions.pluck('name').include? 'position create'
+    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    group.permissions.pluck('name').include? 'position create'
   end
 
   def update?
@@ -32,6 +33,6 @@ class PositionPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [ :name, :frequency, :callsign, :identification, :beacon_codes, :major ]
+    [ :name, :frequency, :callsign, :identification, :beacon_codes, :major, :primary ]
   end
 end

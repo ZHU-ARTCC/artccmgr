@@ -101,9 +101,56 @@ RSpec.describe Position, type: :model do
     it { expect(build(:position, callsign: 'TST_ABC_DEL')).to be_valid }
   end
 
+  describe 'frequency should be a tunable frequency' do
+    it { expect(build(:position, frequency: 0.0)).to_not be_valid }
+
+    # 25 kHz spacing
+    it { expect(build(:position, frequency: 118.025)).to be_valid }
+    it { expect(build(:position, frequency: 118.050)).to be_valid }
+    it { expect(build(:position, frequency: 118.075)).to be_valid }
+    it { expect(build(:position, frequency: 118.100)).to be_valid }
+    it { expect(build(:position, frequency: 118.125)).to be_valid }
+    it { expect(build(:position, frequency: 118.150)).to be_valid }
+    it { expect(build(:position, frequency: 118.175)).to be_valid }
+    it { expect(build(:position, frequency: 118.200)).to be_valid }
+    it { expect(build(:position, frequency: 118.225)).to be_valid }
+    it { expect(build(:position, frequency: 118.250)).to be_valid }
+    it { expect(build(:position, frequency: 118.275)).to be_valid }
+    it { expect(build(:position, frequency: 118.300)).to be_valid }
+    it { expect(build(:position, frequency: 118.325)).to be_valid }
+    it { expect(build(:position, frequency: 118.350)).to be_valid }
+    it { expect(build(:position, frequency: 118.375)).to be_valid }
+    it { expect(build(:position, frequency: 118.400)).to be_valid }
+    it { expect(build(:position, frequency: 118.425)).to be_valid }
+    it { expect(build(:position, frequency: 118.450)).to be_valid }
+    it { expect(build(:position, frequency: 118.475)).to be_valid }
+    it { expect(build(:position, frequency: 118.500)).to be_valid }
+    it { expect(build(:position, frequency: 118.525)).to be_valid }
+    it { expect(build(:position, frequency: 118.550)).to be_valid }
+    it { expect(build(:position, frequency: 118.575)).to be_valid }
+    it { expect(build(:position, frequency: 118.600)).to be_valid }
+    it { expect(build(:position, frequency: 118.625)).to be_valid }
+    it { expect(build(:position, frequency: 118.650)).to be_valid }
+    it { expect(build(:position, frequency: 118.675)).to be_valid }
+    it { expect(build(:position, frequency: 118.700)).to be_valid }
+    it { expect(build(:position, frequency: 118.725)).to be_valid }
+    it { expect(build(:position, frequency: 118.750)).to be_valid }
+    it { expect(build(:position, frequency: 118.775)).to be_valid }
+  end
+
   it 'responds to #to_s with a friendly string' do
     position = build(:position)
     expect(position.to_s).to eq "#{position.callsign} (#{position.frequency})"
   end
+
+  it 'titleizes the identification' do
+    position = build(:position, identification: 'test position')
+    expect(position.identification).to eq 'Test Position'
+  end
+
+	it 'titleizes the name' do
+		position = build(:position, name: 'test position')
+		expect(position.name).to eq 'Test Position'
+	end
 
 end
