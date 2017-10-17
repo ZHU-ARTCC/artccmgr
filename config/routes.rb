@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
+  resources :certifications
+
   resources :events do
     get 'signup' => 'events/signups#new'
 
@@ -23,5 +25,8 @@ Rails.application.routes.draw do
 
   resources :feedback, except: [:edit, :show]
   resources :positions
-  resources :roster, as: :user
+
+  resources :roster, as: :user do
+	  resources :endorsements, only: [:create, :edit, :new, :update, :destroy]
+  end
 end

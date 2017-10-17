@@ -13,6 +13,16 @@
 # role.create name: 'event delete'
 # role.create name: 'event staffing'
 
+Permission.create name: 'certification create'
+Permission.create name: 'certification read'
+Permission.create name: 'certification update'
+Permission.create name: 'certification delete'
+
+Permission.create name: 'endorsement create'
+Permission.create name: 'endorsement read'
+Permission.create name: 'endorsement update'
+Permission.create name: 'endorsement delete'
+
 Permission.create name: 'event create'
 Permission.create name: 'event read'
 Permission.create name: 'event update'
@@ -47,6 +57,8 @@ Permission.create name: 'user delete'
 # Default Groups and permissions
 Group.create name: 'public',
              permissions: [
+                 Permission.find_by(name: 'certification read'),
+                 Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'position read'),
@@ -55,6 +67,8 @@ Group.create name: 'public',
 
 Group.create name: 'guest',
              permissions: [
+                 Permission.find_by(name: 'certification read'),
+                 Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback create'),
@@ -64,8 +78,11 @@ Group.create name: 'guest',
              ]
 
 Group.create name: 'visiting controller',
-             artcc_controllers: true,
+             artcc_controllers: false,
+             visiting_controllers: true,
              permissions: [
+                 Permission.find_by(name: 'certification read'),
+                 Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'event signup create'),
                  Permission.find_by(name: 'event pilot signup create'),
@@ -78,6 +95,8 @@ Group.create name: 'visiting controller',
 Group.create name: 'controller',
              artcc_controllers: true,
              permissions: [
+                 Permission.find_by(name: 'certification read'),
+                 Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'event signup create'),
                  Permission.find_by(name: 'event pilot signup create'),
@@ -89,6 +108,8 @@ Group.create name: 'controller',
 Group.create name: 'mentor',
              artcc_controllers: true,
              permissions: [
+                 Permission.find_by(name: 'certification read'),
+                 Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'event signup create'),
                  Permission.find_by(name: 'event pilot signup create'),
@@ -100,6 +121,9 @@ Group.create name: 'mentor',
 Group.create name: 'instructor',
              artcc_controllers: true,
              permissions: [
+                 Permission.find_by(name: 'certification read'),
+                 Permission.find_by(name: 'endorsement create'),
+                 Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'event signup create'),
                  Permission.find_by(name: 'event pilot signup create'),
@@ -111,6 +135,14 @@ Group.create name: 'instructor',
 Group.create name: 'webmaster',
              artcc_controllers: true,
              permissions: [
+                 Permission.find_by(name: 'certification create'),
+                 Permission.find_by(name: 'certification read'),
+                 Permission.find_by(name: 'certification update'),
+                 Permission.find_by(name: 'certification delete'),
+                 Permission.find_by(name: 'endorsement create'),
+                 Permission.find_by(name: 'endorsement read'),
+                 Permission.find_by(name: 'endorsement update'),
+                 Permission.find_by(name: 'endorsement delete'),
                  Permission.find_by(name: 'event create'),
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'event update'),
@@ -141,6 +173,8 @@ Group.create name: 'webmaster',
 Group.create name: 'facility engineer',
              artcc_controllers: true,
              permissions: [
+                 Permission.find_by(name: 'certification read'),
+                 Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'event signup create'),
                  Permission.find_by(name: 'event pilot signup create'),
@@ -152,6 +186,8 @@ Group.create name: 'facility engineer',
 Group.create name: 'events coordinator',
              artcc_controllers: true,
              permissions: [
+                 Permission.find_by(name: 'certification read'),
+                 Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event create'),
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'event update'),
@@ -170,6 +206,14 @@ Group.create name: 'events coordinator',
 Group.create name: 'training administrator',
              artcc_controllers: true,
              permissions: [
+                 Permission.find_by(name: 'certification create'),
+                 Permission.find_by(name: 'certification read'),
+                 Permission.find_by(name: 'certification update'),
+                 Permission.find_by(name: 'certification delete'),
+                 Permission.find_by(name: 'endorsement create'),
+                 Permission.find_by(name: 'endorsement read'),
+                 Permission.find_by(name: 'endorsement update'),
+                 Permission.find_by(name: 'endorsement delete'),
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'event signup create'),
                  Permission.find_by(name: 'event pilot signup create'),
@@ -181,6 +225,14 @@ Group.create name: 'training administrator',
 Group.create name: 'deputy air traffic manager',
              artcc_controllers: true,
              permissions: [
+                 Permission.find_by(name: 'certification create'),
+                 Permission.find_by(name: 'certification read'),
+                 Permission.find_by(name: 'certification update'),
+                 Permission.find_by(name: 'certification delete'),
+                 Permission.find_by(name: 'endorsement create'),
+                 Permission.find_by(name: 'endorsement read'),
+                 Permission.find_by(name: 'endorsement update'),
+                 Permission.find_by(name: 'endorsement delete'),
                  Permission.find_by(name: 'event create'),
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'event update'),
@@ -211,6 +263,14 @@ Group.create name: 'deputy air traffic manager',
 Group.create name: 'air traffic manager',
              artcc_controllers: true,
              permissions: [
+                 Permission.find_by(name: 'certification create'),
+                 Permission.find_by(name: 'certification read'),
+                 Permission.find_by(name: 'certification update'),
+                 Permission.find_by(name: 'certification delete'),
+                 Permission.find_by(name: 'endorsement create'),
+                 Permission.find_by(name: 'endorsement read'),
+                 Permission.find_by(name: 'endorsement update'),
+                 Permission.find_by(name: 'endorsement delete'),
                  Permission.find_by(name: 'event create'),
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'event update'),

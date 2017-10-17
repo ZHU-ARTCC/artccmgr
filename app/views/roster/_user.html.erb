@@ -1,0 +1,55 @@
+<tr>
+  <% if policy(controller).update? -%>
+    <td class="text-center pl-0 pr-0">
+      <%= link_to edit_user_path(controller),
+                  class: 'badge badge-secondary',
+                  'data-toggle': :tooltip,
+                  'data-placement': :bottom,
+                  title: 'Edit' do %>
+          <%= fa_icon 'pencil' %>
+      <% end %>
+    </td>
+  <% end -%>
+
+  <td>
+    <%= link_to user_path(controller) do %>
+      <small><%= controller.name_last %>, <%= controller.name_first %></small>
+    <% end %>
+  </td>
+  <td class="text-center">
+   <small><%= controller.initials %></small>
+  </td>
+  <td class="text-center">
+    <span class="badge badge-<%= controller.rating.downcase %>"><%= controller.rating %></span>
+  </td>
+
+  <td class="pl-0 pr-0 pt-0 pb-0">
+    <table class="table table-sm mb-0 border-0">
+      <tr class="border-0">
+        <% @minor_certifications.each do |c| -%>
+            <% css_class = cert_status_css(controller, c) -%>
+            <td class="text-center pl-0 pr-0 border-top-0 border-bottom-0 border-left-0 <%= css_class %>" data-toggle="tooltip" data-placement="bottom" title="<%= c.name %>">
+              <small class="<%= !css_class.nil? ? 'text-white' : 'text-muted' %>">
+                <%= c.short_name %>
+              </small>
+            </td>
+        <% end -%>
+      </tr>
+    </table>
+  </td>
+
+  <td class="pl-0 pr-0 pt-0 pb-0">
+    <table class="table table-sm mb-0 border-0">
+      <tr class="border-0">
+        <% @major_certifications.each do |c| -%>
+            <% css_class = cert_status_css(controller, c) %>
+            <td class="text-center pl-0 pr-0 border-top-0 border-bottom-0 border-left-0 <%= css_class %>" data-toggle="tooltip" data-placement="bottom" title="<%= c.name %>">
+              <small class="<%= !css_class.nil? ? 'text-white' : 'text-muted' %>">
+                <%= c.short_name %>
+              </small>
+            </td>
+        <% end -%>
+      </tr>
+    </table>
+  </td>
+</tr>

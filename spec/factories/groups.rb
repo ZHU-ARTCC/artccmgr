@@ -10,6 +10,54 @@ FactoryGirl.define do
       visiting_controllers true
     end
 
+    trait :perm_certification_create do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'certification create')
+      end
+    end
+
+    trait :perm_certification_read do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'certification read')
+      end
+    end
+
+    trait :perm_certification_update do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'certification update')
+      end
+    end
+
+    trait :perm_certification_delete do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'certification delete')
+      end
+    end
+
+    trait :perm_endorsement_create do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'endorsement create')
+      end
+    end
+
+    trait :perm_endorsement_read do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'endorsement read')
+      end
+    end
+
+    trait :perm_endorsement_update do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'endorsement update')
+      end
+    end
+
+    trait :perm_endorsement_delete do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'endorsement delete')
+      end
+    end
+
     trait :perm_event_create do
       after :build do |g|
         g.permissions << Permission.where(name: 'event create')

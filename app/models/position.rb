@@ -12,6 +12,7 @@ class Position < ApplicationRecord
   validates :major, inclusion: { in: [ true, false ] }
 
   validate :valid_callsign
+  validate :valid_certification
   validate :valid_frequency
 
   # Capitalizes callsigns on assignment
@@ -43,6 +44,13 @@ class Position < ApplicationRecord
   def valid_callsign
     unless callsign =~ /^[A-Z]{3}_([A-Z0-9]{1,3}_)?[(FSS|CTR|APP|DEP|TWR|GND|DEL)]{3}$/
       self.errors[:callsign] << 'invalid format'
+    end
+  end
+
+  def valid_certification
+    unless certification.nil?
+      type = major? ? 'major' : 'minor'
+      self.errors[:certification] << "of #{type} type exists for this position" unless certification.major? == major?
     end
   end
 

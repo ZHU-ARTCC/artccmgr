@@ -12,19 +12,22 @@ RSpec.describe Certification, type: :model do
 
     # Basic validations
     it { expect(certification).to validate_presence_of(:name) }
+    it { expect(certification).to validate_presence_of(:short_name) }
 
     # Format validations
-    it { expect(certification).to validate_uniqueness_of(:name).case_insensitive }
+    it { expect(certification).to validate_uniqueness_of(:name).scoped_to(:major).ignoring_case_sensitivity }
 
     # Inclusion/acceptance of values
     it { expect(certification).to_not allow_value('').for(:name) }
-    # it { expect(certification).to validate_length_of(:positions).is_at_least(1) }
+    it { expect(certification).to_not allow_value('').for(:short_name) }
 
   end # describe 'ActiveModel validations'
 
   describe 'ActiveRecord associations' do
 
     it { expect(certification).to have_many(:positions) }
+    it { expect(certification).to have_many(:endorsements) }
+    it { expect(certification).to have_many(:users).through(:endorsements) }
 
   end # describe 'ActiveRecord associations'
 
@@ -34,8 +37,12 @@ RSpec.describe Certification, type: :model do
     expect(build(:certification, positions: major_positions.concat(minor_positions))).to_not be_valid
   end
 
-  it 'must contain at least one position' do
-    expect(build(:certification, positions: [])).to_not be_valid
+  it 'titleizes the name' do
+    expect(build(:certification, name: 'test certification').name).to eq 'Test Certification'
+  end
+
+  it 'up cases the short name' do
+    expect(build(:certification, short_name: 'test').short_name).to eq 'TEST'
   end
 
 end

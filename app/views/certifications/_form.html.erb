@@ -1,0 +1,67 @@
+<div class="container">
+  <%= form_for @certification do |f| %>
+
+      <div class="form-group row">
+        <%= f.label :name, 'Certification Name', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @certification.errors[:name].present? ? name_invalid = 'is-invalid' : name_invalid = nil %>
+          <%= f.text_field :name, class: "form-control #{name_invalid}", placeholder: 'Example: Houston Center Major', required: true %>
+          <% unless name_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @certification.errors[:name].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :short_name, 'Short Name', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @certification.errors[:short_name].present? ? short_name_invalid = 'is-invalid' : short_name_invalid = nil %>
+          <%= f.text_field :short_name, class: "form-control #{short_name_invalid}", maxlength: 5, placeholder: 'Example: CTR', required: true %>
+          <% unless short_name_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @certification.errors[:short_name].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-3 col-form-label">Roster Display</div>
+        <div class="col-sm-9 form-check form-check-inline">
+          <%= f.check_box :show_on_roster, class: 'form-check-label' %>
+          <%= f.label 'Show certification status on roster', class: 'col-form-label' %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-3 col-form-label">Major</div>
+        <div class="col-sm-9 form-check form-check-inline">
+          <%= f.check_box :major, class: 'form-check-label' %>
+          <%= f.label 'This is a major position certification', class: 'col-form-label' %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :positions, 'Positions', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @certification.errors[:positions].present? ? positions_invalid = 'is-invalid' : positions_invalid = nil %>
+          <% positions = Position.all.order(:callsign).collect{|p| ["#{p.to_s} #{p.major? ? '  [Major Position]' : ''}", p.id]} %>
+          <%= f.select :position_ids, positions, {}, multiple: true, class: "form-control #{positions_invalid}" %>
+          <% unless positions_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @certification.errors[:positions].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-12 text-center">
+          <%= f.submit 'Save Certification', class: 'btn btn-primary' %>
+          <%= link_to 'Cancel', certifications_path, class: 'btn btn-outline-info' %>
+        </div>
+      </div>
+  <% end %>
+</div>

@@ -1,16 +1,17 @@
 <tr>
-  <td>
-    <small><%= position.name %></small>
-    <% if policy(position).update? %>
+  <% if policy(Position).update? -%>
+      <td class="text-center">
         <%= link_to edit_position_path(position),
-                    class: 'badge badge-secondary float-right mt-1 ml-1',
+                    class: 'badge badge-secondary',
                     'data-toggle': :tooltip,
                     'data-placement': :bottom,
                     title: 'Edit' do %>
-            <%= fa_icon :pencil %>
+            <%= fa_icon 'pencil' %>
         <% end %>
-    <% end %>
-
+      </td>
+  <% end -%>
+  <td>
+    <small><%= position.name %></small>
     <% if position.primary? -%>
       <span class="badge badge-primary float-right mt-1" data-toggle="tooltip" data-placement="bottom" title="Primary combined facility">
         Primary

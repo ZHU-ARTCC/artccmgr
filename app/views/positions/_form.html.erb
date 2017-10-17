@@ -82,6 +82,14 @@
         </div>
       </div>
 
+      <% unless @position.errors[:certification].empty? -%>
+        <div class="form-group row">
+          <div class="col-sm-12 text-center text-danger">
+            Certification <%= @position.errors[:certification].join(', ') %>
+          </div>
+        </div>
+      <% end -%>
+
       <div class="form-group row">
         <div class="col-sm-12 text-center">
           <%= f.submit 'Save Position', class: 'btn btn-primary' %>

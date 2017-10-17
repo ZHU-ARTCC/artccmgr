@@ -42,7 +42,9 @@ RSpec.describe User, type: :model do
     it { expect(user).to have_many(:event_flights).dependent(:destroy) }
     it { expect(user).to have_many(:event_positions) }
     it { expect(user).to have_many(:event_signups).dependent(:destroy) }
-    it { expect(user).to have_and_belong_to_many(:certifications) }
+
+    it { expect(user).to have_many(:endorsements).dependent(:destroy) }
+    it { expect(user).to have_many(:certifications).through(:endorsements) }
 
   end # describe 'ActiveRecord associations'
 
@@ -69,6 +71,12 @@ RSpec.describe User, type: :model do
       create_list(:user, 5, :visiting_controller)
       expect(User.visiting_controllers.size).to eq 5
     end
+  end
+
+  describe '#initials=' do
+	  it 'should capitalize initials' do
+		  expect(build(:user, initials: 'tt').initials).to eq 'TT'
+	  end
   end
 
   describe '#is_controller?' do

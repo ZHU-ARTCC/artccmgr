@@ -3,12 +3,16 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :omniauthable, :trackable
 
-  belongs_to  :group
-  has_many    :event_positions, class_name: 'Event::Position'
-  has_many    :event_flights, class_name: 'Event::Pilot', dependent: :destroy
-  has_many    :event_signups, class_name: 'Event::Signup', dependent: :destroy
+  extend FriendlyId
+  friendly_id :cid
 
-  has_and_belongs_to_many :certifications, join_table: 'user_certifications'
+  belongs_to  :group
+
+  has_many    :endorsements,    dependent: :destroy
+  has_many    :certifications,  through: :endorsements
+  has_many    :event_positions, class_name: 'Event::Position'
+  has_many    :event_flights,   class_name: 'Event::Pilot', dependent: :destroy
+  has_many    :event_signups,   class_name: 'Event::Signup', dependent: :destroy
 
   delegate    :permissions, to: :group
 
@@ -25,6 +29,11 @@ class User < ApplicationRecord
   scope :all_controllers, -> { artcc_controllers.or(visiting_controllers) }
   scope :artcc_controllers, -> { joins(:group).where(groups: { artcc_controllers: true}) }
   scope :visiting_controllers, -> { joins(:group).where(groups: { visiting_controllers: true}) }
+
+  # Enforce capitalization on initials
+  def initials=(initials)
+    super(initials.upcase) unless initials.nil?
+  end
 
   # Determines if this user is a controller at this facility
   def is_controller?

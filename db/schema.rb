@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171017135937) do
+ActiveRecord::Schema.define(version: 20171017214117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,9 @@ ActiveRecord::Schema.define(version: 20171017135937) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "short_name", limit: 5, null: false
+    t.boolean "show_on_roster", default: true
+    t.boolean "major", default: false
   end
 
   create_table "crono_jobs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -43,6 +46,13 @@ ActiveRecord::Schema.define(version: 20171017135937) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["job_id"], name: "index_crono_jobs_on_job_id", unique: true
+  end
+
+  create_table "endorsements", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "certification_id", null: false
+    t.uuid "user_id", null: false
+    t.boolean "solo", default: false
+    t.string "instructor", null: false
   end
 
   create_table "event_pilots", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
@@ -135,13 +145,6 @@ ActiveRecord::Schema.define(version: 20171017135937) do
     t.datetime "updated_at", null: false
     t.uuid "certification_id"
     t.boolean "primary", default: false, null: false
-  end
-
-  create_table "user_certifications", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.uuid "user_id", null: false
-    t.uuid "certification_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

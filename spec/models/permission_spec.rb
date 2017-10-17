@@ -26,4 +26,18 @@ RSpec.describe Permission, type: :model do
     it { expect(permission.to_s).to eq permission.name }
   end
 
+	describe '#valid_certification' do
+
+		it 'prevents major certification from containing minor positions' do
+			cert = create(:certification, :major)
+			expect(build(:position, major: false, certification: cert)).to_not be_valid
+		end
+
+		it 'prevents minor certification from containing major positions' do
+      cert = create(:certification, :minor)
+      expect(build(:position, major: true, certification: cert)).to_not be_valid
+		end
+
+	end
+
 end

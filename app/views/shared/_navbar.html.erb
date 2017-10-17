@@ -19,7 +19,9 @@
             Controllers
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarControllersDropdown">
-            <%= link_to 'Positions', positions_path, class: 'dropdown-item' if policy(Position).index? %>
+            <%= link_to 'Certification Management', certifications_path, class: 'dropdown-item' if policy(Certification).update? %>
+            <%= link_to 'Positions', positions_path, class: 'dropdown-item'  if policy(Position).index? %>
+            <%= link_to 'Roster',    user_index_path, class: 'dropdown-item' if policy(User).index? %>
           </div>
         </li>
         <li class="nav-item">

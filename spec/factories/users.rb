@@ -11,11 +11,11 @@ FactoryGirl.define do
     reg_date  Time.now
 
     trait :artcc_controller do
-      group { build(:group, :artcc_controllers) }
+      group { create(:group, :artcc_controllers) }
     end
 
     trait :visiting_controller do
-      group { build(:group, :visiting_controllers)}
+      group { create(:group, :visiting_controllers)}
     end
   end
 end

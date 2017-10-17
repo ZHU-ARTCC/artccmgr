@@ -1,0 +1,37 @@
+<div class="container">
+  <%= form_for @user do |f| %>
+      <div class="form-group row">
+        <%= f.label :group, class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @user.errors[:group].present? ? group_invalid = 'is-invalid' : group_invalid = nil %>
+          <% groups = Group.all.order(:name).collect{|g| [g.name.titleize, g.id]} %>
+          <%= f.select :group_id, groups, {}, class: "form-control #{group_invalid}" %>
+          <% unless group_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @user.errors[:group].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :initials, class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @user.errors[:initials].present? ? initials_invalid = 'is-invalid' : initials_invalid = nil %>
+          <%= f.text_field :initials, class: "form-control #{group_invalid}" %>
+          <% unless initials_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @user.errors[:initials].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-12 text-center">
+          <%= f.submit 'Save User', class: 'btn btn-primary' %>
+          <%= link_to 'Cancel', user_index_path, class: 'btn btn-outline-info' %>
+        </div>
+      </div>
+  <% end %>
+</div>

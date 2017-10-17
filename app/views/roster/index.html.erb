@@ -1,39 +1,41 @@
-Controllers:
-<br/>
-<table border="1">
-  <tr>
-    <th>CID</th>
-    <th>Initials</th>
-    <th>Name</th>
-    <th>Rating</th>
-  </tr>
-  <% @controllers.order(:name_last).each do |c| %>
-  <tr>
-    <td><%= c.cid %></td>
-    <td><%= c.initials %></td>
-    <td><%= c.name_full %></td>
-    <td><%= c.rating %></td>
-  </tr>
-  <% end %>
-</table>
+<% content_for(:title, 'Positions') %>
 
-<br/>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card border-0">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">
+            Controller Roster
+          </div>
+        </div>
+      </div>
 
-Visiting Controllers:
-<br/>
-<table border="1">
-  <tr>
-    <th>CID</th>
-    <th>Initials</th>
-    <th>Name</th>
-    <th>Rating</th>
-  </tr>
-  <% @visiting_controllers.order(:name_last).each do |c| %>
-      <tr>
-        <td><%= c.cid %></td>
-        <td><%= c.initials %></td>
-        <td><%= c.name_full %></td>
-        <td><%= c.rating %></td>
-      </tr>
-  <% end %>
-</table>
+      <div class="card-body pb-0 pl-0 pr-0 pt-0">
+        <%= render 'table', controllers: @controllers %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="top-buffer"></div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card border-0">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">
+            Visiting Controller Roster
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body pb-0 pl-0 pr-0 pt-0">
+        <%= render 'table', controllers: @visiting_controllers %>
+      </div>
+
+    </div>
+  </div>
+</div>
