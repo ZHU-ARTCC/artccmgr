@@ -12,18 +12,18 @@
           <%= link_to 'Home', root_path, class: "nav-link #{active_class(root_path)}" %>
         </li>
         <li class="nav-item">
-          <%= link_to 'Events', events_path, class: "nav-link #{active_class(events_path)}" %>
+          <%= link_to 'Events', events_path, class: "nav-link #{active_class(events_path)}" if policy(Event).index? %>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarControllersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Controllers
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarControllersDropdown">
-            <%= link_to 'Positions', positions_path, class: 'dropdown-item' %>
+            <%= link_to 'Positions', positions_path, class: 'dropdown-item' if policy(Position).index? %>
           </div>
         </li>
         <li class="nav-item">
-          <%= link_to 'Feedback', feedback_index_path, class: "nav-link #{active_class(feedback_index_path)}" %>
+          <%= link_to 'Feedback', feedback_index_path, class: "nav-link #{active_class(feedback_index_path)}" if policy(Feedback).index? %>
         </li>
       </ul>
       <div class="form-inline my-2 my-lg-0">
