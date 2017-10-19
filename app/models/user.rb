@@ -14,8 +14,10 @@ class User < ApplicationRecord
   has_many    :event_flights,   class_name: 'Event::Pilot', dependent: :destroy
   has_many    :event_signups,   class_name: 'Event::Signup', dependent: :destroy
 
+  delegate  :atc?,        to: :group
   delegate  :permissions, to: :group
-  delegate  :staff?, to: :group
+  delegate  :staff?,      to: :group
+  delegate  :visiting?,   to: :group
 
   validates :cid,         presence: true, numericality: :only_integer, allow_blank: false
   validates :name_first,  presence: true, allow_blank: false
@@ -27,9 +29,9 @@ class User < ApplicationRecord
   validates :reg_date,    presence: true, allow_blank: false
   validates :group,       presence: true, allow_blank: false
 
-  scope :all_controllers, -> { artcc_controllers.or(visiting_controllers) }
-  scope :artcc_controllers, -> { joins(:group).where(groups: { artcc_controllers: true}) }
-  scope :visiting_controllers, -> { joins(:group).where(groups: { visiting_controllers: true}) }
+  scope :all_controllers,       -> { local_controllers.or(visiting_controllers) }
+  scope :local_controllers,     -> { joins(:group).where(groups: {atc: true, visiting: false}) }
+  scope :visiting_controllers,  -> { joins(:group).where(groups: { atc: true, visiting: true}) }
 
   # Enforce capitalization on initials
   def initials=(initials)

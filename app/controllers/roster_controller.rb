@@ -3,7 +3,7 @@ class RosterController < ApplicationController
   after_action :verify_authorized
 
   def index
-    @controllers = User.artcc_controllers.order(:name_last, :name_first)
+    @controllers = User.local_controllers.order(:name_last, :name_first)
     @visiting_controllers = User.visiting_controllers.order(:name_last, :name_first)
 
     @major_certifications = Certification.where(major: true, show_on_roster: true)

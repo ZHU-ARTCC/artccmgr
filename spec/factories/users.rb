@@ -10,8 +10,8 @@ FactoryGirl.define do
     rating    'OBS'
     reg_date  Time.now
 
-    trait :artcc_controller do
-      group { create(:group, :artcc_controllers) }
+    trait :local_controller do
+      group { create(:group, :local_controllers) }
     end
 
     trait :visiting_controller do

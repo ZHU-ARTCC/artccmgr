@@ -4,10 +4,10 @@ RSpec.describe RosterController, type: :controller do
 
   describe 'GET #index' do
     it 'populates an array of @controllers' do
-      artcc_controller    = create(:user, :artcc_controller)
+      local_controller    = create(:user, :local_controller)
       visiting_controller = create(:user, :visiting_controller)
       get :index
-      expect(assigns(:controllers)).to eq([artcc_controller])
+      expect(assigns(:controllers)).to eq([local_controller])
       expect(assigns(:visiting_controllers)).to eq([visiting_controller])
     end
 

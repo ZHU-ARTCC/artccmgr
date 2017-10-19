@@ -53,17 +53,17 @@ RSpec.describe User, type: :model do
 
   describe '#all_controllers' do
     it 'should return all controllers both ARTCC and Visiting' do
-      create_list(:user, 2, :artcc_controller)
+      create_list(:user, 2, :local_controller)
       create_list(:user, 3, :visiting_controller)
 
       expect(User.all_controllers.size).to eq 5
     end
   end
 
-  describe '#artcc_controllers' do
+  describe '#local_controllers' do
     it 'should return ARTCC controllers' do
-      create_list(:user, 5, :artcc_controller)
-      expect(User.artcc_controllers.size).to eq 5
+      create_list(:user, 5, :local_controller)
+      expect(User.local_controllers.size).to eq 5
     end
   end
 
@@ -82,7 +82,7 @@ RSpec.describe User, type: :model do
 
   describe '#is_controller?' do
     it 'should return true when user is a local controller' do
-      expect(create(:user, :artcc_controller).is_controller?).to be true
+      expect(create(:user, :local_controller).is_controller?).to be true
     end
 
     it 'should return true when the user is a visiting controller' do

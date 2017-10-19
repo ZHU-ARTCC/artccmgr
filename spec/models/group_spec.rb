@@ -37,20 +37,11 @@ RSpec.describe Group, type: :model do
 
   end
 
-  describe 'that have both members of this ARTCC and visiting controllers' do
-    # Controllers cannot be both members of the ARTCC and Visiting controllers
-    it {
-      expect(
-        build(:group, artcc_controllers: true, visiting_controllers: true)
-      ).to_not be_valid
-    }
-  end
-
   describe 'that have members of this ARTCC' do
     # Controllers can be members of the ARTCC
     it {
       expect(
-        build(:group, artcc_controllers: true, visiting_controllers: false)
+        build(:group, atc: true, visiting: false)
       ).to be_valid
     }
   end
@@ -59,7 +50,7 @@ RSpec.describe Group, type: :model do
     # Controllers can be visiting controllers
     it {
       expect(
-        build(:group, artcc_controllers: false, visiting_controllers: true)
+        build(:group, atc: true, visiting: true)
       ).to be_valid
     }
   end
