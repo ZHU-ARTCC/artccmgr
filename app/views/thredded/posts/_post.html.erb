@@ -1,0 +1,36 @@
+<tr>
+  <td width="20%">
+    <small>
+      <% if post.user %>
+          <%= render 'thredded/posts/user_info', post: post %>
+      <% else %>
+          <span class="text-danger">Deleted User</span>
+      <% end %>
+    </small>
+  </td>
+  <td>
+    <div class="d-flex justify-content-between bd-highlight mb-3">
+      <small>Posted <%= post.created_at.strftime('%B %e, %Y at %H:%M %Z') %></small>
+      <small>
+        <% if post.can_update? %>
+            <%= link_to t('thredded.posts.edit'), post.edit_path %> |
+        <% end %>
+        <% if post.can_destroy? %>
+            <%= link_to t('thredded.posts.delete'), post.destroy_path, method: :delete, data: {confirm: I18n.t('thredded.posts.delete_confirm')} %> |
+        <% end %>
+        <% if post.read_state %>
+            <%= link_to t('thredded.topics.mark_as_unread'), post.mark_unread_path, method: :post %>
+        <% end %>
+      </small>
+    </div>
+    <%= render 'thredded/posts_common/content', post: post %>
+
+    <% if post.pending_moderation? && !Thredded.content_visible_while_pending_moderation %>
+        <p class="thredded--alert thredded--alert-warning"><%= t 'thredded.posts.pending_moderation_notice' %></p>
+    <% elsif post.blocked? && post.can_moderate? %>
+        <p class="thredded--alert thredded--alert-danger">
+          <%= render 'thredded/shared/content_moderation_blocked_state', moderation_record: post.last_moderation_record %>
+        </p>
+    <% end %>
+  </td>
+</tr>

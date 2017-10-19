@@ -1,0 +1,15 @@
+<%= image_tag post.avatar_url, width: '35px' %><br/>
+
+<b><%= link_to post.user.fullname, user_path(post.user) %></b>
+<br/><span class="text-danger"><%= post.user.name_full %></span>
+<br/><%= image_tag post.user.rank.image, width: '30px' %> <%= post.user.rank %>
+
+<% unless post.user.group.default? -%>
+    <br/><span class="badge badge-primary"><%= post.user.group.name %></span>
+<% end -%>
+<br/>
+
+Member since <%= post.user.created_at.strftime('%B %e, %Y') %>
+<br/>
+
+<br/><%= number_with_delimiter(post.user.thredded_posts.count) %> forum posts
