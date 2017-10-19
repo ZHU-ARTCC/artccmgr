@@ -43,7 +43,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def reconcile_vatsim_data(user, vatsim)
     # If this is not a new user, we do not want to change CID or Group
     unless user.persisted?
-      user.cid      = vatsim.cid
+      user.cid      = vatsim.id.to_i
       user.group    = Group.find_by(name: 'Guest')
     end
 
