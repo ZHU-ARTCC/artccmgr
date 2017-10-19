@@ -61,6 +61,9 @@ gem 'friendly_id', '~> 5.1.0'
 # Use Font Awesome for icons
 gem 'font-awesome-rails'
 
+# Use Gravatar Image Tag Plugin for displaying user images
+gem 'gravatar_image_tag'
+
 # Use Kaminari for pagination
 gem 'kaminari'
 gem 'bootstrap4-kaminari-views'
