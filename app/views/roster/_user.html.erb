@@ -15,8 +15,13 @@
     <%= link_to user_path(controller) do %>
       <small><%= controller.name_last %>, <%= controller.name_first %></small>
     <% end %>
+    <% if controller.staff? -%>
+      <span class="float-right" data-toggle="tooltip" data-placement="bottom" title="Staff Role">
+        <small><%= controller.group.name %></small>
+      </span>
+    <% end -%>
   </td>
-  <td class="text-center">
+  <td class="text-center" data-toggle="tooltip" data-placement="bottom" title="Operating Initials">
    <small><%= controller.initials %></small>
   </td>
   <td class="text-center">

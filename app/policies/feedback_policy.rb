@@ -8,7 +8,7 @@ class FeedbackPolicy < ApplicationPolicy
     end
 
     def resolve
-      @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+      @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
 
       if group.permissions.pluck('name').include? 'feedback read'
         scope.all.order(created_at: :desc)
@@ -19,13 +19,13 @@ class FeedbackPolicy < ApplicationPolicy
   end
 
   def index?
-    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
     (group.permissions.pluck('name') & ['feedback read published', 'feedback read']).present?
   end
 
   def show?
     # scope.where(:id => record.id).exists?
-    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
     (group.permissions.pluck('name') & ['feedback read published', 'feedback read']).present?
   end
 
@@ -34,7 +34,7 @@ class FeedbackPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
     group.permissions.pluck('name').include? 'feedback create'
   end
 
@@ -43,12 +43,12 @@ class FeedbackPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
     group.permissions.pluck('name').include? 'feedback update'
   end
 
   def destroy?
-    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
     group.permissions.pluck('name').include? 'feedback delete'
   end
 

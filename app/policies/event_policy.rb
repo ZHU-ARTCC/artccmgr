@@ -1,12 +1,12 @@
 class EventPolicy < ApplicationPolicy
 
   def index?
-    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
     group.permissions.pluck('name').include? 'event read'
   end
 
   def show?
-    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
     group.permissions.pluck('name').include? 'event read'
   end
 
@@ -15,7 +15,7 @@ class EventPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
     group.permissions.pluck('name').include? 'event create'
   end
 
@@ -24,12 +24,12 @@ class EventPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
     group.permissions.pluck('name').include? 'event update'
   end
 
   def destroy?
-    @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
     group.permissions.pluck('name').include? 'event delete'
   end
 

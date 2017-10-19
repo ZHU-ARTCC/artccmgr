@@ -33,6 +33,14 @@
                 <span class="badge badge-<%= @user.rating.downcase %>"><%= @user.rating %></span>
               </div>
             </div>
+            <% if @user.staff? %>
+            <div class="row">
+              <div class="col-sm-12">
+                <strong>Staff Role:</strong>
+                <%= @user.group.name %>
+              </div>
+            </div>
+            <% end %>
           </div>
 
           <div class="col-sm-4">

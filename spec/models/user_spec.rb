@@ -49,6 +49,7 @@ RSpec.describe User, type: :model do
   end # describe 'ActiveRecord associations'
 
   it { should delegate_method(:permissions).to(:group) }
+  it { should delegate_method(:staff?).to(:group) }
 
   describe '#all_controllers' do
     it 'should return all controllers both ARTCC and Visiting' do

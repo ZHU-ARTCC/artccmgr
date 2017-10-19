@@ -1,7 +1,7 @@
 class CertificationPolicy < ApplicationPolicy
 
 	def index?
-		@user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+		@user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
 		group.permissions.pluck('name').include? 'certification read'
 	end
 
@@ -14,7 +14,7 @@ class CertificationPolicy < ApplicationPolicy
 	end
 
 	def new?
-		@user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+		@user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
 		group.permissions.pluck('name').include? 'certification create'
 	end
 
@@ -23,12 +23,12 @@ class CertificationPolicy < ApplicationPolicy
 	end
 
 	def edit?
-		@user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+		@user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
 		group.permissions.pluck('name').include? 'certification update'
 	end
 
 	def destroy?
-		@user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+		@user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
 		group.permissions.pluck('name').include? 'certification delete'
 	end
 

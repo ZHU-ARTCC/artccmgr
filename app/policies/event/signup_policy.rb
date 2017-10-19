@@ -3,12 +3,12 @@ class Event
   class SignupPolicy < ApplicationPolicy
 
     def index?
-      @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+      @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
       group.permissions.pluck('name').include? 'event signup read'
     end
 
     def show?
-      @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+      @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
       group.permissions.pluck('name').include? 'event signup read'
     end
 
@@ -17,7 +17,7 @@ class Event
     end
 
     def new?
-      @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+      @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
       group.permissions.pluck('name').include? 'event signup create'
     end
 
@@ -26,12 +26,12 @@ class Event
     end
 
     def edit?
-      @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+      @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
       group.permissions.pluck('name').include? 'event signup update'
     end
 
     def destroy?
-      @user.nil? ? group = Group.find_by(name: 'public') : group = @user.group
+      @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
       group.permissions.pluck('name').include? 'event signup delete'
     end
 

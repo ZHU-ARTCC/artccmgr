@@ -134,6 +134,7 @@ Group.create name: 'instructor',
 
 Group.create name: 'webmaster',
              artcc_controllers: true,
+             staff: true,
              permissions: [
                  Permission.find_by(name: 'certification create'),
                  Permission.find_by(name: 'certification read'),
@@ -172,6 +173,7 @@ Group.create name: 'webmaster',
 
 Group.create name: 'facility engineer',
              artcc_controllers: true,
+             staff: true,
              permissions: [
                  Permission.find_by(name: 'certification read'),
                  Permission.find_by(name: 'endorsement read'),
@@ -185,6 +187,7 @@ Group.create name: 'facility engineer',
 
 Group.create name: 'events coordinator',
              artcc_controllers: true,
+             staff: true,
              permissions: [
                  Permission.find_by(name: 'certification read'),
                  Permission.find_by(name: 'endorsement read'),
@@ -205,6 +208,7 @@ Group.create name: 'events coordinator',
 
 Group.create name: 'training administrator',
              artcc_controllers: true,
+             staff: true,
              permissions: [
                  Permission.find_by(name: 'certification create'),
                  Permission.find_by(name: 'certification read'),
@@ -224,6 +228,7 @@ Group.create name: 'training administrator',
 
 Group.create name: 'deputy air traffic manager',
              artcc_controllers: true,
+             staff: true,
              permissions: [
                  Permission.find_by(name: 'certification create'),
                  Permission.find_by(name: 'certification read'),
@@ -262,6 +267,7 @@ Group.create name: 'deputy air traffic manager',
 
 Group.create name: 'air traffic manager',
              artcc_controllers: true,
+             staff: true,
              permissions: [
                  Permission.find_by(name: 'certification create'),
                  Permission.find_by(name: 'certification read'),

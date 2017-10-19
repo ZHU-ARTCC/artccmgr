@@ -14,7 +14,8 @@ class User < ApplicationRecord
   has_many    :event_flights,   class_name: 'Event::Pilot', dependent: :destroy
   has_many    :event_signups,   class_name: 'Event::Signup', dependent: :destroy
 
-  delegate    :permissions, to: :group
+  delegate  :permissions, to: :group
+  delegate  :staff?, to: :group
 
   validates :cid,         presence: true, numericality: :only_integer, allow_blank: false
   validates :name_first,  presence: true, allow_blank: false
