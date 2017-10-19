@@ -9,23 +9,26 @@
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <%= link_to 'Home', root_path, class: "nav-link #{active_class(root_path)}" %>
+          <%= link_to 'Home', main_app.root_path, class: "nav-link #{active_class(root_path)}" %>
         </li>
         <li class="nav-item">
-          <%= link_to 'Events', events_path, class: "nav-link #{active_class(events_path)}" if policy(Event).index? %>
+          <%= link_to 'Forums', main_app.thredded_path, class: "nav-link #{active_class(main_app.thredded_path)}" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Events', main_app.events_path, class: "nav-link #{active_class(main_app.events_path)}" if policy(Event).index? %>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarControllersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Controllers
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarControllersDropdown">
-            <%= link_to 'Certification Management', certifications_path, class: 'dropdown-item' if policy(Certification).update? %>
-            <%= link_to 'Positions', positions_path, class: 'dropdown-item'  if policy(Position).index? %>
-            <%= link_to 'Roster',    user_index_path, class: 'dropdown-item' if policy(User).index? %>
+            <%= link_to 'Certification Management', main_app.certifications_path, class: 'dropdown-item' if policy(Certification).update? %>
+            <%= link_to 'Positions', main_app.positions_path, class: 'dropdown-item'  if policy(Position).index? %>
+            <%= link_to 'Roster',    main_app.user_index_path, class: 'dropdown-item' if policy(User).index? %>
           </div>
         </li>
         <li class="nav-item">
-          <%= link_to 'Feedback', feedback_index_path, class: "nav-link #{active_class(feedback_index_path)}" if policy(Feedback).index? %>
+          <%= link_to 'Feedback', main_app.feedback_index_path, class: "nav-link #{active_class(main_app.feedback_index_path)}" if policy(Feedback).index? %>
         </li>
       </ul>
       <div class="form-inline my-2 my-lg-0">
@@ -36,7 +39,7 @@
                 <%= current_user.name_full %> (<%= current_user.rating %>)
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarUserDropdown">
-                <%= link_to 'Log Out', users_sign_out_path, method: :delete, class: 'dropdown-item' %>
+                <%= link_to 'Log Out', main_app.users_sign_out_path, method: :delete, class: 'dropdown-item' %>
               </div>
             </li>
 

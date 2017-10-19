@@ -10,7 +10,7 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-    <link rel="alternate" type="application/rss+xml" title="<%= Settings.artcc_name %> Events" href="<%= events_url(format: :rss)%>">
+    <link rel="alternate" type="application/rss+xml" title="<%= Settings.artcc_name %> Events" href="<%= main_app.events_url(format: :rss)%>">
   </head>
 
   <body>

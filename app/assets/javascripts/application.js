@@ -17,6 +17,7 @@
 //= require popper
 //= require bootstrap-multiselect
 //= require bootstrap-sprockets
+//= require thredded
 //= require_tree .
 
 

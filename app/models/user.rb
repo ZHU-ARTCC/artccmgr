@@ -16,10 +16,11 @@ class User < ApplicationRecord
   has_many    :event_flights,   class_name: 'Event::Pilot', dependent: :destroy
   has_many    :event_signups,   class_name: 'Event::Signup', dependent: :destroy
 
-  delegate  :atc?,        to: :group
-  delegate  :permissions, to: :group
-  delegate  :staff?,      to: :group
-  delegate  :visiting?,   to: :group
+  delegate  :atc?,             to: :group
+  delegate  :permissions,      to: :group
+  delegate  :staff?,           to: :group
+  delegate  :visiting?,        to: :group
+
 
   validates :cid,         presence: true, numericality: :only_integer, allow_blank: false
   validates :name_first,  presence: true, allow_blank: false
@@ -48,6 +49,14 @@ class User < ApplicationRecord
   # Displays first name and last name in one string
   def name_full
     "#{name_first} #{name_last}"
+  end
+
+  def forum_admin
+    permissions.pluck('name').include? 'forum admin'
+  end
+
+  def forum_moderator
+    permissions.pluck('name').include? 'forum moderate'
   end
 
 end

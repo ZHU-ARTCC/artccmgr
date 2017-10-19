@@ -44,6 +44,12 @@ Permission.create name: 'feedback read published'
 Permission.create name: 'feedback update'
 Permission.create name: 'feedback delete'
 
+Permission.create name: 'forum admin'
+Permission.create name: 'forum announce'
+Permission.create name: 'forum moderate'
+Permission.create name: 'forum post'
+Permission.create name: 'forum read'
+
 Permission.create name: 'position create'
 Permission.create name: 'position read'
 Permission.create name: 'position update'
@@ -61,6 +67,7 @@ Group.create name: 'public',
                  Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event read'),
                  Permission.find_by(name: 'feedback read published'),
+                 Permission.find_by(name: 'forum read'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'user read')
              ]
@@ -73,6 +80,7 @@ Group.create name: 'guest',
                  Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read published'),
+                 Permission.find_by(name: 'forum read'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'user read')
              ]
@@ -88,6 +96,8 @@ Group.create name: 'visiting controller',
                  Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback create'),
                  Permission.find_by(name: 'feedback read published'),
+                 Permission.find_by(name: 'forum read'),
+                 Permission.find_by(name: 'forum post'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'user read')
              ]
@@ -101,6 +111,8 @@ Group.create name: 'controller',
                  Permission.find_by(name: 'event signup create'),
                  Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback read published'),
+                 Permission.find_by(name: 'forum read'),
+                 Permission.find_by(name: 'forum post'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'user read')
              ]
@@ -114,6 +126,8 @@ Group.create name: 'mentor',
                  Permission.find_by(name: 'event signup create'),
                  Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback read published'),
+                 Permission.find_by(name: 'forum read'),
+                 Permission.find_by(name: 'forum post'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'user read')
              ]
@@ -128,6 +142,9 @@ Group.create name: 'instructor',
                  Permission.find_by(name: 'event signup create'),
                  Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback read published'),
+                 Permission.find_by(name: 'forum read'),
+                 Permission.find_by(name: 'forum post'),
+                 Permission.find_by(name: 'forum moderate'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'user read')
              ]
@@ -161,6 +178,10 @@ Group.create name: 'webmaster',
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'feedback update'),
                  Permission.find_by(name: 'feedback delete'),
+                 Permission.find_by(name: 'forum read'),
+                 Permission.find_by(name: 'forum post'),
+                 Permission.find_by(name: 'forum moderate'),
+                 Permission.find_by(name: 'forum admin'),
                  Permission.find_by(name: 'position create'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'position update'),
@@ -181,6 +202,10 @@ Group.create name: 'facility engineer',
                  Permission.find_by(name: 'event signup create'),
                  Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback read published'),
+                 Permission.find_by(name: 'forum read'),
+                 Permission.find_by(name: 'forum post'),
+                 Permission.find_by(name: 'forum moderate'),
+                 Permission.find_by(name: 'forum announce'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'user read')
              ]
@@ -202,6 +227,10 @@ Group.create name: 'events coordinator',
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'feedback update'),
                  Permission.find_by(name: 'feedback delete'),
+                 Permission.find_by(name: 'forum read'),
+                 Permission.find_by(name: 'forum post'),
+                 Permission.find_by(name: 'forum moderate'),
+                 Permission.find_by(name: 'forum announce'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'user read')
              ]
@@ -222,6 +251,11 @@ Group.create name: 'training administrator',
                  Permission.find_by(name: 'event signup create'),
                  Permission.find_by(name: 'event pilot signup create'),
                  Permission.find_by(name: 'feedback read'),
+                 Permission.find_by(name: 'forum read'),
+                 Permission.find_by(name: 'forum post'),
+                 Permission.find_by(name: 'forum moderate'),
+                 Permission.find_by(name: 'forum admin'),
+                 Permission.find_by(name: 'forum announce'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'user read')
              ]
@@ -255,6 +289,11 @@ Group.create name: 'deputy air traffic manager',
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'feedback update'),
                  Permission.find_by(name: 'feedback delete'),
+                 Permission.find_by(name: 'forum read'),
+                 Permission.find_by(name: 'forum post'),
+                 Permission.find_by(name: 'forum moderate'),
+                 Permission.find_by(name: 'forum admin'),
+                 Permission.find_by(name: 'forum announce'),
                  Permission.find_by(name: 'position create'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'position update'),
@@ -294,6 +333,11 @@ Group.create name: 'air traffic manager',
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'feedback update'),
                  Permission.find_by(name: 'feedback delete'),
+                 Permission.find_by(name: 'forum read'),
+                 Permission.find_by(name: 'forum post'),
+                 Permission.find_by(name: 'forum moderate'),
+                 Permission.find_by(name: 'forum admin'),
+                 Permission.find_by(name: 'forum announce'),
                  Permission.find_by(name: 'position create'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'position update'),

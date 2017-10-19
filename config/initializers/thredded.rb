@@ -65,17 +65,17 @@ Thredded.messageboards_order = :position
 
 # ==> Email Configuration
 # Email "From:" field will use the following
-# Thredded.email_from = 'no-reply@example.com'
+Thredded.email_from = 'no-reply@zhuartcc.org'
 
 # Emails going out will prefix the "Subject:" with the following string
-# Thredded.email_outgoing_prefix = '[My Forum] '
+Thredded.email_outgoing_prefix = '[vZHU] '
 #
 # The parent mailer for all Thredded mailers
 # Thredded.parent_mailer = 'ActionMailer::Base'
 
 # ==> View Configuration
 # Set the layout for rendering the thredded views.
-Thredded.layout = 'thredded/application'
+Thredded.layout = 'application'
 
 # ==> URLs
 # How Thredded generates URL slugs from text.
