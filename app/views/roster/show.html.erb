@@ -44,12 +44,15 @@
           </div>
 
           <div class="col-sm-4">
+            <span class="float-right">
+              <%= gravatar_image_tag @user.email, alt: '' %>
+            </span>
           </div>
         </div>
 
         <div class="top-buffer"></div>
 
-        <div class="row">
+        <div class="row col-sm-12">
           <table class="table table-sm table-bordered table-responsive mb-0">
             <tbody>
               <tr class="bg-secondary">

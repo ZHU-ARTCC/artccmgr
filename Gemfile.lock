@@ -144,6 +144,7 @@ GEM
     gemoji (2.1.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    gravatar_image_tag (1.2.0)
     hashie (3.5.6)
     html-pipeline (2.7.1)
       activesupport (>= 2)
@@ -382,6 +383,7 @@ DEPENDENCIES
   factory_girl_rails
   font-awesome-rails
   friendly_id (~> 5.1.0)
+  gravatar_image_tag
   jbuilder (~> 2.5)
   jquery-rails
   kaminari

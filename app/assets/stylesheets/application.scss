@@ -35,18 +35,23 @@ html {
 .alert-alert { @extend .alert-primary; }
 .alert-notice { @extend .alert-info; }
 
-.badge-obs { @extend .badge-secondary; }
-.badge-s1  { @extend .badge-warning; }
-.badge-s2  { @extend .badge-warning; }
-.badge-s3  { @extend .badge-warning; }
-.badge-c1  { @extend .badge-success; }
-.badge-c2  { @extend .badge-success; }
-.badge-c3  { @extend .badge-success; }
-.badge-i1  { @extend .badge-danger; }
-.badge-i2  { @extend .badge-danger; }
-.badge-i3  { @extend .badge-danger; }
-.badge-sup  { background-color: rgb(166, 14, 175); }
-.badge-adm  { background-color: rgb(69, 74, 175); }
+.badge-ratings {
+  border-style: groove;
+  border-width: 1px;
+}
+
+.badge-obs { @extend .badge-ratings; @extend .badge-secondary;  }
+.badge-s1  { @extend .badge-ratings; @extend .badge-warning; }
+.badge-s2  { @extend .badge-ratings; @extend .badge-warning; }
+.badge-s3  { @extend .badge-ratings; @extend .badge-warning; }
+.badge-c1  { @extend .badge-ratings; @extend .badge-success; }
+.badge-c2  { @extend .badge-ratings; @extend .badge-success; }
+.badge-c3  { @extend .badge-ratings; @extend .badge-success; }
+.badge-i1  { @extend .badge-ratings; @extend .badge-danger; }
+.badge-i2  { @extend .badge-ratings; @extend .badge-danger; }
+.badge-i3  { @extend .badge-ratings; @extend .badge-danger; }
+.badge-sup  { @extend .badge-ratings; background-color: rgb(166, 14, 175); }
+.badge-adm  { @extend .badge-ratings; background-color: rgb(69, 74, 175); }
 
 .dropdown-menu{
   background-color: rgba(52, 58, 64, 0.9);
