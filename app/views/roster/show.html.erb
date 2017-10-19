@@ -33,6 +33,12 @@
                 <span class="badge badge-<%= @user.rating.short_name.downcase %>"><%= @user.rating.short_name %></span>
               </div>
             </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <strong>Member Since:</strong>
+                <%= @user.reg_date.strftime '%B %e, %Y' %>
+              </div>
+            </div>
             <% if @user.staff? %>
             <div class="row">
               <div class="col-sm-12">
