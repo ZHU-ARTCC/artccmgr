@@ -7,6 +7,7 @@ class User < ApplicationRecord
   friendly_id :cid
 
   belongs_to  :group
+  belongs_to  :rating
 
   has_many    :endorsements,    dependent: :destroy
   has_many    :certifications,  through: :endorsements
@@ -28,7 +29,6 @@ class User < ApplicationRecord
   validates :name_last,   presence: true, allow_blank: false
   validates :initials,    length: { maximum: 2 }, allow_blank: true
   validates :email,       presence: true, allow_blank: false
-  validates :rating,      presence: true, length: { maximum: 3 }, allow_blank: false
   validates :reg_date,    presence: true, allow_blank: false
   validates :group,       presence: true, allow_blank: false
 

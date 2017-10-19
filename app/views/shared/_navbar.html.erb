@@ -36,7 +36,7 @@
           <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <%= current_user.name_full %> (<%= current_user.rating %>)
+                <%= current_user.name_full %> (<%= current_user.rating.short_name %>)
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarUserDropdown">
                 <%= link_to 'Log Out', main_app.users_sign_out_path, method: :delete, class: 'dropdown-item' %>

@@ -13,6 +13,20 @@
 # role.create name: 'event delete'
 # role.create name: 'event staffing'
 
+Rating.create(number: 0,  short_name: 'NA',  long_name: 'None')
+Rating.create(number: 1,  short_name: 'OBS', long_name: 'Observer')
+Rating.create(number: 2,  short_name: 'S1',  long_name: 'Student 1')
+Rating.create(number: 3,  short_name: 'S2',  long_name: 'Student 2')
+Rating.create(number: 4,  short_name: 'S3',  long_name: 'Senior Student')
+Rating.create(number: 5,  short_name: 'C1',  long_name: 'Controller')
+Rating.create(number: 6,  short_name: 'C2',  long_name: 'Controller 2')
+Rating.create(number: 7,  short_name: 'C3',  long_name: 'Senior Controller')
+Rating.create(number: 8,  short_name: 'I1',  long_name: 'Instructor')
+Rating.create(number: 9,  short_name: 'I2',  long_name: 'Instructor 2')
+Rating.create(number: 10, short_name: 'I3',  long_name: 'Senior Instructor')
+Rating.create(number: 11, short_name: 'SUP', long_name: 'Supervisor')
+Rating.create(number: 12, short_name: 'ADM', long_name: 'Administrator')
+
 Permission.create name: 'certification create'
 Permission.create name: 'certification read'
 Permission.create name: 'certification update'
