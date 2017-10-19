@@ -10,6 +10,8 @@ class User < ApplicationRecord
 
   has_many    :endorsements,    dependent: :destroy
   has_many    :certifications,  through: :endorsements
+  has_many    :positions,       through: :certifications
+
   has_many    :event_positions, class_name: 'Event::Position'
   has_many    :event_flights,   class_name: 'Event::Pilot', dependent: :destroy
   has_many    :event_signups,   class_name: 'Event::Signup', dependent: :destroy

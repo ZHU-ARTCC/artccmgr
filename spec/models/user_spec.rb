@@ -45,6 +45,7 @@ RSpec.describe User, type: :model do
 
     it { expect(user).to have_many(:endorsements).dependent(:destroy) }
     it { expect(user).to have_many(:certifications).through(:endorsements) }
+    it { expect(user).to have_many(:positions).through(:certifications) }
 
   end # describe 'ActiveRecord associations'
 
