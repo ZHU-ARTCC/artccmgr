@@ -6,7 +6,7 @@ RSpec.describe Events::SignupsController, type: :controller do
 
   describe 'POST #create' do
     context 'when not logged in' do
-      it 'does not create Event Singup' do
+      it 'does not create Event Signup' do
         expect {
           post :create, params: { event_id: event.friendly_id, event_signup: build(:event_signup, event: event).attributes }
         }.to_not change(Event::Signup, :count)

@@ -26,7 +26,7 @@ $(document).on 'turbolinks:load', ->
       $('#feedbackCallsign').val originalCallsign
       $('#feedbackCallsign').prop('disabled', false)
 
-    # Check state on page load incase of invalid form submission
+    # Check state on page load in case of invalid form submission
     if $('#feedbackAnonymous').is(':checked')
       setFeedbackAnonymousMode()
 
