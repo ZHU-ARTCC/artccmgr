@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   end
 
   resources :feedback, except: [:edit, :show]
+  mount Thredded::Engine => '/forum'
   resources :positions
 
   resources :roster, as: :user do
