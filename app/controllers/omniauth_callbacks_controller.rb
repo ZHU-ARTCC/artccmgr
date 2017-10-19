@@ -22,7 +22,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
                email:       request.env['omniauth.auth'].info.email,
                rating:      request.env['omniauth.auth'].info.rating['short'],
                reg_date:    request.env['omniauth.auth'].info.reg_date,
-               group:       Group.find_by(name: 'guest')
+               group:       Group.find_by(name: 'Guest')
       )
 
       sign_in_and_redirect @user, event: :authentication
