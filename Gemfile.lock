@@ -311,7 +311,7 @@ DEPENDENCIES
   bootstrap (~> 4.0.0.beta)
   bootstrap-multiselect_rails (~> 0.9.4)
   bootstrap4-kaminari-views
-  brakeman
+  brakeman (>= 4.0.1)
   byebug
   carrierwave (~> 0.10.0)
   cocoon

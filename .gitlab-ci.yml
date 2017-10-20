@@ -3,20 +3,58 @@ image: ruby:2.3
 services:
   - postgres:latest
 
-variables:
-  POSTGRES_DB: artccmgr_test
-  POSTGRES_USER: artccmgr
-  POSTGRES_PASSWORD: artccmgr
+stages:
+  - build
+  - test
 
-before_script:
-  - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake nodejs
-  - ruby -v
-  - which ruby
-  - gem install bundler --no-ri --no-rdoc
-  - cp config/database-gitlab.yml config/database.yml
-  - RAILS_ENV=test bundle install --jobs $(nproc) "${FLAGS[@]}"
-  - RAILS_ENV=test bundle exec rake db:create db:schema:load db:seed
+variables:
+  CI: 'true'
+  POSTGRES_DB: 'artccmgr_test'
+  POSTGRES_USER: 'artccmgr'
+  POSTGRES_PASSWORD: 'artccmgr'
+
+.cache_bundler: &cache_bundler
+  cache:
+    untracked: true
+    key: "$CI_COMMIT_REF_NAME"
+    paths:
+      - cache/bundler/
+
+.setup_test_env: &setup_test_env
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake nodejs
+    - ruby -v
+    - which ruby
+    - gem install bundler --no-ri --no-rdoc
+    - RAILS_ENV=test bundle install --path=cache/bundler --jobs $(nproc) "${FLAGS[@]}"
+    - cp config/database-gitlab.yml config/database.yml
+    - RAILS_ENV=test bundle exec rake db:create db:schema:load db:seed
+
+build:
+  stage: build
+  <<: *cache_bundler
+  <<: *setup_test_env
+  script:
+    - echo Build complete
 
 rspec:
+  stage: test
+  <<: *cache_bundler
+  <<: *setup_test_env
+  dependencies:
+    - build
   script:
     - RAILS_ENV=test bundle exec rspec
+
+security:
+  stage: test
+  <<: *cache_bundler
+  <<: *setup_test_env
+  artifacts:
+    paths:
+      - log/brakeman.log
+    expire_in: 1 week
+  dependencies:
+      - build
+  script:
+    - RAILS_ENV=test bundle exec brakeman -A -o log/brakeman.log
