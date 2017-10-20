@@ -68,9 +68,9 @@ class MetarJob < ApplicationJob
     if visibility < 1
       rules = 'LIFR'
     elsif visibility.between?(1, 3)
-      rules = 'IFR' if rules.blank?
+      rules = 'IFR' if rules.blank? or %w[MVFR VFR].include? rules
     elsif visibility.between?(3, 5)
-      rules = 'MVFR' if rules.blank?
+      rules = 'MVFR' if rules.blank? or rules == 'VFR'
     elsif visibility > 5
       rules = 'VFR' if rules.blank?
     end
