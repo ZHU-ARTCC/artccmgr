@@ -91,6 +91,8 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 3.1'
   gem 'shoulda-callback-matchers'
   gem 'timecop'
+  # Brakeman to do static vulnerability analysis
+  gem 'brakeman', '>= 4.0.1', require: false
 end
 
 group :development do

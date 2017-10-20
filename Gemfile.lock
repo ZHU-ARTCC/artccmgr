@@ -61,6 +61,7 @@ GEM
     bootstrap4-kaminari-views (1.0.0)
       kaminari (>= 0.13)
       rails (>= 3.1)
+    brakeman (4.0.1)
     builder (3.2.3)
     byebug (9.1.0)
     carrierwave (0.10.0)
@@ -313,6 +314,7 @@ DEPENDENCIES
   bootstrap (~> 4.0.0.beta)
   bootstrap-multiselect_rails (~> 0.9.4)
   bootstrap4-kaminari-views
+  brakeman (>= 4.0.1)
   byebug
   carrierwave (~> 0.10.0)
   cocoon
