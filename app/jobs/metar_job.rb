@@ -3,10 +3,12 @@ class MetarJob < ApplicationJob
 
   def perform(*args)
     # Grab all configured airports
-    begin
-      Airport.all.each { |airport| update_metar_for(airport) }
-    rescue
-      Rails.logger.debug 'MetarJob: Unable to update all METARs'
+    Airport.all.each do |airport|
+      begin
+        update_metar_for(airport)
+      rescue => e
+        Rails.logger.debug "MetarJob: Unable to update weather for #{airport.icao}: #{e}"
+      end
     end
   end
 
