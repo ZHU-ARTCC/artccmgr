@@ -27,6 +27,11 @@ Rating.create(number: 10, short_name: 'I3',  long_name: 'Senior Instructor')
 Rating.create(number: 11, short_name: 'SUP', long_name: 'Supervisor')
 Rating.create(number: 12, short_name: 'ADM', long_name: 'Administrator')
 
+Permission.create name: 'airport create'
+Permission.create name: 'airport read'
+Permission.create name: 'airport update'
+Permission.create name: 'airport delete'
+
 Permission.create name: 'certification create'
 Permission.create name: 'certification read'
 Permission.create name: 'certification update'
@@ -71,6 +76,7 @@ Permission.create name: 'user delete'
 # Default Groups and permissions
 Group.create name: 'public',
              permissions: [
+                 Permission.find_by(name: 'airport read'),
                  Permission.find_by(name: 'certification read'),
                  Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event read'),
@@ -81,6 +87,7 @@ Group.create name: 'public',
 
 Group.create name: 'guest',
              permissions: [
+                 Permission.find_by(name: 'airport read'),
                  Permission.find_by(name: 'certification read'),
                  Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event read'),
@@ -95,6 +102,7 @@ Group.create name: 'visiting controller',
              atc: true,
              visiting: true,
              permissions: [
+                 Permission.find_by(name: 'airport read'),
                  Permission.find_by(name: 'certification read'),
                  Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event read'),
@@ -109,6 +117,7 @@ Group.create name: 'visiting controller',
 Group.create name: 'controller',
              atc: true,
              permissions: [
+                 Permission.find_by(name: 'airport read'),
                  Permission.find_by(name: 'certification read'),
                  Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event read'),
@@ -122,6 +131,7 @@ Group.create name: 'controller',
 Group.create name: 'mentor',
              atc: true,
              permissions: [
+                 Permission.find_by(name: 'airport read'),
                  Permission.find_by(name: 'certification read'),
                  Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event read'),
@@ -135,6 +145,7 @@ Group.create name: 'mentor',
 Group.create name: 'instructor',
              atc: true,
              permissions: [
+                 Permission.find_by(name: 'airport read'),
                  Permission.find_by(name: 'certification read'),
                  Permission.find_by(name: 'endorsement create'),
                  Permission.find_by(name: 'endorsement read'),
@@ -150,6 +161,10 @@ Group.create name: 'webmaster',
              atc: true,
              staff: true,
              permissions: [
+                 Permission.find_by(name: 'airport create'),
+                 Permission.find_by(name: 'airport read'),
+                 Permission.find_by(name: 'airport update'),
+                 Permission.find_by(name: 'airport delete'),
                  Permission.find_by(name: 'certification create'),
                  Permission.find_by(name: 'certification read'),
                  Permission.find_by(name: 'certification update'),
@@ -189,6 +204,10 @@ Group.create name: 'facility engineer',
              atc: true,
              staff: true,
              permissions: [
+                 Permission.find_by(name: 'airport create'),
+                 Permission.find_by(name: 'airport read'),
+                 Permission.find_by(name: 'airport update'),
+                 Permission.find_by(name: 'airport delete'),
                  Permission.find_by(name: 'certification read'),
                  Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event read'),
@@ -203,6 +222,7 @@ Group.create name: 'events coordinator',
              atc: true,
              staff: true,
              permissions: [
+                 Permission.find_by(name: 'airport read'),
                  Permission.find_by(name: 'certification read'),
                  Permission.find_by(name: 'endorsement read'),
                  Permission.find_by(name: 'event create'),
@@ -224,6 +244,7 @@ Group.create name: 'training administrator',
              atc: true,
              staff: true,
              permissions: [
+                 Permission.find_by(name: 'airport read'),
                  Permission.find_by(name: 'certification create'),
                  Permission.find_by(name: 'certification read'),
                  Permission.find_by(name: 'certification update'),
@@ -244,6 +265,10 @@ Group.create name: 'deputy air traffic manager',
              atc: true,
              staff: true,
              permissions: [
+                 Permission.find_by(name: 'airport create'),
+                 Permission.find_by(name: 'airport read'),
+                 Permission.find_by(name: 'airport update'),
+                 Permission.find_by(name: 'airport delete'),
                  Permission.find_by(name: 'certification create'),
                  Permission.find_by(name: 'certification read'),
                  Permission.find_by(name: 'certification update'),
@@ -283,6 +308,10 @@ Group.create name: 'air traffic manager',
              atc: true,
              staff: true,
              permissions: [
+                 Permission.find_by(name: 'airport create'),
+                 Permission.find_by(name: 'airport read'),
+                 Permission.find_by(name: 'airport update'),
+                 Permission.find_by(name: 'airport delete'),
                  Permission.find_by(name: 'certification create'),
                  Permission.find_by(name: 'certification read'),
                  Permission.find_by(name: 'certification update'),

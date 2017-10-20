@@ -10,6 +10,11 @@ artcc_tagline: 'A full featured ARTCC management system.'
 # Used for users without an email associated Gravatar
 default_gravatar: 'https://assets.github.com/images/gravatars/gravatar-140.png'
 
+# Update airports/charts every 1 day
+airport_update_interval: 1
+# At 15:30:
+airport_update_time: '15:30'
+
 # METAR/Airport Conditions Settings
 # update interval in hours
 metar_update_interval: 1

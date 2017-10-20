@@ -22,3 +22,9 @@ Crono.perform(MetarJob).every(
 	Settings.metar_update_interval.hours,
 	at: {min: Settings.metar_update_time}
 )
+
+# Update Airport information as specified in settings.yml
+Crono.perform(AirportUpdateJob).every(
+    Settings.airport_update_interval.days,
+    at: Settings.airport_update_time
+)

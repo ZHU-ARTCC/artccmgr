@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171019193803) do
+ActiveRecord::Schema.define(version: 20171020041202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,10 +18,20 @@ ActiveRecord::Schema.define(version: 20171019193803) do
   enable_extension "citext"
   enable_extension "pgcrypto"
 
+  create_table "airport_charts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "airport_id", null: false
+    t.string "category", null: false
+    t.string "name", null: false
+    t.string "url", null: false
+  end
+
   create_table "airports", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "icao", limit: 4, null: false
     t.string "name", null: false
     t.boolean "show_metar", default: false
+    t.decimal "latitude", precision: 9, scale: 6
+    t.decimal "longitude", precision: 9, scale: 6
+    t.integer "elevation", limit: 2
   end
 
   create_table "assignments", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

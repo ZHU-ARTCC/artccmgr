@@ -75,6 +75,9 @@ gem 'mini_magick', '~> 4.3'
 # Use metar-parser for METAR reports
 gem 'metar-parser', git: 'https://github.com/joeyates/metar-parser.git'
 
+# Use HTTParty to consume APIs
+gem 'httparty'
+
 # Use simple_calendar for events page
 gem 'simple_calendar', '~> 2.0'
 

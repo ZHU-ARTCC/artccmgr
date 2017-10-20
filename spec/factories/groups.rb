@@ -12,6 +12,30 @@ FactoryGirl.define do
 	    visiting true
     end
 
+    trait :perm_airport_create do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'airport create')
+      end
+    end
+
+    trait :perm_airport_read do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'airport read')
+      end
+    end
+
+    trait :perm_airport_update do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'airport update')
+      end
+    end
+
+    trait :perm_airport_delete do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'airport delete')
+      end
+    end
+
     trait :perm_certification_create do
       after :build do |g|
         g.permissions << Permission.where(name: 'certification create')

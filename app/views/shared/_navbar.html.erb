@@ -8,12 +8,28 @@
 
     <div class="collapse navbar-collapse" id="navbarContent">
       <ul class="navbar-nav mr-auto">
+
+        <!-- Home -->
         <li class="nav-item">
           <%= link_to 'Home', root_path, class: "nav-link #{active_class(root_path)}" %>
         </li>
+
+        <!-- Events -->
         <li class="nav-item">
           <%= link_to 'Events', events_path, class: "nav-link #{active_class(events_path)}" if policy(Event).index? %>
         </li>
+
+        <!-- Pilots -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarPilotsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Pilots
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarPilotsDropdown">
+            <%= link_to 'Airports',  airports_path, class: 'dropdown-item' if policy(Airport).index? %>
+          </div>
+        </li>
+
+        <!-- Controllers -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarControllersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Controllers
@@ -24,6 +40,8 @@
             <%= link_to 'Roster',    user_index_path, class: 'dropdown-item' if policy(User).index? %>
           </div>
         </li>
+
+        <!-- Feedback -->
         <li class="nav-item">
           <%= link_to 'Feedback', feedback_index_path, class: "nav-link #{active_class(feedback_index_path)}" if policy(Feedback).index? %>
         </li>
