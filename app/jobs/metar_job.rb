@@ -60,7 +60,7 @@ class MetarJob < ApplicationJob
         rules = 'MVFR' if %w[broken overcast].include? layer_type
       # Basic VFR
       else
-        rules = 'VFR'
+        rules = 'VFR' if rules.blank?
       end
     end # sky_conditions.each
 
