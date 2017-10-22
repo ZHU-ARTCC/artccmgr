@@ -2,6 +2,12 @@ require 'rails_helper'
 
 RSpec.describe AirportsController, type: :controller do
 
+	before :all do
+		# Disable the ActiveJob queue due to the create callback firing
+		# the AirportUpdateJob. The job is tested in it's own RSpec
+    ActiveJob::Base.queue_adapter = :test
+	end
+
   describe 'GET #index' do
 
     it 'populates an array of @airports' do

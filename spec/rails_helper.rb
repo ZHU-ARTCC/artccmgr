@@ -9,7 +9,11 @@ require 'rspec/rails'
 require 'devise'
 require 'pundit/matchers'
 require 'pundit/rspec'
+require 'webmock/rspec'
 require 'support/factory_girl'
+require 'support/fake_aircharts_api'
+require 'support/fake_vatusa_api'
+require 'support/fake_vatusa_forums'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -64,6 +68,25 @@ RSpec.configure do |config|
 
   # For Devise >= 4.1.0
   config.include Devise::Test::ControllerHelpers, type: :controller
+
+  # AirCharts API Stub
+  config.before(:each) do
+    stub_request(:any, /api.aircharts.org/).to_rack(FakeAirChartsAPI)
+  end
+
+  # VATUSA API Stub
+  #
+  # vatusa_api_url should be configured to: http://localhost:3000/fakeapi/VATUSA
+  # in config/environments/test.rb. This exists merely to stop requests from ever
+  # making it to api.vatusa.net. If vatusa_api_url is changed in test, Specs will fail!
+  config.before(:each) do
+	  stub_request(:any, /api.vatusa.net/).to_rack(FakeVATUSAAPI)
+  end
+
+  # VATUSA Forums RSS Stub
+  config.before(:each) do
+    stub_request(:any, /forums.vatusa.net/).to_rack(FakeVATUSAForums)
+  end
 end
 
 Shoulda::Matchers.configure do |config|
