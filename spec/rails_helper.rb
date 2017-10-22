@@ -83,6 +83,10 @@ RSpec.configure do |config|
 	  stub_request(:any, /api.vatusa.net/).to_rack(FakeVATUSAAPI)
   end
 
+  config.before(:each) do
+    stub_request(:any, /localhost:3000\/fakeapi\/VATUSA/).to_rack(FakeVATUSAAPI)
+  end
+
   # VATUSA Forums RSS Stub
   config.before(:each) do
     stub_request(:any, /forums.vatusa.net/).to_rack(FakeVATUSAForums)

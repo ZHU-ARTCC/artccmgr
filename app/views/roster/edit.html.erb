@@ -27,6 +27,7 @@
 </div>
 
 <!-- Deletion Modal -->
+<%= form_tag user_path(@user), method: :delete do %>
 <div class="modal fade" id="userDeleteModal" tabindex="-1" role="dialog" aria-labelledby="userDeleteModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -43,14 +44,22 @@
           Are you sure you want to delete <%= @user.name_full %>?
         </p>
         <p>
-          <b>Deletion will remove all training records, group settings, and activity!</b>
+          <b>Deletion will remove all local training records, group settings, and activity!</b>
+        </p>
+        <p>
+          <%= check_box_tag :vatusa_remove %> Also remove from roster at VATUSA
+        </p>
+        <p>
+          <%= text_field_tag :vatusa_reason, nil, class: 'form-control', placeholder: 'Please enter a reason for removal' %>
         </p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <%= link_to 'Delete', user_path(@user), method: :delete, class: 'btn btn-danger', data: { dismiss: :modal } %>
+        <%#= link_to 'Delete', user_path(@user), method: :delete, class: 'btn btn-danger', data: { dismiss: :modal } %>
+        <%= submit_tag 'Delete', class: 'btn btn-danger' %>
       </div>
     </div>
   </div>
 </div>
+<% end -%>
 <!-- End Deletion Modal -->

@@ -14,8 +14,9 @@
 # Crono.perform(TestJob).every 2.days, at: '15:30'
 #
 
-# Perform the METAR update job immediately upon startup
+# Perform the following jobs immediately upon startup
 MetarJob.perform_now
+VatusaRosterSyncJob.perform_now
 
 # Update METAR every hours specified in settings.yml
 Crono.perform(MetarJob).every(
@@ -27,4 +28,10 @@ Crono.perform(MetarJob).every(
 Crono.perform(AirportUpdateJob).every(
     Settings.airport_update_interval.days,
     at: Settings.airport_update_time
+)
+
+# Synchronize VATUSA roster as specified in settings.yml
+Crono.perform(VatusaRosterSyncJob).every(
+		Settings.vatusa_roster_sync_interval.hours,
+		at: {min: Settings.vatusa_roster_sync_time}
 )

@@ -62,6 +62,8 @@ heroku_development:
   stage: staging
   only:
     - development
+  variables:
+    HEROKU_API_KEY: $HEROKU_API_KEY
   script:
     - gem install dpl
     - dpl --provider=heroku --app=artccmgr-dev --api-key=$HEROKU_API_KEY

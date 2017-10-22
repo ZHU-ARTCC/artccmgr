@@ -204,7 +204,7 @@ class FakeVATUSAAPI < Sinatra::Base
 	end
 
 	delete '/fakeapi/VATUSA/:api_key/roster/:cid' do
-		if !params['by'].nil? && !params['msg'].nil?
+		if !params['by'].nil? && !params['msg'].nil? && !params['msg'].blank?
 			if USERS.keys.include? params['cid'].to_i
 				status 200
 			else
