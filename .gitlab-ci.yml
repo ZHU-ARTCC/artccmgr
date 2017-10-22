@@ -6,6 +6,7 @@ services:
 stages:
   - build
   - test
+  - staging
 
 variables:
   CI: 'true'
@@ -56,3 +57,11 @@ security:
       - build
   script:
     - RAILS_ENV=test bundle exec brakeman -A -o log/brakeman.log
+
+heroku_development:
+  stage: staging
+  only:
+    - development
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=artccmgr-dev --api-key=$HEROKU_API_KEY
