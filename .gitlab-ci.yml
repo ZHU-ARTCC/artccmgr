@@ -13,6 +13,8 @@ before_script:
 
 build:
   stage: build
+  only:
+    - ci
   script:
   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
   - docker build -t $IMAGE_PREFIX:$CI_COMMIT_SHA -t $IMAGE_PREFIX:latest .
