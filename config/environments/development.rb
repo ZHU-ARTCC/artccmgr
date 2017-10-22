@@ -1,5 +1,3 @@
-require_relative '../../spec/support/fake_vatusa_api'
-
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -55,9 +53,4 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
-
-  # Use the Mock VATUSA API if the API URL is set to the following:
-  if secrets.vatusa_api_url == 'http://localhost:3000/fakeapi/VATUSA'
-	  config.middleware.use FakeVATUSAAPI
-  end
 end

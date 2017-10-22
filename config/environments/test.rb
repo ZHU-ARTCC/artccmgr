@@ -1,5 +1,3 @@
-require_relative '../../spec/support/fake_vatusa_api'
-
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -41,10 +39,4 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-
-  # Use the Mock VATUSA API. Even if set to api.vatusa.net by accident in test,
-  # the rails_helper will still route requests to the FakeVATUSAAPI and fail!
-  if secrets.vatusa_api_url == 'http://localhost:3000/fakeapi/VATUSA'
-    config.middleware.use FakeVATUSAAPI
-  end
 end

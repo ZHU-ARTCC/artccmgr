@@ -78,6 +78,9 @@ gem 'metar-parser', git: 'https://github.com/joeyates/metar-parser.git'
 # Use HTTParty to consume APIs
 gem 'httparty'
 
+# Use Sinatra to fake APIs (could potentially be used in Prod demo)
+gem 'sinatra'
+
 # Use simple_calendar for events page
 gem 'simple_calendar', '~> 2.0'
 
@@ -89,7 +92,6 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.6'
   gem 'factory_girl_rails'
   gem 'pundit-matchers', '~> 1.3.1'
-  gem 'sinatra'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'shoulda-callback-matchers'
   gem 'timecop'
