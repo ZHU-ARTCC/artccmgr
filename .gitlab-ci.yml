@@ -1,4 +1,4 @@
-image: ruby:2.3
+image: registry.gitlab.com/jvoss1/artccmgr/ci:latest
 
 services:
   - postgres:latest
@@ -22,10 +22,8 @@ variables:
 
 .setup_test_env: &setup_test_env
   before_script:
-    - apt-get update -qq && apt-get install -y -qq postgresql postgresql-contrib libpq-dev cmake nodejs
     - ruby -v
     - which ruby
-    - gem install bundler --no-ri --no-rdoc
     - RAILS_ENV=test bundle install --path=cache/bundler --jobs $(nproc) "${FLAGS[@]}"
     - cp config/database-gitlab.yml config/database.yml
     - RAILS_ENV=test bundle exec rake db:create db:schema:load db:seed
