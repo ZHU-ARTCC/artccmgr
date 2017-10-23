@@ -44,10 +44,11 @@ rspec:
     paths:
       - coverage/
     expire_in: 1 week
+    when: always
   dependencies:
     - build
   script:
-    - RAILS_ENV=test COVERAGE=true bundle exec rspec
+    - RAILS_ENV=test COVERAGE=true rake spec
 
 security:
   stage: test
