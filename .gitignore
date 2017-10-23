@@ -20,6 +20,9 @@
 # Ignore Public uploads
 /public/uploads/*
 
+# Ignore SimpleCov test coverage results
+coverage
+
 # Ignore Vagrantfile used in development
 /.vagrant/*
 /Vagrantfile

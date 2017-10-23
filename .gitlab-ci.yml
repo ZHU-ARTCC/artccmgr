@@ -40,10 +40,13 @@ rspec:
   stage: test
   <<: *cache_bundler
   <<: *setup_test_env
+  artifacts:
+    paths:
+      - coverage
   dependencies:
     - build
   script:
-    - RAILS_ENV=test bundle exec rspec
+    - RAILS_ENV=test COVERAGE=true bundle exec rspec
 
 security:
   stage: test
