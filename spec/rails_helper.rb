@@ -12,6 +12,7 @@ require 'pundit/rspec'
 require 'webmock/rspec'
 require 'support/factory_girl'
 require 'support/fake_aircharts_api'
+require 'support/fake_vatsim_status'
 require 'support/fake_vatusa_api'
 require 'support/fake_vatusa_forums'
 
@@ -72,6 +73,15 @@ RSpec.configure do |config|
   # AirCharts API Stub
   config.before(:each) do
     stub_request(:any, /api.aircharts.org/).to_rack(FakeAirChartsAPI)
+  end
+
+  # VATSIM Online Status
+  config.before(:each) do
+	  stub_request(:get, /status.vatsim.net/).to_rack(FakeVATSIMStatus)
+  end
+
+  config.before(:each) do
+    stub_request(:get, /.*\/vatsim-data.txt/).to_rack(FakeVATSIMStatus)
   end
 
   # VATUSA API Stub

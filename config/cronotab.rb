@@ -17,6 +17,7 @@
 # Perform the following jobs immediately upon startup
 MetarJob.perform_now
 VatusaRosterSyncJob.perform_now
+VatsimOnlineJob.perform_now
 
 # Update METAR every hours specified in settings.yml
 Crono.perform(MetarJob).every(

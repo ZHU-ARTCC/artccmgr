@@ -27,6 +27,9 @@ news_rss_url: 'https://forums.vatusa.net/index.php?type=rss;action=.xml'
 # Statistics settings
 stats_url: 'https://stats.vatsim.net/search_id.php?id='
 
+# VATSIM Status URL
+vatsim_status_url: 'https://status.vatsim.net'
+
 # VATUSA API settings
 # How often in hours to synchronize roster from VATUSA
 vatusa_roster_sync_interval: 1

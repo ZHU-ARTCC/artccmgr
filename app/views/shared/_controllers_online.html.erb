@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-header bg-dark text-light">
+    Controllers Online
+  </div>
+  <div class="card-body">
+    <% if @online_atc.empty? -%>
+      <i>No controllers online</i>
+    <% else -%>
+      <% @online_atc.each do |atc| %>
+      <div class="container ml-0 mr-0 pl-0 pr-0">
+        <small>
+          <%= atc.callsign %>
+        </small>
+        <span class="float-right">
+          <small><%= atc.user.name_full %></small>
+        </span>
+      </div>
+      <% end -%>
+    <% end -%>
+  </div>
+</div>

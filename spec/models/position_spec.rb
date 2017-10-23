@@ -104,37 +104,53 @@ RSpec.describe Position, type: :model do
   describe 'frequency should be a tunable frequency' do
     it { expect(build(:position, frequency: 0.0)).to_not be_valid }
 
-    # 25 kHz spacing
+    # 25 kHz spacing with allowance for even numbers (VATSIM requirement)
+    it { expect(build(:position, frequency: 118.020)).to be_valid }
     it { expect(build(:position, frequency: 118.025)).to be_valid }
     it { expect(build(:position, frequency: 118.050)).to be_valid }
+    it { expect(build(:position, frequency: 118.070)).to be_valid }
     it { expect(build(:position, frequency: 118.075)).to be_valid }
     it { expect(build(:position, frequency: 118.100)).to be_valid }
+    it { expect(build(:position, frequency: 118.120)).to be_valid }
     it { expect(build(:position, frequency: 118.125)).to be_valid }
     it { expect(build(:position, frequency: 118.150)).to be_valid }
+    it { expect(build(:position, frequency: 118.170)).to be_valid }
     it { expect(build(:position, frequency: 118.175)).to be_valid }
     it { expect(build(:position, frequency: 118.200)).to be_valid }
+    it { expect(build(:position, frequency: 118.220)).to be_valid }
     it { expect(build(:position, frequency: 118.225)).to be_valid }
     it { expect(build(:position, frequency: 118.250)).to be_valid }
+    it { expect(build(:position, frequency: 118.270)).to be_valid }
     it { expect(build(:position, frequency: 118.275)).to be_valid }
     it { expect(build(:position, frequency: 118.300)).to be_valid }
+    it { expect(build(:position, frequency: 118.320)).to be_valid }
     it { expect(build(:position, frequency: 118.325)).to be_valid }
     it { expect(build(:position, frequency: 118.350)).to be_valid }
+    it { expect(build(:position, frequency: 118.370)).to be_valid }
     it { expect(build(:position, frequency: 118.375)).to be_valid }
     it { expect(build(:position, frequency: 118.400)).to be_valid }
+    it { expect(build(:position, frequency: 118.420)).to be_valid }
     it { expect(build(:position, frequency: 118.425)).to be_valid }
     it { expect(build(:position, frequency: 118.450)).to be_valid }
+    it { expect(build(:position, frequency: 118.470)).to be_valid }
     it { expect(build(:position, frequency: 118.475)).to be_valid }
     it { expect(build(:position, frequency: 118.500)).to be_valid }
+    it { expect(build(:position, frequency: 118.520)).to be_valid }
     it { expect(build(:position, frequency: 118.525)).to be_valid }
     it { expect(build(:position, frequency: 118.550)).to be_valid }
+    it { expect(build(:position, frequency: 118.570)).to be_valid }
     it { expect(build(:position, frequency: 118.575)).to be_valid }
     it { expect(build(:position, frequency: 118.600)).to be_valid }
+    it { expect(build(:position, frequency: 118.620)).to be_valid }
     it { expect(build(:position, frequency: 118.625)).to be_valid }
     it { expect(build(:position, frequency: 118.650)).to be_valid }
+    it { expect(build(:position, frequency: 118.670)).to be_valid }
     it { expect(build(:position, frequency: 118.675)).to be_valid }
     it { expect(build(:position, frequency: 118.700)).to be_valid }
+    it { expect(build(:position, frequency: 118.720)).to be_valid }
     it { expect(build(:position, frequency: 118.725)).to be_valid }
     it { expect(build(:position, frequency: 118.750)).to be_valid }
+    it { expect(build(:position, frequency: 118.770)).to be_valid }
     it { expect(build(:position, frequency: 118.775)).to be_valid }
   end
 

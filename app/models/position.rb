@@ -56,7 +56,7 @@ class Position < ApplicationRecord
 
   def valid_frequency
     unless frequency.nil?
-      unless '%.3f' % frequency =~ /^\d{3}.\d{1}(00|25|50|75){1}$/
+      unless '%.3f' % frequency =~ /^\d{3}.\d{1}(00|20|25|50|70|75){1}$/
         self.errors[:frequency] << 'invalid'
       end
     end

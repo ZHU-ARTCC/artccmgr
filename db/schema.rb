@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171020041202) do
+ActiveRecord::Schema.define(version: 20171023212714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -181,6 +181,25 @@ ActiveRecord::Schema.define(version: 20171020041202) do
     t.string "initials"
     t.uuid "rating_id", null: false
     t.index ["cid"], name: "index_users_on_cid", unique: true
+  end
+
+  create_table "vatsim_atcs", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "position_id", null: false
+    t.string "callsign", null: false
+    t.decimal "frequency", precision: 6, scale: 3, null: false
+    t.decimal "latitude", precision: 8, scale: 5, null: false
+    t.decimal "longitude", precision: 8, scale: 5, null: false
+    t.string "server", null: false
+    t.uuid "rating_id", null: false
+    t.integer "range", null: false
+    t.datetime "logon_time", null: false
+    t.datetime "last_seen"
+  end
+
+  create_table "vatsim_dataservers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "url", null: false
+    t.datetime "created_at"
   end
 
   create_table "weathers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
