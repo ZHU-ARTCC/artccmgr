@@ -42,7 +42,8 @@ rspec:
   <<: *setup_test_env
   artifacts:
     paths:
-      - coverage
+      - coverage/
+    expire_in: 1 week
   dependencies:
     - build
   script:
