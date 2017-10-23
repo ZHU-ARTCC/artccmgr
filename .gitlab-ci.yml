@@ -48,7 +48,7 @@ rspec:
   dependencies:
     - build
   script:
-    - RAILS_ENV=test COVERAGE=true rake spec
+    - RAILS_ENV=test COVERAGE=true bundle exec rspec
 
 security:
   stage: test
