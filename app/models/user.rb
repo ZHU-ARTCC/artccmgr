@@ -31,6 +31,9 @@ class User < ApplicationRecord
   validates :reg_date,    presence: true, allow_blank: false
   validates :group,       presence: true, allow_blank: false
 
+  # Validates initials must be unique if preference is set
+  validates :initials, uniqueness: true, allow_blank: true, if: :require_unique_initials?
+
   scope :all_controllers,       -> { local_controllers.or(visiting_controllers) }
   scope :local_controllers,     -> { joins(:group).where(groups: {atc: true, visiting: false}) }
   scope :visiting_controllers,  -> { joins(:group).where(groups: { atc: true, visiting: true}) }
@@ -48,6 +51,14 @@ class User < ApplicationRecord
   # Displays first name and last name in one string
   def name_full
     "#{name_first} #{name_last}"
+  end
+
+  private
+
+  # Checks settings to determine whether the preference is to require
+  # unique operating initials
+  def require_unique_initials?
+    Settings.unique_operating_initials
   end
 
 end

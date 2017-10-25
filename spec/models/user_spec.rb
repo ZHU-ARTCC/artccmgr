@@ -77,6 +77,19 @@ RSpec.describe User, type: :model do
 	  it 'should capitalize initials' do
 		  expect(build(:user, initials: 'tt').initials).to eq 'TT'
 	  end
+
+	  it 'should not require unique credentials if preference is set to false' do
+		  Settings.unique_operating_initials = false
+      create(:user, initials: 'AA')
+      expect(build(:user, initials: 'AA')).to be_valid
+	  end
+
+	  it 'should require unique credentials if preference is set to true' do
+		  Settings.unique_operating_initials = true
+		  create(:user, initials: 'AA')
+		  expect(build(:user, initials: 'AA')).to_not be_valid
+		  Settings.unique_operating_initials = false
+	  end
   end
 
   describe '#is_controller?' do

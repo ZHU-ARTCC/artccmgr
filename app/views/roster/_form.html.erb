@@ -18,7 +18,7 @@
         <%= f.label :initials, class: 'col-sm-3 col-form-label' %>
         <div class="col-sm-9">
           <% @user.errors[:initials].present? ? initials_invalid = 'is-invalid' : initials_invalid = nil %>
-          <%= f.text_field :initials, class: "form-control #{group_invalid}" %>
+          <%= f.select :initials, initials_options, {include_blank: true}, class: "form-control #{initials_invalid}" %>
           <% unless initials_invalid.nil? %>
             <div class="invalid-feedback">
               <%= @user.errors[:initials].join(', ').capitalize %>

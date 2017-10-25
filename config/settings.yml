@@ -27,6 +27,10 @@ news_rss_url: 'https://forums.vatusa.net/index.php?type=rss;action=.xml'
 # Statistics settings
 stats_url: 'https://stats.vatsim.net/search_id.php?id='
 
+# Unique operating initials
+# Requires users to have unique operating initials if set to true
+unique_operating_initials: false
+
 # VATSIM Status URL
 vatsim_status_url: 'https://status.vatsim.net'
 

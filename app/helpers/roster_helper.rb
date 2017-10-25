@@ -15,4 +15,16 @@ module RosterHelper
 		end
 	end # def cert_status_css
 
+	# Creates the array of operating initials options dependent on the
+	# preference to allow duplicate OIs or not
+	def initials_options
+		if Settings.unique_operating_initials
+			disabled = User.all.pluck(:initials).reject{|i| i.nil?}
+		else
+			disabled = false
+		end
+
+		options_for_select(('AA'..'ZZ').to_a, selected: @user.initials, disabled: disabled)
+	end # def initials_options
+
 end
