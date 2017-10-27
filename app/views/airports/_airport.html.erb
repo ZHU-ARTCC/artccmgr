@@ -28,6 +28,6 @@
     <small><%= airport.weather.wind unless airport.weather.nil? %></small>
   </td>
   <td class="text-center">
-    <small><%= airport.weather.altimeter unless airport.weather.nil? %></small>
+    <small><%= '%.2f' % airport.weather.altimeter unless airport.weather.nil? %></small>
   </td>
 </tr>
