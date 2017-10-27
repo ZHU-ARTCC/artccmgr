@@ -12,6 +12,7 @@ RSpec.describe Endorsement, type: :model do
 
     # Basic validations
     it { expect(endorsement).to validate_presence_of(:instructor) }
+    it { expect(endorsement).to validate_presence_of(:certification) }
     # it { expect(endorsement).to validate_uniqueness_of(:certification).scoped_to(:user) }
 
     # Format validations
