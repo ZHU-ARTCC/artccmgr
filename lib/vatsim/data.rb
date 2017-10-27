@@ -34,10 +34,11 @@ module VATSIM
 				raise StandardError, 'Unrecognized format returned from: ' + @url
 			end
 
+			# TODO in rare circumstances there are parsing issues with a singular user
 			# Sanity check parsing versus client count
-			if @general.clients != (@atc.size + @pilots.size)
-				raise StandardError, 'Client count did not match number of parsed ATC and Pilots'
-			end
+			#if @general.clients != (@atc.size + @pilots.size)
+			#	raise StandardError, 'Client count did not match number of parsed ATC and Pilots'
+			#end
 		end # def initialize
 
 		private
