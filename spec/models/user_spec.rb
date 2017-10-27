@@ -17,6 +17,7 @@ RSpec.describe User, type: :model do
     it { expect(user).to validate_presence_of(:email) }
     it { expect(user).to validate_presence_of(:reg_date) }
     it { expect(user).to validate_presence_of(:group) }
+    it { expect(user).to validate_presence_of(:rating) }
 
     # Format validations
     it { expect(user).to validate_numericality_of(:cid) }

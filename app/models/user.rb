@@ -30,12 +30,13 @@ class User < ApplicationRecord
   validates :email,       presence: true, allow_blank: false
   validates :reg_date,    presence: true, allow_blank: false
   validates :group,       presence: true, allow_blank: false
+  validates :rating,      presence: true, allow_blank: false
 
   # Validates initials must be unique if preference is set
   validates :initials, uniqueness: true, allow_blank: true, if: :require_unique_initials?
 
   scope :all_controllers,       -> { local_controllers.or(visiting_controllers) }
-  scope :local_controllers,     -> { joins(:group).where(groups: {atc: true, visiting: false}) }
+  scope :local_controllers,     -> { joins(:group).where(groups: { atc: true, visiting: false}) }
   scope :visiting_controllers,  -> { joins(:group).where(groups: { atc: true, visiting: true}) }
 
   # Enforce capitalization on initials
