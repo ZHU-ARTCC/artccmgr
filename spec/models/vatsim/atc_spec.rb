@@ -16,6 +16,7 @@ RSpec.describe Vatsim::Atc, type: :model do
     it { expect(atc).to validate_presence_of(:server) }
     it { expect(atc).to validate_presence_of(:range) }
     it { expect(atc).to validate_presence_of(:logon_time) }
+    it { expect(atc).to validate_presence_of(:last_seen) }
 
     # Format validations
     it { expect(atc).to validate_numericality_of(:frequency).is_greater_than_or_equal_to(118).is_less_than(137) }
@@ -41,6 +42,21 @@ RSpec.describe Vatsim::Atc, type: :model do
 
   describe 'callsign should be forced upper case' do
     it { expect(build(:vatsim_atc, callsign: 'test').callsign).to eq 'TEST' }
+  end
+
+  describe 'duration' do
+
+    it '#calculate_duration calculates the time between logon_time and last_seen before validation' do
+      session = build(:vatsim_atc, logon_time: (Time.now - 30.minutes), last_seen: Time.now)
+      session.valid?
+      expect(session.duration).to eq 0.5
+    end
+
+	  it 'is not valid if the time between logon_time and last_seen is negative' do
+		  session = build(:vatsim_atc, logon_time: (Time.now + 30.minutes), last_seen: Time.now)
+		  expect(session).to_not be_valid
+	  end
+
   end
 
 end

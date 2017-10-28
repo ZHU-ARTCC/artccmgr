@@ -1,0 +1,68 @@
+<% content_for(:title, 'Activity Report') %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card border-0">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">
+            Controller Activity
+          </div>
+          <div class="col-auto">
+            <%= @report_start.strftime('%m-%d-%Y') %> to
+            <%= @report_end.strftime('%m-%d-%Y') %>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body pb-0 pl-0 pr-0 pt-0">
+        <%= render 'table', controllers: @controllers %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="top-buffer"></div>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card border-0">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">
+            Visiting Controller Activity
+          </div>
+          <div class="col-auto">
+            <%= @report_start.strftime('%m-%d-%Y') %> to
+            <%= @report_end.strftime('%m-%d-%Y') %>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body pb-0 pl-0 pr-0 pt-0">
+        <%= render 'table', controllers: @visiting_controllers %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="top-buffer"></div>
+
+<div class="row">
+  <div class="col-lg-12 text-center">
+    <% selectors = report_controls %>
+    <% unless selectors[:prev].nil? -%>
+      <%= link_to selectors[:prev], class: 'btn btn-sm btn-primary' do %>
+        <%= fa_icon 'arrow-left', text: 'Previous' %>
+      <% end %>
+    <% end -%>
+
+    <% unless selectors[:next].nil? -%>
+      <%= link_to selectors[:next], class: 'btn btn-sm btn-primary' do %>
+        <%= fa_icon 'arrow-right', text: 'Next', right: true %>
+      <% end %>
+    <% end -%>
+  </div>
+</div>

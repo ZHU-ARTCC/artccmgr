@@ -10,6 +10,13 @@ artcc_tagline: 'A full featured ARTCC management system.'
 # Used for users without an email associated Gravatar
 default_gravatar: 'https://assets.github.com/images/gravatars/gravatar-140.png'
 
+# Monthly activity (controlling) hour requirements for Staff
+activity_hours_staff: 1
+# Monthly activity (controlling) hour requirements for Visiting Controllers
+activity_hours_visiting: 1
+# Monthly activity (controlling) hour requirements for Controllers
+activity_hours: 1
+
 # Update airports/charts every 1 day
 airport_update_interval: 1
 # At 15:30:

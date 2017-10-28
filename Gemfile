@@ -84,6 +84,9 @@ gem 'sinatra'
 # Use simple_calendar for events page
 gem 'simple_calendar', '~> 2.0'
 
+# Use time_difference for calculating durations
+gem 'time_difference'
+
 group :development, :test do
   gem 'brakeman', '>= 4.0.1', require: false # Brakeman to do static vulnerability analysis
 	# Call 'byebug' anywhere in the code to stop execution and get a debugger console

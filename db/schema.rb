@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171023212714) do
+ActiveRecord::Schema.define(version: 20171028154946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(version: 20171023212714) do
     t.integer "range", null: false
     t.datetime "logon_time", null: false
     t.datetime "last_seen"
+    t.float "duration", null: false
   end
 
   create_table "vatsim_dataservers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

@@ -11,6 +11,7 @@ FactoryGirl.define do
 	  server      { 'TEST' }
 	  range       { rand(400) }
 	  logon_time  { Time.now }
+	  last_seen   { Time.now }
 
     trait :invalid do
       user     { nil }

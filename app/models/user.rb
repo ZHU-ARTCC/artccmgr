@@ -17,6 +17,8 @@ class User < ApplicationRecord
   has_many    :event_flights,   class_name: 'Event::Pilot', dependent: :destroy
   has_many    :event_signups,   class_name: 'Event::Signup', dependent: :destroy
 
+  has_many    :online_sessions, class_name: 'Vatsim::Atc'
+
   delegate  :atc?,        to: :group
   delegate  :permissions, to: :group
   delegate  :staff?,      to: :group
@@ -38,6 +40,12 @@ class User < ApplicationRecord
   scope :all_controllers,       -> { local_controllers.or(visiting_controllers) }
   scope :local_controllers,     -> { joins(:group).where(groups: { atc: true, visiting: false}) }
   scope :visiting_controllers,  -> { joins(:group).where(groups: { atc: true, visiting: true}) }
+
+  # Find the online activity for user between two dates
+  #
+  def activity_report(start_date, end_date)
+    online_sessions.where('last_seen BETWEEN ? AND ?', start_date, end_date).order(last_seen: :desc)
+  end
 
   # Enforce capitalization on initials
   def initials=(initials)

@@ -311,6 +311,8 @@ GEM
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
+    time_difference (0.7.0)
+      activesupport (~> 5.1)
     timecop (0.9.1)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
@@ -377,6 +379,7 @@ DEPENDENCIES
   sinatra
   spring
   spring-watcher-listen (~> 2.0.0)
+  time_difference
   timecop
   turbolinks (~> 5)
   tzinfo-data

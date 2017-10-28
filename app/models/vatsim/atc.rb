@@ -10,8 +10,26 @@ class Vatsim::Atc < ApplicationRecord
 	validates :server,      presence: true, allow_blank: false
 	validates :range,       presence: true, numericality: { greater_than_or_equal_to: 0 }
 	validates :logon_time,  presence: true
+	validates :last_seen,   presence: true
+	validates :duration,    numericality: { greater_than_or_equal_to: 0 }
+
+	before_validation :calculate_duration
 
 	def callsign=(callsign)
 		callsign.nil? ? super(callsign) : super(callsign.upcase)
 	end
+
+	private
+
+	# Calculate the duration between logon_time and last_seen
+	def calculate_duration
+		if !logon_time.nil? && !last_seen.nil?
+			if logon_time > last_seen
+				errors[:duration] << 'cannot be negative'
+			else
+				self.duration = TimeDifference.between(logon_time, last_seen).in_hours
+			end
+		end
+	end
+
 end

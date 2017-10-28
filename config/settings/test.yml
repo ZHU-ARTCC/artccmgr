@@ -1,1 +1,6 @@
-
+# Monthly activity (controlling) hour requirements for Staff
+activity_hours_staff: 5
+# Monthly activity (controlling) hour requirements for Visiting Controllers
+activity_hours_visiting: 1
+# Monthly activity (controlling) hour requirements for Controllers
+activity_hours: 2
