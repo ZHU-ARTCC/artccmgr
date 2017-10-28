@@ -1,0 +1,35 @@
+<tr>
+  <td>
+    <%= link_to user_path(controller) do %>
+      <small><%= controller.name_last %>, <%= controller.name_first %></small>
+    <% end %>
+    <% if controller.staff? -%>
+      <span class="float-right" data-toggle="tooltip" data-placement="bottom" title="Staff Role">
+        <small><%= controller.group.name %></small>
+      </span>
+    <% end -%>
+  </td>
+
+  <td class="text-center">
+    <span class="badge badge-<%= controller.rating.short_name.downcase %>"><%= controller.rating.short_name %></span>
+  </td>
+
+  <% activity = controller.activity_report(@report_start, @report_end) %>
+  <td class="text-center <%= 'bg-danger' if activity.empty? %>">
+    <small>
+      <% if activity.empty? -%>
+        None
+      <% else -%>
+        <%= activity.first.last_seen.strftime('%m-%d-%Y') %>
+      <% end -%>
+    </small>
+  </td>
+
+  <% duration = activity.sum(:duration) %>
+  <td class="text-center <%= activity_minimums_css(controller, duration) %>">
+    <small>
+      <%= duration %>
+    </small>
+  </td>
+
+</tr>

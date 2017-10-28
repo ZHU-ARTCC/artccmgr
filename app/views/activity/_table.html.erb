@@ -1,0 +1,31 @@
+<table class="table table-sm table-bordered table-responsive mb-0">
+  <tbody>
+    <tr class="bg-light">
+
+      <th class="text-center" colspan="2">
+        <small>Controller</small>
+      </th>
+
+      <th class="text-center">
+        <small>Last Session</small>
+      </th>
+
+      <th class="text-center">
+        <small>Hours</small>
+      </th>
+
+    </tr>
+
+    <% if controllers.empty? %>
+      <tr>
+        <td colspan="6" class="text-center">
+          <small><i>No information available</i></small>
+        </td>
+      </tr>
+    <% end %>
+
+    <% controllers.each do |c| -%>
+      <%= render 'user', controller: c %>
+    <% end -%>
+  </tbody>
+</table>

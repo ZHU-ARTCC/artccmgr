@@ -13,6 +13,8 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
+  resources :activity, only: [:index]
+
   resources :airports
 
   resources :certifications

@@ -74,6 +74,27 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#activity_report' do
+	  it 'returns an array of Vatsim::Atc objects for the user' do
+      session = create(:vatsim_atc)
+      user    = session.user
+		  expect(user.activity_report(session.logon_time, session.last_seen)).to eq [session]
+	  end
+
+	  it 'does not return Vatsim::Atc objects for sessions out of the time scope' do
+		  session = create(:vatsim_atc, logon_time: (Time.now - 2.days), last_seen: (Time.now - 1.day))
+		  user    = session.user
+		  expect(user.activity_report((Time.now - 10.minutes), (Time.now - 5.minutes))).to be_empty
+	  end
+
+	  it 'orders the associated Vatsim::Atc objects by the last seen time' do
+		  session = create(:vatsim_atc, logon_time: (Time.now - 5.minutes), last_seen: Time.now)
+		  user    = session.user
+      create(:vatsim_atc, user: user, logon_time: (Time.now - 10.minutes), last_seen: (Time.now - 6.minutes))
+		  expect(user.activity_report(Time.now - 1.day, Time.now).first).to eq session
+	  end
+  end
+
   describe '#initials=' do
 	  it 'should capitalize initials' do
 		  expect(build(:user, initials: 'tt').initials).to eq 'TT'
