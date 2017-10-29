@@ -5,8 +5,8 @@ class ActivityController < ApplicationController
 	def index
 		raise Pundit::NotAuthorizedError, 'Not allowed to view this page' unless current_user.staff?
 
-		@controllers = User.local_controllers
-		@visiting_controllers = User.visiting_controllers
+		@controllers = User.local_controllers.order(:name_last, :name_first)
+		@visiting_controllers = User.visiting_controllers.order(:name_last, :name_first)
 
 		if params['start_date']
 			@report_start = Time.parse(params['start_date']).beginning_of_month.at_beginning_of_day
