@@ -12,6 +12,7 @@ class VatsimOnlineJob < ApplicationJob
     if (data_time.nil? || update_time.nil?) || update_time < Time.now
       Rails.logger.debug 'VatsimOnlineJob: Downloading current information'
       online_data = download
+      return if online_data.nil?
     else
       # In theory it should never hit this but if it does
       # (due to time sync issues) we'll wait 30 seconds
@@ -45,7 +46,7 @@ class VatsimOnlineJob < ApplicationJob
     # If it is still empty abort the download
     if Vatsim::Dataserver.all.empty?
       Rails.logger.error 'VatsimOnlineJob: No data servers available. Skipping Download'
-      return
+      return nil
     end
 
     # Attempt to download data from random data servers
@@ -59,6 +60,7 @@ class VatsimOnlineJob < ApplicationJob
       Rails.logger.info "VatsimOnlineJob: Unable to download VATSIM status. Attempt #{retries} of 3: #{e}"
       retry if retries < 3
       Rails.logger.error "VatsimOnlineJob: Unable to download VATSIM status #{e}"
+      return nil
     end
 
     data

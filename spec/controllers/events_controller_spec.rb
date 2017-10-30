@@ -41,7 +41,7 @@ RSpec.describe EventsController, type: :controller do
         }.to change(Event, :count).by 1
       end
 
-      it "redirects to the event #show page" do
+      it 'redirects to the event #show page' do
         event = attributes_for(:event)
         post :create, params: { event: event }
         event = Event.find_by(name: event[:name])
@@ -98,7 +98,7 @@ RSpec.describe EventsController, type: :controller do
     end
   end
 
-  describe "GET #edit" do
+  describe 'GET #edit' do
     before :each do
       sign_in create(:user, group: create(:group, :perm_event_read, :perm_event_update))
       @event = create(:event)
@@ -170,10 +170,10 @@ RSpec.describe EventsController, type: :controller do
         expect(assigns(:event)).to eq @event
       end
 
-      it "changes @event's attributes" do
+      it 'changes @event attributes' do
         put :update, params: {
             id: @event,
-            event: attributes_for(:event, name: "Fly In")
+            event: attributes_for(:event, name: 'Fly In')
         }
         @event.reload
         expect(@event.name).to eq 'Fly In'
@@ -196,7 +196,7 @@ RSpec.describe EventsController, type: :controller do
         expect(assigns(:event)).to eq @event
       end
 
-      it "does not change @event's attributes" do
+      it 'does not change the @event attributes' do
         put :update, params: { id: @event,
                                event: attributes_for(:event, name: nil)
         }

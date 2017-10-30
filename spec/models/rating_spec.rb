@@ -30,4 +30,24 @@ RSpec.describe Rating, type: :model do
 
   end # describe 'ActiveRecord associations'
 
+	describe '#to_i' do
+		before :each do
+			@rating = build(:rating, number: 10)
+		end
+
+		it { expect(@rating.to_i).to be_kind_of Integer }
+		it { expect(@rating.to_i).to eq 10 }
+
+	end # describe '#to_i'
+
+	describe '#to_s' do
+    before :each do
+	    @rating = build(:rating, long_name: 'Test Rating 1')
+    end
+
+		it { expect(@rating.to_s).to be_kind_of String }
+		it { expect(@rating.to_s).to eq 'Test Rating 1'}
+
+	end # describe '#to_s'
+
 end

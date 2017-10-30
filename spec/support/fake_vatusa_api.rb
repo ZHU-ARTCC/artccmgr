@@ -189,7 +189,7 @@ class FakeVATUSAAPI < Sinatra::Base
 		{
 				status: 'success',
 				facility: {
-						id:   Settings.artcc_icao,
+						id:   'ZTV',
 						url:  'https://artccmgr.herokuapp.com',
 						name: Settings.artcc_name,
 						atm:  '1300012',
@@ -197,7 +197,7 @@ class FakeVATUSAAPI < Sinatra::Base
 						ta:   '1300010',
 						ec:   '1300009',
 						wm:   '1300008',
-						fe:   '0',
+						fe:   '1300007',
 						roster: roster
 				}
 		}.to_json

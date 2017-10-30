@@ -24,6 +24,7 @@ RSpec.describe User, type: :model do
     it { expect(user).to validate_length_of(:initials).is_at_most(2) }
 
     # Inclusion/acceptance of values
+    it { expect(user).to validate_uniqueness_of(:cid) }
     it { expect(user).to_not allow_value('').for(:cid) }
     it { expect(user).to_not allow_value('').for(:name_first) }
     it { expect(user).to_not allow_value('').for(:name_last) }

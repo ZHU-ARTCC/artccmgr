@@ -9,12 +9,11 @@ class AirportUpdateJob < ApplicationJob
     airports.each do |airport|
       begin
         aircharts = AirCharts::Airport.new(airport.icao)
+        update_airport(airport, aircharts)
+        update_charts(airport, aircharts)
       rescue => e
-        Rails.logger.info "AirCharts: #{e}"
+        Rails.logger.error "AirportUpdateJob: AirCharts: #{e}"
       end
-
-      update_airport(airport, aircharts)
-      update_charts(airport, aircharts)
     end # airports.each
   end # def perform
 

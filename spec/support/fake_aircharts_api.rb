@@ -6,7 +6,7 @@ class FakeAirChartsAPI < Sinatra::Base
 		if params['airport'] == 'KIAH'
 			json_response 200, 'KIAH.json'
 		else
-			not_found(params['airport'])
+			airport_not_found(params['airport'])
 		end
 	end
 
@@ -18,7 +18,7 @@ class FakeAirChartsAPI < Sinatra::Base
 		File.open(Rails.root + 'spec/fixtures/aircharts/' + airport_icao, 'rb').read
 	end
 
-	def not_found(airport_icao)
+	def airport_not_found(airport_icao)
 		content_type :json
 		status 404
 		{ airport_icao.to_s => 'Not Found' }.to_json

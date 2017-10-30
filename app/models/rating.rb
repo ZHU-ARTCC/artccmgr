@@ -8,13 +8,13 @@ class Rating < ApplicationRecord
 	# Integer value of Rating
 	#
 	def to_i
-		number
+		number.to_i
 	end
 
 	# Full name of rating
 	#
 	def to_s
-		long_name
+		long_name.to_s
 	end
 
 end

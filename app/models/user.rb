@@ -24,7 +24,7 @@ class User < ApplicationRecord
   delegate  :staff?,      to: :group
   delegate  :visiting?,   to: :group
 
-  validates :cid,         presence: true, numericality: :only_integer, allow_blank: false
+  validates :cid,         presence: true, numericality: :only_integer, allow_blank: false, uniqueness: true
   validates :name_first,  presence: true, allow_blank: false
   validates :name_last,   presence: true, allow_blank: false
   validates :name_last,   presence: true, allow_blank: false

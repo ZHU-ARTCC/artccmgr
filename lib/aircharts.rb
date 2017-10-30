@@ -32,7 +32,7 @@ module AirCharts
         @info   = OpenStruct.new(@response[icao.upcase]['info'])
         @charts = @response[icao.upcase]['charts']
       else
-        raise ArgumentError, 'ICAO identifier not found'
+        raise ArgumentError, "ICAO identifier #{icao} not found"
       end
     end # def initialize
 

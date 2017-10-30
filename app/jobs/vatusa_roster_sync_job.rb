@@ -11,8 +11,13 @@ class VatusaRosterSyncJob < ApplicationJob
 
     begin
       roster = @api.roster
-      process_roster(roster.members)
-      sync_staff(roster)
+
+      if roster.id == Settings.artcc_icao
+        process_roster(roster.members)
+        sync_staff(roster)
+      else
+        raise StandardError, "Roster ICAO (#{roster.id}) did not match ARTCC ICAO (#{Settings.artcc_icao})"
+      end
     rescue => e
       Rails.logger.error "VatusaRosterSyncJob: #{e}"
     end
@@ -31,7 +36,16 @@ class VatusaRosterSyncJob < ApplicationJob
       user.email      = member.email
       user.rating     = Rating.find_by(number: member.rating.to_i)
       user.reg_date   = Time.now if user.reg_date.nil?
-      user.group      = Group.find_by(name: 'Controller')
+
+      # Do not change groups if they were already assigned
+      # except for the Guest role or if they are a new user
+      if user.persisted?
+        if user.group == Group.find_by(name: 'Guest')
+          user.group = Group.find_by(name: 'Controller')
+        end
+      else # brand new users created by roster API
+        user.group = Group.find_by(name: 'Controller')
+      end
 
       user.save if user.changed?
     end
@@ -40,28 +54,24 @@ class VatusaRosterSyncJob < ApplicationJob
   # Synchronize staff members with VATUSA
   #
   def sync_staff(roster)
-    if roster.id == Settings.artcc_icao
-      %w{atm datm ta ec wm fe}.each do |position|
-        user = User.find_by(cid: roster.send(position.to_sym).to_i)
-        unless user.nil?
-          case position
-            when 'atm'
-              user.group = Group.find_by(name: 'Air Traffic Manager')
-            when 'datm'
-              user.group = Group.find_by(name: 'Deputy Air Traffic Manager')
-            when 'ta'
-              user.group = Group.find_by(name: 'Training Administrator')
-            when 'wm'
-              user.group = Group.find_by(name: 'Webmaster')
-            when 'fe'
-              user.group = Group.find_by(name: 'Facility Engineer')
-          end
-
-          user.save if user.changed?
+    %w{atm datm ta ec wm fe}.each do |position|
+      user = User.find_by(cid: roster.send(position.to_sym).to_i)
+      unless user.nil?
+        case position
+          when 'atm'
+            user.group = Group.find_by(name: 'Air Traffic Manager')
+          when 'datm'
+            user.group = Group.find_by(name: 'Deputy Air Traffic Manager')
+          when 'ta'
+            user.group = Group.find_by(name: 'Training Administrator')
+          when 'wm'
+            user.group = Group.find_by(name: 'Webmaster')
+          when 'fe'
+            user.group = Group.find_by(name: 'Facility Engineer')
         end
+
+        user.save if user.changed?
       end
-    else
-      raise StandardError, 'Roster ICAO did not match ARTCC ICAO'
     end
   end
 

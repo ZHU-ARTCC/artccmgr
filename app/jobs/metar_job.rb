@@ -7,7 +7,7 @@ class MetarJob < ApplicationJob
       begin
         update_metar_for(airport)
       rescue => e
-        Rails.logger.debug "MetarJob: Unable to update weather for #{airport.icao}: #{e}"
+        Rails.logger.error "MetarJob: Unable to update weather for #{airport.icao}: #{e}"
       end
     end
   end
@@ -28,7 +28,7 @@ class MetarJob < ApplicationJob
       weather.metar     = metar.parser.metar
       weather.save
     else
-      Rails.logger.info "MetarJob: Unable to retrieve METAR for #{airport.icao}, skipping"
+      Rails.logger.error "MetarJob: Unable to retrieve METAR for #{airport.icao}, skipping"
     end
   end
 

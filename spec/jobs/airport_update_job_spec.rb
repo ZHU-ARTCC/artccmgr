@@ -36,6 +36,23 @@ RSpec.describe AirportUpdateJob, type: :job do
 
 	  end # context 'it updates the airport information'
 
+	  context 'when the airport cannot be found' do
+		  before :each do
+			  ActiveJob::Base.queue_adapter = :inline
+			  @airport = create(:airport, icao: 'XXXX')
+		  end
+
+		  it 'should log the AirCharts error' do
+			  expect(Rails.logger).to receive(:error).with('AirportUpdateJob: AirCharts: ICAO identifier XXXX not found')
+			  AirportUpdateJob.perform_now
+		  end
+
+		  it 'should fail gracefully' do
+			  expect{AirportUpdateJob.perform_now}.to_not raise_error
+		  end
+
+	  end # context 'it should fail gracefully'
+
   end # describe '#perform'
 
 end # RSpec.describe

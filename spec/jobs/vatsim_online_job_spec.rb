@@ -78,4 +78,59 @@ RSpec.describe VatsimOnlineJob, type: :job do
 
 	end # context 'when no data has been downloaded or an update is due'
 
+	context 'when no status URL is configured' do
+		before :each do
+			ActiveJob::Base.queue_adapter = :async
+
+			Settings.vatsim_status_url = nil
+			Vatsim::Dataserver.destroy_all # Delete known servers
+
+			# Stub the sleep call to avoid waiting in real time during tests
+			allow_any_instance_of(VatsimOnlineJob).to receive(:sleep).and_return(true)
+		end
+
+		it 'should log that it is unable to get new data servers' do
+			expect(Rails.logger).to receive(:error).with(/VatsimOnlineJob: Unable to retrieve VATSIM data servers/)
+			expect(Rails.logger).to receive(:error).with(/VatsimOnlineJob: No data servers available/)
+			VatsimOnlineJob.perform_now
+		end
+
+		it 'should retry three times' do
+			expect_any_instance_of(VatsimOnlineJob).to receive(:sleep).with(5).exactly(3).times
+			VatsimOnlineJob.perform_now
+		end
+
+		it 'should fail gracefully' do
+			expect{VatsimOnlineJob.perform_now}.to_not raise_error
+		end
+
+	end # context '#get_new_data_servers'
+
+	context 'when no data servers could be found' do
+		before :each do
+			ActiveJob::Base.queue_adapter = :async
+
+			# Stub the sleep call to avoid waiting in real time during tests
+			allow_any_instance_of(VatsimOnlineJob).to receive(:sleep).and_return(true)
+
+			# Stub the data download
+			allow(VATSIM::Data).to receive(:new).and_raise(StandardError.new('rspec test'))
+		end
+
+		it 'should log that it unable to download VATSIM status' do
+			expect(Rails.logger).to receive(:error).with(/VatsimOnlineJob: Unable to download VATSIM status/)
+			VatsimOnlineJob.perform_now
+		end
+
+		it 'should retry three times' do
+			expect(VATSIM::Data).to receive(:new).exactly(3).times
+			VatsimOnlineJob.perform_now
+		end
+
+		it 'should fail gracefully' do
+			expect{VatsimOnlineJob.perform_now}.to_not raise_error
+		end
+
+	end # context 'when no data servers could be found'
+
 end
