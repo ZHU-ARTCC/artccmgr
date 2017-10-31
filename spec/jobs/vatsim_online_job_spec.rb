@@ -79,6 +79,14 @@ RSpec.describe VatsimOnlineJob, type: :job do
 	end # context 'when no data has been downloaded or an update is due'
 
 	context 'when no status URL is configured' do
+		before :all do
+			@status_url = Settings.vatsim_status_url
+		end
+
+		after :all do
+			Settings.vatsim_status_url = @status_url
+		end
+
 		before :each do
 			ActiveJob::Base.queue_adapter = :async
 
