@@ -55,7 +55,7 @@ RSpec.describe Events::PilotsController, type: :controller do
     end
 
     context 'when not logged in' do
-      it 'does not delete Event' do
+      it 'does not delete Event Pilot' do
         expect {
           delete :destroy, params: { id: @event_pilot, event_id: @event_pilot.event.id }
         }.to_not change(Event::Pilot, :count)
@@ -74,6 +74,12 @@ RSpec.describe Events::PilotsController, type: :controller do
       end
 
       it 'redirects to event#index' do
+        delete :destroy, params: { id: @event_pilot, event_id: @event_pilot.event.id }
+        expect(response).to redirect_to event_path(@event_pilot.event)
+      end
+
+      it 'redirects to the events#index path if the Event Pilot cannot be deleted' do
+        allow_any_instance_of(Event::Pilot).to receive(:destroy).and_return(false)
         delete :destroy, params: { id: @event_pilot, event_id: @event_pilot.event.id }
         expect(response).to redirect_to event_path(@event_pilot.event)
       end

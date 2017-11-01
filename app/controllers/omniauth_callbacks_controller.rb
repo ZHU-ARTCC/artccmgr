@@ -11,7 +11,13 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   #
   def vatsim
     sso_data = request.env['omniauth.auth']
-    sso_info = sso_data.info
+
+    begin
+      sso_info = sso_data.info
+    rescue NoMethodError
+      failure
+      return
+    end
 
     @user = User.find_by(cid: request.env['omniauth.auth'].info.id.to_i)
 

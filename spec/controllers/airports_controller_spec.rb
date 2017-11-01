@@ -95,6 +95,12 @@ RSpec.describe AirportsController, type: :controller do
         delete :destroy, params: { id: @airport }
         expect(response).to redirect_to airports_path
       end
+
+      it 'redirects to airport#show if the airport cannot be deleted' do
+        allow_any_instance_of(Airport).to receive(:destroy).and_return(false)
+        delete :destroy, params: { id: @airport }
+        expect(response).to redirect_to airport_path(@airport)
+      end
     end
   end
 

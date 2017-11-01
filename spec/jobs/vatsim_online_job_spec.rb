@@ -112,7 +112,7 @@ RSpec.describe VatsimOnlineJob, type: :job do
 			expect{VatsimOnlineJob.perform_now}.to_not raise_error
 		end
 
-	end # context '#get_new_data_servers'
+	end # context 'when no status URL is configured'
 
 	context 'when no data servers could be found' do
 		before :each do
