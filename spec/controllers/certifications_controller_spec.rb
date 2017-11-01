@@ -98,6 +98,12 @@ RSpec.describe CertificationsController, type: :controller do
 			it 'redirects to certification#index' do
 				delete :destroy, params: { id: @certification }
 				expect(response).to redirect_to certifications_path
+      end
+
+			it 'redirects to certification#show if the certification cannot be deleted' do
+				allow_any_instance_of(Certification).to receive(:destroy).and_return(false)
+				delete :destroy, params: { id: @certification }
+				expect(response).to redirect_to certifications_path(@certification)
 			end
 		end
 	end

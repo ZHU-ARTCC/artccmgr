@@ -87,6 +87,12 @@ RSpec.describe PositionsController, type: :controller do
         delete :destroy, params: { id: @position }
         expect(response).to redirect_to positions_path
       end
+
+      it 'redirects to the position#show page if the position cannot be deleted' do
+        allow_any_instance_of(Position).to receive(:destroy).and_return(false)
+        delete :destroy, params: { id: @position }
+        expect(response).to redirect_to position_path(@position)
+      end
     end
   end
 
@@ -115,6 +121,16 @@ RSpec.describe PositionsController, type: :controller do
     it 'assigns the a new position to @position' do
       get :new
       expect(assigns(:position)).to be_kind_of Position
+    end
+
+    it 'pre-selects major if type major parameter is given' do
+      get :new, params: { type: :major }
+      expect(assigns(:position).major).to eq true
+    end
+
+    it 'pre-selects minor if the type minor parameter is given' do
+      get :new, params: { type: :minor }
+      expect(assigns(:position).major).to eq false
     end
 
     it 'renders the #new view' do

@@ -91,6 +91,12 @@ RSpec.describe EventsController, type: :controller do
         }.to change(Event,:count).by(-1)
       end
 
+      it 'redirects to event#index even the event cannot be deleted' do
+        allow_any_instance_of(Event).to receive(:destroy).and_return(false)
+        delete :destroy, params: { id: @event }
+        expect(response).to redirect_to events_path
+      end
+
       it 'redirects to event#index' do
         delete :destroy, params: { id: @event }
         expect(response).to redirect_to events_path

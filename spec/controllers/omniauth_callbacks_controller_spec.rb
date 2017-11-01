@@ -6,35 +6,34 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
 		OmniAuth.config.test_mode = true
 	end
 
-	# NOTE - Testing the #failure method will require changes to the VATSIM OmniAuth gem
-	# describe '#failure' do
-	# 	before :each do
-	# 		OmniAuth.config.on_failure = Proc.new { |env|
-	# 			OmniAuth::FailureEndpoint.new(env).redirect_to_failure
-	# 		}
-	#
-	# 		OmniAuth.config.mock_auth[:vatsim] = :invalid_credentials
-	#
-	# 		request.env['devise.mapping'] = Devise.mappings[:user]
-	# 		request.env['omniauth.auth']  = OmniAuth.config.mock_auth[:vatsim]
-	# 	end
-	#
-	# 	it 'does not sign in a user' do
-	# 		# get :vatsim
-	# 		controller.failure
-	# 		expect(warden.authenticated?(:user)).to eq false
-	# 	end
-	#
-	# 	it 'sets a flash message' do
-	# 		expect(controller.failure).to set_flash[:notice]
-	# 	end
-	#
-	# 	it 'redirects to the root_path' do
-	# 		get :vatsim
-	# 		expect(response).to redirect_to root_path
-	# 	end
-	#
-	# end # describe '#failure'
+	describe '#failure' do
+		before :each do
+			OmniAuth.config.on_failure = Proc.new { |env|
+				OmniAuth::FailureEndpoint.new(env).redirect_to_failure
+			}
+
+			OmniAuth.config.mock_auth[:vatsim] = :invalid_credentials
+
+			request.env['devise.mapping'] = Devise.mappings[:user]
+			request.env['omniauth.auth']  = OmniAuth.config.mock_auth[:vatsim]
+		end
+
+		it 'does not sign in a user' do
+			get :vatsim
+			expect(warden.authenticated?(:user)).to eq false
+		end
+
+		it 'sets a flash message' do
+      get :vatsim
+			expect(controller).to set_flash[:notice]
+		end
+
+		it 'redirects to the root_path' do
+			get :vatsim
+			expect(response).to redirect_to root_path
+		end
+
+	end # describe '#failure'
 
 	describe '#vatsim' do
 		before :each do

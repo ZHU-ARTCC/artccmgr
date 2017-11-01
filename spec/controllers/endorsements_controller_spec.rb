@@ -76,6 +76,12 @@ RSpec.describe EndorsementsController, type: :controller do
 			it 'redirects to user#show' do
 				delete :destroy, params: { user_id: @endorsement.user, id: @endorsement }
 				expect(response).to redirect_to user_path(@endorsement.user)
+      end
+
+			it 'redirects to #edit if the endorsement cannot be deleted' do
+        allow_any_instance_of(Endorsement).to receive(:destroy).and_return(false)
+				delete :destroy, params: { user_id: @endorsement.user, id: @endorsement }
+				expect(response).to redirect_to edit_user_endorsement_path(@endorsement.user, @endorsement)
 			end
 		end
 	end

@@ -87,6 +87,12 @@ RSpec.describe FeedbackController, type: :controller do
         delete :destroy, params: { id: @feedback }
         expect(response).to redirect_to feedback_index_path
       end
+
+      it 'redirects to feedback#index even if the feedback cannot be deleted' do
+        allow_any_instance_of(Feedback).to receive(:destroy).and_return(false)
+        delete :destroy, params: { id: @feedback }
+        expect(response).to redirect_to feedback_index_path
+      end
     end
   end
 
