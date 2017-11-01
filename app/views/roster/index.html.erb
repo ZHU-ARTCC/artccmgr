@@ -8,6 +8,13 @@
           <div class="col-auto mr-auto pt-1">
             Controller Roster
           </div>
+          <% if policy(User).create? -%>
+            <div class="col-auto">
+              <%= link_to new_user_path(type: :local), class: 'event-title-btn', 'data-toggle': :tooltip, 'data-placement': :bottom, title: 'Add Controller' do %>
+                <%= fa_icon('plus-square') %>
+              <% end %>
+            </div>
+          <% end -%>
         </div>
       </div>
 
@@ -29,6 +36,13 @@
           <div class="col-auto mr-auto pt-1">
             Visiting Controller Roster
           </div>
+          <% if policy(User).create? -%>
+            <div class="col-auto">
+              <%= link_to new_user_path(type: :visiting), class: 'event-title-btn', 'data-toggle': :tooltip, 'data-placement': :bottom, title: 'Add Controller' do %>
+                <%= fa_icon('plus-square') %>
+              <% end %>
+            </div>
+          <% end -%>
         </div>
       </div>
 

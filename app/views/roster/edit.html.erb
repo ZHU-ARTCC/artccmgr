@@ -46,16 +46,17 @@
         <p>
           <b>Deletion will remove all local training records, group settings, and activity!</b>
         </p>
+        <% if @user.is_local? -%>
         <p>
           <%= check_box_tag :vatusa_remove %> Also remove from roster at VATUSA
         </p>
         <p>
           <%= text_field_tag :vatusa_reason, nil, class: 'form-control', placeholder: 'Please enter a reason for removal' %>
         </p>
+        <% end -%>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <%#= link_to 'Delete', user_path(@user), method: :delete, class: 'btn btn-danger', data: { dismiss: :modal } %>
         <%= submit_tag 'Delete', class: 'btn btn-danger' %>
       </div>
     </div>

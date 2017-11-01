@@ -129,6 +129,32 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#is_local?' do
+    it 'should return true when the user is a local controller' do
+      expect(create(:user, :local_controller).is_local?).to be true
+    end
+
+    it 'should return false when the user is a visiting controller' do
+      expect(create(:user, :visiting_controller).is_local?).to be false
+    end
+
+    it 'should return false when the user is not a controller' do
+      expect(create(:user).is_local?).to be false
+    end
+  end
+
+  describe '#name_first=' do
+    it 'should titleize the first name' do
+      expect(build(:user, name_first: 'test').name_first).to eq 'Test'
+    end
+  end
+
+  describe '#name_last=' do
+    it 'should titleize the last name' do
+      expect(build(:user, name_last: 'test').name_last).to eq 'Test'
+    end
+  end
+
   describe '#name_full' do
     it { expect(user.name_full).to eq "#{user.name_first} #{user.name_last}" }
   end

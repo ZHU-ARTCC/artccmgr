@@ -32,6 +32,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [ :initials, :group_id ]
+    [ :cid, :name_first, :name_last, :email, :reg_date, :group_id, :initials, :rating_id ]
   end
 end

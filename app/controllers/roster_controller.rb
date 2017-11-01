@@ -15,6 +15,24 @@ class RosterController < ApplicationController
     authorize @visiting_controllers
   end
 
+  def create
+    authorize User, :create?
+
+    # Look for potential Guest users to update
+    guest = Group.find_by(name: 'Guest')
+    @user = User.find_by(cid: params['user']['cid'].to_i, group: guest)
+
+    # If none exists create a new user
+    @user = User.new if @user.nil?
+
+    if @user.update_attributes(permitted_attributes(@user))
+      redirect_to users_path, success: 'User has been saved'
+    else
+      flash.now[:alert] = 'Unable to save user'
+      render :new
+    end
+  end
+
   def destroy
     authorize User, :destroy?
     @user = policy_scope(User).friendly.find(params[:id])
@@ -35,17 +53,29 @@ class RosterController < ApplicationController
     if api_success
       if @user.destroy
         flash['success'] = 'User has been deleted successfully'
-        redirect_to user_index_path
+        redirect_to users_path
       else
-        redirect_to user_index_path, alert: 'Unable to delete user locally but user removed from VATUSA roster'
+        redirect_to users_path, alert: 'Unable to delete user locally but user removed from VATUSA roster'
       end
     else
-      redirect_to user_index_path, alert: 'Unable to remove user from VATUSA, local remove aborted'
+      redirect_to users_path, alert: 'Unable to remove user from VATUSA, local remove aborted'
     end
   end
 
   def edit
     @user = policy_scope(User).friendly.find(params[:id])
+    authorize @user
+  end
+
+  def new
+    @user = User.new
+
+    # Preselect visiting controller group if parameter is set
+    if params['type']
+      @user.group = Group.find_by(name: 'Visiting Controller') if params['type'] == 'visiting'
+      @user.group = Group.find_by(name: 'Controller') if params['type'] == 'local'
+    end
+
     authorize @user
   end
 
@@ -60,7 +90,7 @@ class RosterController < ApplicationController
 
     if @user.update_attributes(permitted_attributes(@user))
       flash[:success] = "#{@user.name_full} has been updated"
-      redirect_to user_index_path
+      redirect_to users_path
     else
       flash.now[:alert] = 'Unable to update user'
       render :edit
