@@ -6,6 +6,7 @@ services:
 stages:
   - build
   - test
+  - reports
   - staging
 
 variables:
@@ -47,8 +48,11 @@ rspec:
     when: always
   dependencies:
     - build
+  variables:
+    COVERAGE: 'true'
+    RAILS_ENV: 'test'
   script:
-    - RAILS_ENV=test bundle exec rspec
+    - bundle exec rspec
 
 security:
   stage: test
@@ -56,12 +60,30 @@ security:
   <<: *setup_test_env
   artifacts:
     paths:
-      - log/brakeman.log
+      - log/brakeman.html
     expire_in: 1 week
   dependencies:
       - build
   script:
-    - RAILS_ENV=test bundle exec brakeman -A -o log/brakeman.log
+    - RAILS_ENV=test bundle exec brakeman -A -f html -o log/brakeman.html
+
+pages:
+  stage: reports
+  dependencies:
+    - rspec
+    - security
+  script:
+    - rm -r public
+    - mkdir -p public/brakeman
+    - mv coverage/ public/coverage
+    - mv log/brakeman.html public/brakeman/index.html
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - development
+  allow_failure: true
 
 heroku_development:
   stage: staging

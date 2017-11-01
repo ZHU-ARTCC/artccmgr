@@ -1,5 +1,9 @@
 # ARTCC Manager
 
+[![pipeline status](https://gitlab.com/jvoss1/artccmgr/badges/development/pipeline.svg)](https://gitlab.com/jvoss1/artccmgr/commits/development) [![coverage report](https://gitlab.com/jvoss1/artccmgr/badges/development/coverage.svg)](https://gitlab.com/jvoss1/artccmgr/commits/development)
+
+Badges represent the current state of the development branch.
+
 ImageMagick required for image management!
 
 How to get started with development:
