@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   resources :feedback, except: [:edit, :show]
   resources :positions
 
-  resources :roster, as: :user do
+  resources :roster, as: :users do
 	  resources :endorsements, only: [:create, :edit, :new, :update, :destroy]
   end
 end

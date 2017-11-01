@@ -11,6 +11,16 @@ FactoryGirl.define do
     email     { "#{name_first}.#{name_last}@example.com".downcase }
     reg_date  Time.now
 
+    trait :invalid do
+      cid        { nil }
+      name_first { nil }
+      name_last  { nil }
+    end
+
+    trait :guest do
+      group { Group.find_by(name: 'Guest') }
+    end
+
     trait :local_controller do
       group { create(:group, :local_controllers) }
     end

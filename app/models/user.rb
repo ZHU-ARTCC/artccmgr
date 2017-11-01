@@ -57,6 +57,21 @@ class User < ApplicationRecord
     User.all_controllers.include?(self)
   end
 
+  # Determines if this user is a member of this ARTCC
+  def is_local?
+    User.local_controllers.include?(self)
+  end
+
+  # Titleize the first name
+  def name_first=(name)
+    name.nil? ? super(name) : super(name.titleize)
+  end
+
+  # Titleize the last name
+  def name_last=(name)
+    name.nil? ? super(name) : super(name.titleize)
+  end
+
   # Displays first name and last name in one string
   def name_full
     "#{name_first} #{name_last}"
