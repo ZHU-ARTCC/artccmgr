@@ -14,7 +14,8 @@ class UserPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.permissions.pluck('name').include? 'user create'
+    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group.permissions.pluck('name').include? 'user update'
   end
 
   def update?
