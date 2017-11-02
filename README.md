@@ -2,59 +2,95 @@
 
 [![pipeline status](https://gitlab.com/jvoss1/artccmgr/badges/development/pipeline.svg)](https://gitlab.com/jvoss1/artccmgr/commits/development) [![coverage report](https://gitlab.com/jvoss1/artccmgr/badges/development/coverage.svg)](https://gitlab.com/jvoss1/artccmgr/commits/development)
 
-Badges represent the current state of the development branch.
+ARTCC Manager is a full featured VATSIM/VATUSA ARTCC website and management platform
+developed on Ruby on Rails. It utilizes VATUSA API integration and VATSIM Single sign-on
+(SSO) to provide a seamless experience to users and ease website management for ARTCC staff.
 
-ImageMagick required for image management!
+Contact
+-------
+*Code and Bug Reports*
 
-How to get started with development:
+* [Issue Tracker](https://gitlab.com/jvoss1/artccmgr/issues)
+* See [CONTRIBUTING](CONTRIBUTING.md) for how to contribute to this project
 
-* Ruby version 2.3.3
+Requirements
+------------
 
-* System dependencies
+* Ruby 2.4
+* Bundler ruby gem
+* ImageMagick
 
-    ```bundle install```
-
-* Configuration Files
-
-    Database configuration:
-
-    ```config/database.yml```
+Installation
+------------
+Clone the repository and install the gem requirements:
     
-    Default site wide settings:
+    $ git clone git@gitlab.com:jvoss1/artccmgr.git
+    $ cd artccmgr
+    $ bundle install
+
+Configuration
+---------------
+Configuration settings are maintained in a few separate places:
+
+* Secret Key Base
+
+    Configure the SECRET_KEY_BASE environment variable:
     
-    ```config/settings.yml```
+        SECRET_KEY_BASE={output of `rake secret`}
+        
+* Environment configuration
+
+    Configure the RAILS_ENV variable:
     
-    Environment specific settings:
+        RAILS_ENV=production
+
+* Database Configuration (PostgreSQL)
+
+    Configure the DATABASE_URL environment variable:
+        
+        DATABASE_URL=postgres://{user}:{password}@{hostname}:{port}/{database-name}
+        
+* VATSIM SSO Configuration
+
+    Configure the following environment variables:
     
-    ```
-    config/settings/development.yml
-    config/settings/production.yml
-    config/settings/test.yml
-    ```
+        VATSIM_SSO_CONSUMER_KEY={consumer key, example: SSO_DEMO_VACC}
+        VATSIM_SSO_SECRET={password for RSA private key}
+        VATSIM_SSO_URL={normally: https://cert.vatsim.net/sso/}
+        VATSIM_SSO_RSA_KEY={one line output of RSA key *see notes below*}
+        
+    The VATSIM_SSO_RSA_KEY **must** be formatted carefully. Use the exact output of:
     
-    Credential storage:
+        awk 1 ORS='\\n' <keyfile>
+        
+* VATUSA API Integration
+
+    Configure the following environment variables:
     
-    ```config/secrets.yml```
+        VATUSA_API_URL={normally: https://api.vatusa.net}
+        VATUSA_API_KEY={your organizations specific API key}
+        
+* Customization options
 
-* Database initialization
-
-    Create the databases and seed the Development database:
-
-    ```rake db:setup```
-
-    Seed the test database to ensure RSpec tests pass:
-
-    ```rake db:seed RAILS_ENV=test```
-
-* How to run the test suite
-
-    ```rake spec```
-
-* How to run the application (in development)
-
-    ```rails s```
+    See the default settings [config/settings.yml](config/settings.yml) for a complete list.
     
-    If you would like jobs to run while developing:
+    Any changes or customizations should be placed in config/settings/production.yml
+
+## Initialization
+Some first-time initialization commands must be executed before running ARTCC Manager for
+the first time only.
+
+1) Initialize the databases (make sure the database has been created):
     
-    ```bundle exec crono```
+        bundle exec rake db:schema:load  
+        
+2) Seed the database with initial groups, permissions, etc:
+
+        bundle exec rake db:seed
+
+3) Start the Rails server and Crono scheduler for your particular configuration. The
+default [Procfile](Procfile) should be sufficient for most configurations:
+
+        web: bundle exec rails server -p $PORT -e $RAILS_ENV
+        worker: bundle exec crono RAILS_ENV=$RAILS_ENV
     
