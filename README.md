@@ -93,4 +93,14 @@ default [Procfile](Procfile) should be sufficient for most configurations:
 
         web: bundle exec rails server -p $PORT -e $RAILS_ENV
         worker: bundle exec crono RAILS_ENV=$RAILS_ENV
+        
+## Getting Started
+When the scheduler is started it will run the following jobs:
+
+* Update any defined airports weather information (METAR)
+* Download the organization's roster from VATUSA and set appropriate groups on users
+* Start monitoring VATSIM online data for defined controlling positions
+
+Once the website is up and the scheduler has ran, you should be able to see users on
+the roster and log in to the website to begin adding your organization's information. 
     
