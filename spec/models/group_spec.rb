@@ -18,6 +18,7 @@ RSpec.describe Group, type: :model do
     # Inclusion/acceptance of values
     it { expect(group).to_not allow_value('').for(:name) }
     it { expect(group).to validate_uniqueness_of(:name).ignoring_case_sensitivity }
+    it { expect(group).to validate_numericality_of(:min_controlling_hours) }
 
   end # describe 'ActiveModel validations'
 

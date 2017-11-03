@@ -19,10 +19,11 @@ class User < ApplicationRecord
 
   has_many    :online_sessions, class_name: 'Vatsim::Atc'
 
-  delegate  :atc?,        to: :group
-  delegate  :permissions, to: :group
-  delegate  :staff?,      to: :group
-  delegate  :visiting?,   to: :group
+  delegate  :atc?,                  to: :group
+  delegate  :min_controlling_hours, to: :group
+  delegate  :permissions,           to: :group
+  delegate  :staff?,                to: :group
+  delegate  :visiting?,             to: :group
 
   validates :cid,         presence: true, numericality: :only_integer, allow_blank: false, uniqueness: true
   validates :name_first,  presence: true, allow_blank: false

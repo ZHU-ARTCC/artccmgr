@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171028154946) do
+ActiveRecord::Schema.define(version: 20171103214203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -139,6 +139,7 @@ ActiveRecord::Schema.define(version: 20171028154946) do
     t.boolean "staff", default: false
     t.boolean "atc", default: false
     t.boolean "visiting", default: false
+    t.decimal "min_controlling_hours", precision: 3, scale: 1, default: "0.0"
   end
 
   create_table "permissions", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

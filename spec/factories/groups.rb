@@ -5,11 +5,13 @@ FactoryGirl.define do
     trait :local_controllers do
       atc true
 	    visiting false
+      min_controlling_hours { rand(9) }
     end
 
     trait :visiting_controllers do
       atc true
 	    visiting true
+      min_controlling_hours { rand(9) }
     end
 
     trait :perm_airport_create do
