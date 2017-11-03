@@ -1,0 +1,102 @@
+<div class="container">
+  <%= form_for @group do |f| %>
+
+      <div class="form-group row">
+        <%= f.label :name, 'Group Name', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @group.errors[:name].present? ? name_invalid = 'is-invalid' : name_invalid = nil %>
+          <%= f.text_field :name, class: "form-control #{name_invalid}", required: true %>
+          <% unless name_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @group.errors[:name].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :staff, 'Staff Position', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @group.errors[:staff].present? ? staff_invalid = 'is-invalid' : staff_invalid = nil %>
+          <%= f.select :staff, [['Yes', true], ['No', false]], {}, class: "form-control #{staff_invalid}" %>
+          <small id="minHoursHelp" class="form-text text-muted">
+            Identifies this group as a staff position
+          </small>
+          <% unless staff_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @group.errors[:staff].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :atc, 'Controllers', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @group.errors[:atc].present? ? atc_invalid = 'is-invalid' : atc_invalid = nil %>
+          <%= f.select :atc, [['Yes', true], ['No', false]], {}, class: "form-control #{atc_invalid}" %>
+          <small id="minHoursHelp" class="form-text text-muted">
+            Determines whether this group has controlling privileges
+          </small>
+          <% unless atc_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @group.errors[:atc].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :visiting, 'Visiting Controllers', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @group.errors[:visiting].present? ? visiting_invalid = 'is-invalid' : visiting_invalid = nil %>
+          <%= f.select :visiting, [['Yes', true], ['No', false]], {}, class: "form-control #{visiting_invalid}" %>
+          <small id="minHoursHelp" class="form-text text-muted">
+            Marks members of this group as visiting controllers
+          </small>
+          <% unless visiting_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @group.errors[:visiting].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :min_controlling_hours, 'Minimum Hours', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @group.errors[:min_controlling_hours].present? ? activity_invalid = 'is-invalid' : activity_invalid = nil %>
+          <%= f.text_field :min_controlling_hours, class: "form-control #{activity_invalid}" %>
+          <small id="minHoursHelp" class="form-text text-muted">
+            The minimum number of hours this group must control to remain active on the roster
+          </small>
+          <% unless activity_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @group.errors[:min_controlling_hours].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :permissions, 'Permissions', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @group.errors[:permissions].present? ? permissions_invalid = 'is-invalid' : permissions_invalid = nil %>
+          <% options = options_from_collection_for_select(Permission.all.order(:name), 'id', 'name', @group.permissions.pluck('id')) %>
+          <%= f.select :permission_ids, options, {}, multiple: true, size: 10, class: "form-control #{permissions_invalid}" %>
+          <% unless permissions_invalid.nil? %>
+              <div class="invalid-feedback">
+                <%= @group.errors[:permissions].join(', ').capitalize %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-12 text-center">
+          <%= f.submit 'Save Group', class: 'btn btn-primary' %>
+          <%= link_to 'Cancel', groups_path, class: 'btn btn-outline-info' %>
+        </div>
+      </div>
+  <% end %>
+</div>

@@ -188,6 +188,30 @@ FactoryGirl.define do
       end
     end
 
+    trait :perm_group_create do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'group create')
+      end
+    end
+
+    trait :perm_group_delete do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'group delete')
+      end
+    end
+
+    trait :perm_group_read do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'group read')
+      end
+    end
+
+    trait :perm_group_update do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'group update')
+      end
+    end
+
     trait :perm_position_create do
       after :build do |g|
         g.permissions << Permission.where(name: 'position create')

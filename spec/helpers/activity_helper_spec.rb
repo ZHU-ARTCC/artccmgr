@@ -3,52 +3,18 @@ require 'rails_helper'
 RSpec.describe ActivityHelper, type: :helper do
 
 	describe '#activity_minimums_css' do
+		before :each do
+			@user = create(:user, group: create(:group, staff: true, min_controlling_hours: 3))
+		end
 
-		context 'for staff' do
-      before :each do
-        @user = create(:user, group: create(:group, staff: true))
-      end
+		it 'returns bg-danger if the user has not met the minimum requirements' do
+			expect(activity_minimums_css(@user, 0)).to eq 'bg-danger'
+		end
 
-      it 'returns bg-danger if the user has not met the minimum requirements' do
-        expect(activity_minimums_css(@user, 0)).to eq 'bg-danger'
-      end
-
-      it 'returns nil if the user has met the the minimum requirements' do
-        required_hours = Settings.activity_hours_staff
-        expect(activity_minimums_css(@user, required_hours)).to be_nil
-      end
-		end # context 'for staff'
-
-		context 'for local controllers' do
-      before :each do
-	      @user = create(:user, group: create(:group))
-      end
-
-      it 'returns bg-danger if the user has not met the minimum requirements' do
-        expect(activity_minimums_css(@user, 0)).to eq 'bg-danger'
-      end
-
-			it 'returns nil if the user has met the minimum requirements' do
-				required_hours = Settings.activity_hours
-				expect(activity_minimums_css(@user, required_hours)).to be_nil
-			end
-		end # context 'for controllers'
-
-		context 'for visiting controllers' do
-			before :each do
-				@user = create(:user, group: create(:group, visiting: true))
-			end
-
-			it 'returns bg-danger if the user has not met the minimum requirements' do
-				expect(activity_minimums_css(@user, 0)).to eq 'bg-danger'
-			end
-
-			it 'returns nil if the user has met the minimum requirements' do
-				required_hours = Settings.activity_hours_visiting
-				expect(activity_minimums_css(@user, required_hours)).to be_nil
-			end
-		end # context 'for visiting controllers'
-
+		it 'returns nil if the user has met the the minimum requirements' do
+			required_hours = @user.group.min_controlling_hours
+			expect(activity_minimums_css(@user, required_hours)).to be_nil
+		end
 	end # describe '#activity_minimums_css'
 
 	describe '#report_controls' do
