@@ -4,13 +4,7 @@ module ActivityHelper
 	# the minimum activity requirements for the user and duration given
 	#
 	def activity_minimums_css(user, duration)
-		if user.staff?
-			mins = Settings.activity_hours_staff.to_i
-		elsif user.visiting?
-			mins = Settings.activity_hours_visiting.to_i
-		else
-			mins = Settings.activity_hours.to_i
-		end
+		mins = user.min_controlling_hours
 
 		duration < mins ? 'bg-danger' : nil
 	end

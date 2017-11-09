@@ -63,6 +63,11 @@ Permission.create name: 'feedback read published'
 Permission.create name: 'feedback update'
 Permission.create name: 'feedback delete'
 
+Permission.create name: 'group create'
+Permission.create name: 'group read'
+Permission.create name: 'group update'
+Permission.create name: 'group delete'
+
 Permission.create name: 'position create'
 Permission.create name: 'position read'
 Permission.create name: 'position update'
@@ -190,6 +195,10 @@ Group.create name: 'webmaster',
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'feedback update'),
                  Permission.find_by(name: 'feedback delete'),
+                 Permission.find_by(name: 'group create'),
+                 Permission.find_by(name: 'group read'),
+                 Permission.find_by(name: 'group update'),
+                 Permission.find_by(name: 'group delete'),
                  Permission.find_by(name: 'position create'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'position update'),
@@ -294,6 +303,10 @@ Group.create name: 'deputy air traffic manager',
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'feedback update'),
                  Permission.find_by(name: 'feedback delete'),
+                 Permission.find_by(name: 'group create'),
+                 Permission.find_by(name: 'group read'),
+                 Permission.find_by(name: 'group update'),
+                 Permission.find_by(name: 'group delete'),
                  Permission.find_by(name: 'position create'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'position update'),
@@ -337,6 +350,10 @@ Group.create name: 'air traffic manager',
                  Permission.find_by(name: 'feedback read published'),
                  Permission.find_by(name: 'feedback update'),
                  Permission.find_by(name: 'feedback delete'),
+                 Permission.find_by(name: 'group create'),
+                 Permission.find_by(name: 'group read'),
+                 Permission.find_by(name: 'group update'),
+                 Permission.find_by(name: 'group delete'),
                  Permission.find_by(name: 'position create'),
                  Permission.find_by(name: 'position read'),
                  Permission.find_by(name: 'position update'),

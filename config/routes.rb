@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   end
 
   resources :feedback, except: [:edit, :show]
+  resources :groups, except: [:show]
   resources :positions
 
   resources :roster, as: :users do

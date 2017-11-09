@@ -5,11 +5,13 @@ FactoryGirl.define do
     trait :local_controllers do
       atc true
 	    visiting false
+      min_controlling_hours { rand(9) }
     end
 
     trait :visiting_controllers do
       atc true
 	    visiting true
+      min_controlling_hours { rand(9) }
     end
 
     trait :perm_airport_create do
@@ -183,6 +185,30 @@ FactoryGirl.define do
     trait :perm_feedback_update do
       after :build do |g|
         g.permissions << Permission.where(name: 'feedback update')
+      end
+    end
+
+    trait :perm_group_create do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'group create')
+      end
+    end
+
+    trait :perm_group_delete do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'group delete')
+      end
+    end
+
+    trait :perm_group_read do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'group read')
+      end
+    end
+
+    trait :perm_group_update do
+      after :build do |g|
+        g.permissions << Permission.where(name: 'group update')
       end
     end
 

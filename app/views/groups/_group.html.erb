@@ -1,0 +1,34 @@
+<tr>
+  <% if policy(Group).update? -%>
+    <td class="text-center">
+      <%= link_to edit_group_path(group),
+                  class: 'badge badge-secondary',
+                  'data-toggle': :tooltip,
+                  'data-placement': :bottom,
+                  title: 'Edit' do %>
+        <%= fa_icon 'pencil' %>
+      <% end %>
+    </td>
+  <% end -%>
+  <td>
+    <small><%= group.name %></small>
+  </td>
+  <td class="text-center">
+    <small>
+      <%= group.atc? ? fa_icon(:check) : nil %>
+    </small>
+  </td>
+  <td class="text-center">
+    <small>
+      <%= group.visiting? ? fa_icon(:check) : nil %>
+    </small>
+  </td>
+  <td class="text-center">
+    <small>
+      <%= group.staff? ? fa_icon(:check) : nil %>
+    </small>
+  </td>
+  <td class="text-center">
+    <small><%= group.users.count %></small>
+  </td>
+</tr>
