@@ -285,4 +285,61 @@ RSpec.describe RosterController, type: :controller do
     end
   end
 
+  describe 'GET #user_info' do
+    context 'when not logged in' do
+      it 'redirects to the root page' do
+        user = create(:user)
+        expect(get(:user_info, params: {user_id: user.id})).to redirect_to root_path
+      end
+    end
+
+    context 'when logged in' do
+      before :each do
+        sign_in create(:user, group: create(:group, :perm_user_create))
+      end
+
+      context 'and the user exists locally' do
+	      before :each do
+		      @user = create(:user)
+	      end
+
+	      it 'finds the user in the database' do
+		      get :user_info, params: {user_id: @user.friendly_id}, format: :json
+		      expect(JSON.parse(response.body)['name_first']).to eq @user.name_first
+		      expect(JSON.parse(response.body)['name_last']).to eq @user.name_last
+		      expect(JSON.parse(response.body)['email']).to eq @user.email
+		      expect(JSON.parse(response.body)['rating']).to eq @user.rating.id
+	      end
+      end
+
+      context 'and the user does not exist locally' do
+	      it 'queries the VATUSA API' do
+		      get :user_info, params: {user_id: '1300099'}, format: :json
+          expect(JSON.parse(response.body)['name_first']).to eq 'API'
+          expect(JSON.parse(response.body)['name_last']).to eq 'Test'
+          expect(JSON.parse(response.body)['email']).to be_blank
+          expect(JSON.parse(response.body)['rating']).to eq Rating.find_by(number: 3).id
+	      end
+      end
+
+	    context 'and the user cannot be found' do
+		    it 'should not raise and exception' do
+			    expect{
+				    get :user_info, params: {user_id: '999999'}, format: :json
+			    }.to_not raise_error
+		    end
+
+		    it 'should return 200 to not confuse javascript' do
+			    get :user_info, params: {user_id: '999999'}, format: :json
+			    expect(response.status).to eq 200
+		    end
+
+		    it 'should return not found message' do
+			    get :user_info, params: {user_id: '999999'}, format: :json
+			    expect(JSON.parse(response.body)['status']).to eq 'CID not found'
+		    end
+	    end
+    end
+  end # context 'when logged in'
+
 end

@@ -42,11 +42,11 @@ RSpec.describe Rating, type: :model do
 
 	describe '#to_s' do
     before :each do
-	    @rating = build(:rating, long_name: 'Test Rating 1')
+	    @rating = build(:rating, short_name: 'T1', long_name: 'Test Rating 1')
     end
 
 		it { expect(@rating.to_s).to be_kind_of String }
-		it { expect(@rating.to_s).to eq 'Test Rating 1'}
+		it { expect(@rating.to_s).to eq 'Test Rating 1 (T1)'}
 
 	end # describe '#to_s'
 

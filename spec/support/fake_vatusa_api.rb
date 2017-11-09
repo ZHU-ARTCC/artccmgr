@@ -15,6 +15,7 @@ class FakeVATUSAAPI < Sinatra::Base
 			1300010 => { fname: '10th', lname: 'Test', rating: '10' },
 			1300011 => { fname: '11th', lname: 'Test', rating: '11' },
 			1300012 => { fname: '12th', lname: 'Test', rating: '12' },
+			1300099 => { fname: 'API',  lname: 'Test', rating: '3' },
 	}
 
 	get '/fakeapi/VATUSA/:api_key/cbt/block' do
@@ -176,7 +177,8 @@ class FakeVATUSAAPI < Sinatra::Base
 		content_type :json
 
 		roster = []
-		USERS.each_pair do |vatsim_id, user|
+		# Do not include API Test user in roster
+		USERS.except(1300099).each_pair do |vatsim_id, user|
 			roster.push({
 				cid:    vatsim_id.to_s,
 				fname:  user[:fname],

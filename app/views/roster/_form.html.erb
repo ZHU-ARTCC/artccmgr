@@ -56,8 +56,7 @@
         <%= f.label 'Rating*', class: 'col-sm-3 col-form-label' %>
         <div class="col-sm-9">
           <% @user.errors[:rating].present? ? rating_invalid = 'is-invalid' : rating_invalid = nil %>
-          <% ratings = Rating.all.order(:number).collect{|r| ["#{r.long_name} (#{r.short_name})", r.id]} %>
-          <%= f.select :rating_id, ratings, {}, class: "form-control #{rating_invalid}" %>
+          <%= f.collection_select :rating_id, Rating.all.order(:number), :id, :to_s, {}, class: "form-control #{rating_invalid}" %>
           <% unless rating_invalid.nil? %>
               <div class="invalid-feedback">
                 <%= @user.errors[:rating].join(', ').capitalize %>

@@ -25,6 +25,14 @@ body {
   margin-bottom: 60px;
 }
 
+body.loading {
+  overflow: hidden;
+}
+
+body.loading .ajaxModal {
+  display: block;
+}
+
 html {
   position: relative;
   min-height: 100%;
@@ -33,6 +41,20 @@ html {
 .alert-error { @extend .alert-danger; }
 .alert-alert { @extend .alert-primary; }
 .alert-notice { @extend .alert-info; }
+
+.ajaxModal {
+  display:    none;
+  position:   fixed;
+  z-index:    1000;
+  top:        0;
+  left:       0;
+  height:     100%;
+  width:      100%;
+  background: rgba( 255, 255, 255, .8 )
+  image-url('radar_loading.gif')
+  50% 50%
+  no-repeat;
+}
 
 .badge-ratings {
   border-style: groove;
