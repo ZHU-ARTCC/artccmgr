@@ -185,23 +185,27 @@ module VATUSA
 		# Retrieve the roster associated with your API key
 		#
 		# Returns OpenStruct object with the following methods:
-		#   id:     String representing ARTCC ICAO
-		#   url:    String containing URL for ARTCC
-		#   name:   String containing name of ARTCC
-		#   atm:    VATSIM CID of Air Traffic Manager or nil if not assigned
-		#   datm:   VATSIM CID of Deputy Air Traffic Manager or nil if not assigned
-		#   ta:     VATSIM CID of Training Administrator or nil if not assigned
-		#   ec:     VATSIM CID of Events Coordinator or nil if not assigned
-		#   wm:     VATSIM CID of Web Master or nil if not assigned
-		#   fe:     VATSIM CID of Facility Engineer or nil if not assigned
+		#   staff:  OpenStruct object with the following methods:
+		#           atm:  Array of Air Traffic Managers OpenStructs
+		#           datm: Array of Deputy Air Traffic Managers OpenStructs
+		#           ta:   Array of Training Administrators OpenStructs
+		#           ec:   Array of Events Coordinator OpenStructs
+		#           wm:   Array of Web Master OpenStructs
+		#           fe:   Array of Facility Engineer OpenStructs
+		#
+		#   Each of the staff OpenStruct arrays contain objects with the following methods:
+		#           cid:    Integer of member VATSIM ID
+		#           name:   String containing full first and last name, example: "John Doe"
+		#           rating: Integer representation of VATSIM Rating
 		#
 		#   members:  Array of OpenStruct objects containing members of the ARTCC
 		#             with the following methods:
-		#             cid: VATSIM CID
-		#             fname: String containing first name
-		#             lname: String containing last name
-		#             email: String containing email
-		#             rating: Integer representation of member rating
+		#             cid:          Integer of VATSIM CID
+		#             fname:        String containing first name
+		#             lname:        String containing last name
+		#             email:        String containing email
+		#             rating:       Integer representation of member rating
+		#             rating_short: String containing short name for rating, example: "C1"
 		#
 		def roster
 			response = self.class.get(@base_url + '/roster')
@@ -295,10 +299,7 @@ module VATUSA
 		# Process the facility subsection response from '/roster'
 		#
 		def process_roster_facility(facility)
-			%w{atm datm ta ec wm fe}.each do |s|
-				facility[s] = facility[s].to_i
-				facility[s] = nil if facility[s].zero?
-			end
+			facility['staff'] = process_roster_staff(facility['staff'])
 
 			facility['roster'].collect!{|c| process_roster_member(c)}
 			facility['members'] = facility.delete 'roster' # rename the roster key to members
@@ -311,6 +312,18 @@ module VATUSA
 			member['cid']    = member['cid'].to_i
 			member['rating'] = member['rating'].to_i
 			OpenStruct.new(member)
+		end
+
+		# Process roster staff entries
+		#
+		def process_roster_staff(staff)
+			hash = {}
+
+			staff.each_pair do |role, users|
+				hash[role] = users.collect{|u| OpenStruct.new(u)}
+			end
+
+			return OpenStruct.new(hash)
 		end
 
 		# Process an entry of the transfer request list

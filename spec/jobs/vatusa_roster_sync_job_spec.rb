@@ -83,10 +83,10 @@ RSpec.describe VatusaRosterSyncJob, type: :job do
 
 		end # context 'invalid url'
 
-		context 'invalid roster from API' do
+		context 'invalid response from API' do
 			before :each do
 				ActiveJob::Base.queue_adapter = :inline
-				Settings.artcc_icao = 'XXXX'
+				allow_any_instance_of(VATUSA::API).to receive(:roster).and_return(nil)
 				User.destroy_all
 			end
 
@@ -95,7 +95,7 @@ RSpec.describe VatusaRosterSyncJob, type: :job do
 			end
 
 			it 'logs the error' do
-				expect(Rails.logger).to receive(:error).with(/VatusaRosterSyncJob: Roster ICAO/)
+				expect(Rails.logger).to receive(:error).with(/VatusaRosterSyncJob: Roster returned an empty response/)
 				VatusaRosterSyncJob.perform_now
 			end
 
@@ -103,7 +103,7 @@ RSpec.describe VatusaRosterSyncJob, type: :job do
 				expect{VatusaRosterSyncJob.perform_now}.to_not raise_error
 			end
 
-		end # context 'invalid roster from API'
+		end # context 'invalid response from API'
 
   end # describe '#perform'
 

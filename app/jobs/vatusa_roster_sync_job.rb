@@ -12,11 +12,11 @@ class VatusaRosterSyncJob < ApplicationJob
     begin
       roster = @api.roster
 
-      if roster.id == Settings.artcc_icao
+      if !roster.nil?
         process_roster(roster.members)
         sync_staff(roster)
       else
-        raise StandardError, "Roster ICAO (#{roster.id}) did not match ARTCC ICAO (#{Settings.artcc_icao})"
+        raise StandardError, 'Roster returned an empty response'
       end
     rescue => e
       Rails.logger.error "VatusaRosterSyncJob: #{e}"
@@ -54,24 +54,23 @@ class VatusaRosterSyncJob < ApplicationJob
   # Synchronize staff members with VATUSA
   #
   def sync_staff(roster)
-    %w{atm datm ta ec wm fe}.each do |position|
-      user = User.find_by(cid: roster.send(position.to_sym).to_i)
-      unless user.nil?
-        case position
-          when 'atm'
-            user.group = Group.find_by(name: 'Air Traffic Manager')
-          when 'datm'
-            user.group = Group.find_by(name: 'Deputy Air Traffic Manager')
-          when 'ta'
-            user.group = Group.find_by(name: 'Training Administrator')
-          when 'wm'
-            user.group = Group.find_by(name: 'Webmaster')
-          when 'fe'
-            user.group = Group.find_by(name: 'Facility Engineer')
-        end
+    roster.staff.to_h.each_pair do |position, members|
+      users = members.collect{|m| User.find_by(cid: m.cid)}
 
-        user.save if user.changed?
+      case position
+        when :atm
+          users.each{|u| u.group = Group.find_by(name: 'Air Traffic Manager')}
+        when :datm
+          users.each{|u| u.group = Group.find_by(name: 'Deputy Air Traffic Manager')}
+        when :ta
+          users.each{|u| u.group = Group.find_by(name: 'Training Administrator')}
+        when :wm
+          users.each{|u| u.group = Group.find_by(name: 'Webmaster')}
+        when :fe
+          users.each{|u| u.group = Group.find_by(name: 'Facility Engineer')}
       end
+
+      users.each{|u| u.save if u.changed?}
     end
   end
 

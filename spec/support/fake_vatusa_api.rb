@@ -4,17 +4,17 @@ class FakeVATUSAAPI < Sinatra::Base
 
 	USERS = {
 			# CID 1300001 reserved for testing transfers
-			1300002 => { fname: '2nd',  lname: 'Test', rating: '2'  },
-			1300003 => { fname: '3rd',  lname: 'Test', rating: '3'  },
-			1300004 => { fname: '4th',  lname: 'Test', rating: '4'  },
-			1300005 => { fname: '5th',  lname: 'Test', rating: '5'  },
-			1300006 => { fname: '6th',  lname: 'Test', rating: '6'  },
-			1300007 => { fname: '7th',  lname: 'Test', rating: '7'  },
-			1300008 => { fname: '8th',  lname: 'Test', rating: '8'  },
-			1300009 => { fname: '9th',  lname: 'Test', rating: '9'  },
-			1300010 => { fname: '10th', lname: 'Test', rating: '10' },
-			1300011 => { fname: '11th', lname: 'Test', rating: '11' },
-			1300012 => { fname: '12th', lname: 'Test', rating: '12' },
+			1300002 => { fname: '2nd',  lname: 'Test', rating: 2  },
+			1300003 => { fname: '3rd',  lname: 'Test', rating: 3  },
+			1300004 => { fname: '4th',  lname: 'Test', rating: 4  },
+			1300005 => { fname: '5th',  lname: 'Test', rating: 5  },
+			1300006 => { fname: '6th',  lname: 'Test', rating: 6  },
+			1300007 => { fname: '7th',  lname: 'Test', rating: 7  },
+			1300008 => { fname: '8th',  lname: 'Test', rating: 8  },
+			1300009 => { fname: '9th',  lname: 'Test', rating: 9  },
+			1300010 => { fname: '10th', lname: 'Test', rating: 10 },
+			1300011 => { fname: '11th', lname: 'Test', rating: 11 },
+			1300012 => { fname: '12th', lname: 'Test', rating: 12 },
 	}
 
 	get '/fakeapi/VATUSA/:api_key/cbt/block' do
@@ -83,11 +83,11 @@ class FakeVATUSAAPI < Sinatra::Base
 
 		if USERS.keys.include? params['cid'].to_i
 			{
-					status:   'success',
-					fname:    USERS[params['cid'].to_i][:fname],
-					lname:    USERS[params['cid'].to_i][:lname],
-					facility: Settings.artcc_icao,
-					rating:   USERS[params['cid'].to_i][:rating],
+					status:         'success',
+					fname:          USERS[params['cid'].to_i][:fname],
+					lname:          USERS[params['cid'].to_i][:lname],
+					facility:       Settings.artcc_icao,
+					rating:         USERS[params['cid'].to_i][:rating],
 					join_date:      '2014-05-14 18:00:00',
 					last_activity:  Time.now.strftime('%Y-%m-%d %H:%M:%S')
 			}.to_json
@@ -105,18 +105,20 @@ class FakeVATUSAAPI < Sinatra::Base
 					cid: params['cid'],
 					exams: [
 							{
-									id:     '18307',
+									id:      18307,
+									exam_id: 0,
 									name:   'VATUSA - Basic ATC Quiz',
-									score:  rand(75..100).to_s,
+									score:  rand(75..100).to_i,
 									passed: true,
 									date:   '2009-09-14 04:17:37'
 							},
 							{
-									id:     '37094',
-									name:   'VATUSA - S2 Rating (TWR) Controller Exam',
-									score:  rand(75..100).to_s,
-									passed: true,
-									date:   '2009-09-27 19:32:42'
+									id:      37094,
+									exam_id: 0,
+									name:    'VATUSA - S2 Rating (TWR) Controller Exam',
+									score:   rand(75..100).to_i,
+									passed:  true,
+									date:    '2009-09-27 19:32:42'
 							}
 					]
 			}.to_json
@@ -125,18 +127,20 @@ class FakeVATUSAAPI < Sinatra::Base
 		end
 	end
 
-	# TODO VATSIM API - validate result ID is really the ID from /exam/results/:cid
+	# Result ID is the 'id' property from the exams array, *not* the 'exam_id' property
 	get '/fakeapi/VATUSA/:api_key/exam/result/:result_id' do
 		content_type :json
 
 		if params['result_id'].to_i == 18307
 			{
-					id:     '18307',
-					cid:    USERS.keys[rand(USERS.keys.size)].to_s,
-					name:   'VATUSA - S2 Rating (TWR) Controller Exam',
-					score:  rand(75..100).to_s,
-					passed: '1',
-					date:   '2009-09-14 04:17:37',
+					status:   'success',
+					id:       18307,
+					cid:      USERS.keys[rand(USERS.keys.size)],
+					exam_id:  0,
+					name:     'VATUSA - S2 Rating (TWR) Controller Exam',
+					score:    rand(75..100).to_i,
+					passed:   true,
+					date:     '2009-09-14 04:17:37',
 					questions: [
 							{
 									question:   'The international radio telephony distress signal that ' +
@@ -150,12 +154,14 @@ class FakeVATUSAAPI < Sinatra::Base
 			}.to_json
 		elsif params['result_id'].to_i == 37094
 			{
-					id:     '18307',
-					cid:    USERS.keys[rand(USERS.keys.size)].to_s,
-					name:   'VATUSA - Basic ATC Quiz',
-					score:  rand(75..100).to_s,
-					passed: '1',
-					date:   '2009-09-14 04:17:37',
+					status:   'success',
+					id:       18307,
+					cid:      USERS.keys[rand(USERS.keys.size)],
+					exam_id:  0,
+					name:     'VATUSA - Basic ATC Quiz',
+					score:    rand(75..100).to_i,
+					passed:   true,
+					date:     '2009-09-14 04:17:37',
 					# questions: [
 					# 		{
 					# 				question:   'The international radio telephony distress signal that ' +
@@ -178,28 +184,30 @@ class FakeVATUSAAPI < Sinatra::Base
 		roster = []
 		USERS.each_pair do |vatsim_id, user|
 			roster.push({
-				cid:    vatsim_id.to_s,
-				fname:  user[:fname],
-				lname:  user[:lname],
-				email:  'noreply@vatsim.net',
-				rating: user[:rating]
+				cid:                vatsim_id,
+				fname:              user[:fname],
+				lname:              user[:lname],
+				email:              'noreply@vatsim.net',
+				join_date:          Time.now.strftime('%Y-%m-%d %H:%M:%S'),
+				promotion_eligible: 0,
+				rating:             user[:rating],
+				rating_short:       Rating.find_by(number: user[:rating]).short_name
 			})
 		end
 
 		{
-				status: 'success',
-				facility: {
-						id:   'ZTV',
-						url:  'https://artccmgr.herokuapp.com',
-						name: Settings.artcc_name,
-						atm:  '1300012',
-						datm: '1300011',
-						ta:   '1300010',
-						ec:   '1300009',
-						wm:   '1300008',
-						fe:   '1300007',
-						roster: roster
-				}
+			status: 'ok',
+			facility: {
+				staff: {
+					atm:  [{ cid: 1300012, name: '12th Test', rating: 12 }],
+					datm: [{ cid: 1300011, name: '11th Test', rating: 11 }],
+					ta:   [{ cid: 1300010, name: '10th Test', rating: 10 }],
+					ec:   [{ cid: 1300009, name: '9th Test',  rating: 9  }],
+					fe:   [{ cid: 1300008, name: '8th Test',  rating: 8  }],
+					wm:   [{ cid: 1300007, name: '7th Test',  rating: 7  }],
+				},
+				roster: roster
+			}
 		}.to_json
 	end
 
