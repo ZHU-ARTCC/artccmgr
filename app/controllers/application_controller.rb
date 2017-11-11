@@ -2,6 +2,8 @@ class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :exception
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   before_action :store_current_location, unless: :devise_controller?
   before_action :online,  unless: :devise_controller?
   before_action :metar,   unless: :devise_controller?
@@ -25,6 +27,16 @@ class ApplicationController < ActionController::Base
   # and signing up work automatically.
   def store_current_location
     store_location_for(:user, request.url)
+  end
+
+  # Rescue from Pundit::NotAuthorized and return to referrer or root_path
+  #
+  def user_not_authorized
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to(request.referrer || root_path)
+
+    # continue to raise Pundit errors if under test
+    raise Pundit::NotAuthorizedError if Rails.env.test?
   end
 
 end
