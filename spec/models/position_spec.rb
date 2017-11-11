@@ -18,7 +18,7 @@ RSpec.describe Position, type: :model do
 
     # Format validations
     it { expect(position).to validate_uniqueness_of(:callsign).case_insensitive }
-    it { expect(position).to validate_length_of(:callsign).is_at_most(11) }
+    it { expect(position).to validate_length_of(:callsign).is_at_most(12) }
     it { expect(position).to validate_length_of(:beacon_codes).is_at_most(9) }
 
     it { expect(position).to validate_numericality_of(:frequency).is_greater_than_or_equal_to(118).is_less_than(137) }
@@ -45,6 +45,13 @@ RSpec.describe Position, type: :model do
     it { expect(build(:position, callsign: 'TESTING')).to_not be_valid }
 
     # FSS variations
+    it { expect(build(:position, callsign: 'TS_FSS')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_1_FSS')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_10_FSS')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_A_FSS')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_A1_FSS')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_ABC_FSS')).to be_valid }
+
     it { expect(build(:position, callsign: 'TST_FSS')).to be_valid }
     it { expect(build(:position, callsign: 'TST_1_FSS')).to be_valid }
     it { expect(build(:position, callsign: 'TST_10_FSS')).to be_valid }
@@ -52,7 +59,21 @@ RSpec.describe Position, type: :model do
     it { expect(build(:position, callsign: 'TST_A1_FSS')).to be_valid }
     it { expect(build(:position, callsign: 'TST_ABC_FSS')).to be_valid }
 
+    it { expect(build(:position, callsign: 'TEST_FSS')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_1_FSS')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_10_FSS')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_A_FSS')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_A1_FSS')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_ABC_FSS')).to be_valid }
+
     # Center variations
+    it { expect(build(:position, callsign: 'TS_CTR')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_1_CTR')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_10_CTR')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_A_CTR')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_A1_CTR')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_ABC_CTR')).to be_valid }
+
     it { expect(build(:position, callsign: 'TST_CTR')).to be_valid }
     it { expect(build(:position, callsign: 'TST_1_CTR')).to be_valid }
     it { expect(build(:position, callsign: 'TST_10_CTR')).to be_valid }
@@ -60,7 +81,21 @@ RSpec.describe Position, type: :model do
     it { expect(build(:position, callsign: 'TST_A1_CTR')).to be_valid }
     it { expect(build(:position, callsign: 'TST_ABC_CTR')).to be_valid }
 
+    it { expect(build(:position, callsign: 'TEST_CTR')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_1_CTR')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_10_CTR')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_A_CTR')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_A1_CTR')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_ABC_CTR')).to be_valid }
+
     # Approach variations
+    it { expect(build(:position, callsign: 'TS_APP')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_1_APP')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_10_APP')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_A_APP')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_A1_APP')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_ABC_APP')).to be_valid }
+
     it { expect(build(:position, callsign: 'TST_APP')).to be_valid }
     it { expect(build(:position, callsign: 'TST_1_APP')).to be_valid }
     it { expect(build(:position, callsign: 'TST_10_APP')).to be_valid }
@@ -68,7 +103,21 @@ RSpec.describe Position, type: :model do
     it { expect(build(:position, callsign: 'TST_A1_APP')).to be_valid }
     it { expect(build(:position, callsign: 'TST_ABC_APP')).to be_valid }
 
+    it { expect(build(:position, callsign: 'TEST_APP')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_1_APP')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_10_APP')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_A_APP')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_A1_APP')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_ABC_APP')).to be_valid }
+
     # Departure variations
+    it { expect(build(:position, callsign: 'TS_DEP')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_1_DEP')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_10_DEP')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_A_DEP')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_A1_DEP')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_ABC_DEP')).to be_valid }
+
     it { expect(build(:position, callsign: 'TST_DEP')).to be_valid }
     it { expect(build(:position, callsign: 'TST_1_DEP')).to be_valid }
     it { expect(build(:position, callsign: 'TST_10_DEP')).to be_valid }
@@ -76,7 +125,21 @@ RSpec.describe Position, type: :model do
     it { expect(build(:position, callsign: 'TST_A1_DEP')).to be_valid }
     it { expect(build(:position, callsign: 'TST_ABC_DEP')).to be_valid }
 
+    it { expect(build(:position, callsign: 'TEST_DEP')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_1_DEP')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_10_DEP')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_A_DEP')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_A1_DEP')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_ABC_DEP')).to be_valid }
+
     # Tower variations
+    it { expect(build(:position, callsign: 'TS_TWR')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_1_TWR')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_10_TWR')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_A_TWR')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_A1_TWR')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_ABC_TWR')).to be_valid }
+
     it { expect(build(:position, callsign: 'TST_TWR')).to be_valid }
     it { expect(build(:position, callsign: 'TST_1_TWR')).to be_valid }
     it { expect(build(:position, callsign: 'TST_10_TWR')).to be_valid }
@@ -84,7 +147,21 @@ RSpec.describe Position, type: :model do
     it { expect(build(:position, callsign: 'TST_A1_TWR')).to be_valid }
     it { expect(build(:position, callsign: 'TST_ABC_TWR')).to be_valid }
 
+    it { expect(build(:position, callsign: 'TEST_TWR')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_1_TWR')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_10_TWR')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_A_TWR')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_A1_TWR')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_ABC_TWR')).to be_valid }
+
     # Ground variations
+    it { expect(build(:position, callsign: 'TS_GND')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_1_GND')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_10_GND')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_A_GND')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_A1_GND')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_ABC_GND')).to be_valid }
+
     it { expect(build(:position, callsign: 'TST_GND')).to be_valid }
     it { expect(build(:position, callsign: 'TST_1_GND')).to be_valid }
     it { expect(build(:position, callsign: 'TST_10_GND')).to be_valid }
@@ -92,13 +169,34 @@ RSpec.describe Position, type: :model do
     it { expect(build(:position, callsign: 'TST_A1_GND')).to be_valid }
     it { expect(build(:position, callsign: 'TST_ABC_GND')).to be_valid }
 
+    it { expect(build(:position, callsign: 'TEST_GND')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_1_GND')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_10_GND')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_A_GND')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_A1_GND')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_ABC_GND')).to be_valid }
+
     # Clearance variations
+    it { expect(build(:position, callsign: 'TS_DEL')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_1_DEL')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_10_DEL')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_A_DEL')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_A1_DEL')).to be_valid }
+    it { expect(build(:position, callsign: 'TS_ABC_DEL')).to be_valid }
+
     it { expect(build(:position, callsign: 'TST_DEL')).to be_valid }
     it { expect(build(:position, callsign: 'TST_1_DEL')).to be_valid }
     it { expect(build(:position, callsign: 'TST_10_DEL')).to be_valid }
     it { expect(build(:position, callsign: 'TST_A_DEL')).to be_valid }
     it { expect(build(:position, callsign: 'TST_A1_DEL')).to be_valid }
     it { expect(build(:position, callsign: 'TST_ABC_DEL')).to be_valid }
+
+    it { expect(build(:position, callsign: 'TEST_DEL')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_1_DEL')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_10_DEL')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_A_DEL')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_A1_DEL')).to be_valid }
+    it { expect(build(:position, callsign: 'TEST_ABC_DEL')).to be_valid }
   end
 
   describe 'frequency should be a tunable frequency' do
