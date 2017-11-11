@@ -7,7 +7,9 @@
         <div class="row">
           <div class="col-auto mr-auto pt-1">Feedback Archive</div>
           <div class="col-auto">
-            <%= link_to 'Leave Feedback', new_feedback_path, class: 'btn btn-sm btn-outline-info' %>
+            <% if policy(Feedback).create? || current_user.nil? -%>
+              <%= link_to 'Leave Feedback', new_feedback_path, class: 'btn btn-sm btn-outline-info' %>
+            <% end -%>
           </div>
         </div>
       </div>
