@@ -14,7 +14,7 @@ class Rating < ApplicationRecord
 	# Full name of rating
 	#
 	def to_s
-		long_name.to_s
+		"#{long_name.to_s} (#{short_name.to_s})"
 	end
 
 end

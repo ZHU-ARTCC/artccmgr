@@ -19,9 +19,18 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
-
+// Load tooltips used by Bootstrap 4
 $(document).on("turbolinks:load", function(){
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
 })
+
+// Add an Ajax loading screen
+$(document)
+    .ajaxStart(function () {
+        $('body').addClass('loading');
+    })
+    .ajaxStop(function () {
+        $('body').removeClass('loading');
+    });

@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   resources :positions
 
   resources :roster, as: :users do
+	  get 'user_info' => 'roster#user_info'
 	  resources :endorsements, only: [:create, :edit, :new, :update, :destroy]
   end
 end

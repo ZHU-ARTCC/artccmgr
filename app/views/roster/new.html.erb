@@ -1,4 +1,4 @@
-<% content_for(:title, "New User") %>
+<% content_for(:title, 'New User') %>
 
 <div class="row">
   <div class="col-lg-12">
@@ -7,6 +7,15 @@
         <div class="row">
           <div class="col-auto mr-auto pt-1">
             New User
+          </div>
+          <div class="col-auto">
+            <div class="btn-group" data-toggle="buttons">
+              <label id="query_api_btn" class="btn btn-sm btn-success active" data-toggle="tooltip" data-placement="bottom" title="Attempt to fill in user information automatically">
+                <input type="checkbox" id="query_api" checked>
+                <span id="query_api_status">Autofill On</span>
+              </label>
+            </div>
+
           </div>
         </div>
       </div>

@@ -97,4 +97,33 @@ class RosterController < ApplicationController
     end
   end
 
+  def user_info
+    authorize User, :create?
+
+    # Look for already saved user information
+    user = User.find_by(cid: params[:user_id])
+
+    # Use VATUSA API to lookup CID information if user not found
+    if user.nil?
+      api = VATUSA::API.new(Rails.application.secrets.vatusa_api_url, Rails.application.secrets.vatusa_api_key)
+
+      begin
+        vatusa = api.controller(params[:user_id].to_i)
+        rating = Rating.find_by(number: vatusa.rating.to_i)
+        user = { name_first: vatusa.fname, name_last: vatusa.lname, email: '', rating: rating.id }
+      rescue VATUSA::API::ResponseError
+        render :json => {status: 'CID not found'}.to_json, status: 200
+        return
+      end
+    else # Guest user was found
+      user = { name_first: user.name_first, name_last: user.name_last, email: user.email, rating: user.rating.id }
+    end
+
+    respond_to do |format|
+      format.json {
+        render :plain => user.to_h.to_json
+      }
+    end
+  end
+
 end
