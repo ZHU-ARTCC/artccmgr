@@ -2,10 +2,12 @@ Rails.application.routes.draw do
   devise_for :users,
       controllers: {
           omniauth_callbacks: 'omniauth_callbacks'
-      }
+      },
+      skip: [:sessions]
 
   # Manually manage sign out path due to the lack of database authenticatable
   devise_scope :user do
+	  post   '/users/auth/2fa' => 'omniauth_callbacks#authenticate_with_two_factor' # Handle 2FA callbacks
     delete '/users/sign_out' => 'devise/sessions#destroy'
   end
 
@@ -31,8 +33,15 @@ Rails.application.routes.draw do
   resources :groups, except: [:show]
   resources :positions
 
+  resource :profile, only: [:show, :update] do
+	  resource :two_factor_auth, only: [:create, :destroy, :show], controller: 'profiles/two_factor_auths' do
+		  resources :u2f, only: [:create, :destroy], controller: 'profiles/two_factor_auths/u2f'
+	  end
+  end
+
   resources :roster, as: :users do
-	  get 'user_info' => 'roster#user_info'
+	  get    'user_info'   => 'roster#user_info'
+	  delete 'disable_2fa' => 'roster#disable_2fa'
 	  resources :endorsements, only: [:create, :edit, :new, :update, :destroy]
   end
 end

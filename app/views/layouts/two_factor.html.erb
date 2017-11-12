@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title><%= Settings.artcc_name %> - <%= yield(:title) %></title>
+  <%= csrf_meta_tags %>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  <link rel="alternate" type="application/rss+xml" title="<%= Settings.artcc_name %> Events" href="<%= events_url(format: :rss)%>">
+</head>
+
+<body>
+<%= Gon::Base.render_data %>
+
+<!-- Body -->
+<div class="container">
+
+  <div class="modal fade" id="2faModal" tabindex="-1" role="dialog" aria-labelledby="2faModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h5 class="modal-title" id="2faModalTitle"><%= fa_icon :lock %> <%= yield(:title) %></h5>
+        </div>
+
+        <div class="modal-body pb-0">
+          <% flash.each do |type, contents| %>
+            <!-- Alerts -->
+              <div class="col-lg-12">
+                <div class="alert alert-<%= type %> alert-dismissible fade show" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <%= contents %>
+                </div>
+              </div>
+            </div>
+            <!-- End Alerts -->
+          <% end %>
+
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- End Body -->
+
+</body>
+</html>

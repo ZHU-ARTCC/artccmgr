@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171103214203) do
+ActiveRecord::Schema.define(version: 20171114155233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,17 @@ ActiveRecord::Schema.define(version: 20171103214203) do
     t.string "long_name", null: false
   end
 
+  create_table "u2f_registrations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.text "certificate"
+    t.string "key_handle"
+    t.string "public_key"
+    t.integer "counter"
+    t.uuid "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.integer "cid", null: false
     t.string "name_first", null: false
@@ -181,6 +192,12 @@ ActiveRecord::Schema.define(version: 20171103214203) do
     t.datetime "updated_at", null: false
     t.string "initials"
     t.uuid "rating_id", null: false
+    t.string "encrypted_otp_secret"
+    t.string "encrypted_otp_secret_iv"
+    t.string "encrypted_otp_secret_salt"
+    t.integer "consumed_timestep"
+    t.boolean "otp_required_for_login"
+    t.string "otp_backup_codes", array: true
     t.index ["cid"], name: "index_users_on_cid", unique: true
   end
 

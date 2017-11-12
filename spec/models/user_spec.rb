@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'devise_two_factor/spec_helpers'
 
 RSpec.describe User, type: :model do
 
@@ -47,6 +48,8 @@ RSpec.describe User, type: :model do
     it { expect(user).to have_many(:certifications).through(:endorsements) }
     it { expect(user).to have_many(:positions).through(:certifications) }
 
+    it { expect(user).to have_many(:u2f_registrations).dependent(:destroy) }
+
   end # describe 'ActiveRecord associations'
 
   it { should delegate_method(:atc?).to(:group) }
@@ -55,6 +58,15 @@ RSpec.describe User, type: :model do
   it { should delegate_method(:staff?).to(:group) }
   it { should delegate_method(:visiting?).to(:group) }
 
+  # Devise Two Factor Tests
+  it_behaves_like 'two_factor_authenticatable' do
+	  subject { user }
+  end
+
+  it_behaves_like 'two_factor_backupable' do
+	  subject { user }
+  end
+
   describe '#all_controllers' do
     it 'should return all controllers both ARTCC and Visiting' do
       create_list(:user, 2, :local_controller)
@@ -62,6 +74,25 @@ RSpec.describe User, type: :model do
 
       expect(User.all_controllers.size).to eq 5
     end
+  end
+
+  describe '#disable_two_factor!' do
+	  before :each do
+		  @user = create(:user, :two_factor_via_otp, :two_factor_via_u2f)
+		  @user.disable_two_factor!
+		  @user.reload
+	  end
+
+	  it 'should reset all OTP settings' do
+		  expect(@user.otp_required_for_login).to eq false
+		  expect(@user.encrypted_otp_secret).to eq nil
+		  expect(@user.encrypted_otp_secret_iv).to eq nil
+		  expect(@user.encrypted_otp_secret_salt).to eq nil
+	  end
+
+	  it 'should destroy all U2F registrations' do
+		  expect(@user.u2f_registrations).to be_empty
+	  end
   end
 
   describe '#local_controllers' do
@@ -161,5 +192,46 @@ RSpec.describe User, type: :model do
   describe '#name_full' do
     it { expect(user.name_full).to eq "#{user.name_first} #{user.name_last}" }
   end
+
+	describe '#two_factor_enabled?' do
+		it 'should return true if OTP is enabled' do
+			user = create(:user, :two_factor_via_otp)
+			expect(user.two_factor_enabled?).to eq true
+		end
+
+		it 'should return true if U2F is enabled' do
+			user = create(:user, :two_factor_via_u2f)
+			expect(user.two_factor_enabled?).to eq true
+		end
+
+		it 'should return false if neither OTP or U2F are enabled' do
+			user = create(:user)
+			expect(user.two_factor_enabled?).to eq false
+		end
+	end
+
+	describe '#two_factor_otp_enabled?' do
+		it 'should return true if OTP is enabled' do
+			user = create(:user, :two_factor_via_otp)
+			expect(user.two_factor_otp_enabled?).to eq true
+		end
+
+		it 'should return false if OTP is disabled' do
+			user = create(:user)
+			expect(user.two_factor_otp_enabled?).to eq false
+		end
+	end
+
+	describe '#two_factor_u2f_enabled?' do
+		it 'should return true if U2F is enabled' do
+			user = create(:user, :two_factor_via_u2f)
+			expect(user.two_factor_u2f_enabled?).to eq true
+		end
+
+		it 'should return false if U2F is disabled' do
+			user = create(:user)
+			expect(user.two_factor_u2f_enabled?).to eq false
+		end
+	end
 
 end

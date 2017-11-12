@@ -1,7 +1,16 @@
 class User < ApplicationRecord
+  devise :two_factor_authenticatable,
+         :two_factor_backupable,
+         otp_backup_code_length:      10,
+         otp_number_of_backup_codes:  5,
+         otp_secret_encryption_key:   Rails.application.secrets.secret_key_base
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :omniauthable, :trackable
+
+  # Have ActiveRecord track this attribute
+  attribute :otp_secret
 
   extend FriendlyId
   friendly_id :cid
@@ -18,6 +27,8 @@ class User < ApplicationRecord
   has_many    :event_signups,   class_name: 'Event::Signup', dependent: :destroy
 
   has_many    :online_sessions, class_name: 'Vatsim::Atc'
+
+  has_many    :u2f_registrations, dependent: :destroy
 
   delegate  :atc?,                  to: :group
   delegate  :min_controlling_hours, to: :group
@@ -48,6 +59,27 @@ class User < ApplicationRecord
     online_sessions.where('last_seen BETWEEN ? AND ?', start_date, end_date).order(last_seen: :desc)
   end
 
+  # Disables all two-factor authentication
+  def disable_two_factor!
+    transaction do
+      update_attributes(
+          otp_required_for_login:     false,
+          encrypted_otp_secret:       nil,
+          encrypted_otp_secret_iv:    nil,
+          encrypted_otp_secret_salt:  nil,
+      )
+      self.u2f_registrations.destroy_all
+    end
+  end
+
+  # Devise two factor auth gem replaces database authenticatable methods
+  # in Devise. As a result, it expects to be able to find an encrypted_password.
+  # Since we use VATSIM SSO for authentication, we just need to return nil.
+  #
+  def encrypted_password
+    nil
+  end
+
   # Enforce capitalization on initials
   def initials=(initials)
     super(initials.upcase) unless initials.nil?
@@ -76,6 +108,21 @@ class User < ApplicationRecord
   # Displays first name and last name in one string
   def name_full
     "#{name_first} #{name_last}"
+  end
+
+  # Determines whether the user has enabled 2FA
+  def two_factor_enabled?
+    two_factor_otp_enabled? || two_factor_u2f_enabled?
+  end
+
+  # Determines whether the user has TOTP enabled for 2FA
+  def two_factor_otp_enabled?
+    otp_required_for_login?
+  end
+
+  # Determines whether the user has a U2F device configured
+  def two_factor_u2f_enabled?
+    u2f_registrations.exists?
   end
 
   private

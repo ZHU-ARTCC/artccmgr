@@ -43,4 +43,19 @@ describe UserPolicy do
     it { is_expected.to forbid_actions([:index, :show]) }
   end
 
+  describe 'allows users own profile' do
+	  subject { described_class.new(user, user_obj) }
+	  let(:user_obj) { create(:user) }
+
+	  context 'permit show action' do
+		  let(:user){ user_obj }
+      it { is_expected.to permit_action(:show) }
+	  end
+
+	  context 'forbid actions index, create, destroy' do
+		  let(:user){ user_obj }
+      it { is_expected.to forbid_actions([:index, :create, :destroy, :edit]) }
+	  end
+  end # describe 'users own profiles'
+
 end

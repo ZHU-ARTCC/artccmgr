@@ -55,6 +55,7 @@
                 <%= current_user.name_full %> (<%= current_user.rating.short_name %>)
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarUserDropdown">
+                <%= link_to 'Profile', profile_path, class: 'dropdown-item' %>
                 <%= link_to 'Group Management', groups_path, class: 'dropdown-item' if policy(Group).index? %>
                 <%= link_to 'Log Out', users_sign_out_path, method: :delete, class: 'dropdown-item' %>
               </div>

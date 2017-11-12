@@ -25,6 +25,22 @@ FactoryGirl.define do
       group { create(:group, :local_controllers) }
     end
 
+    trait :two_factor_via_otp do
+      before(:create) do |user|
+        user.otp_required_for_login = true
+        user.otp_secret = User.generate_otp_secret(32)
+        user.generate_otp_backup_codes!
+      end
+    end
+
+    trait :two_factor_via_u2f do
+      transient { registrations_count 5 }
+
+	    after(:create) do |user, evaluator|
+		    create_list(:u2f_registration, evaluator.registrations_count, user: user)
+	    end
+    end
+
     trait :visiting_controller do
       group { create(:group, :visiting_controllers)}
     end
