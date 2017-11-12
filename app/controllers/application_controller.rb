@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   #
   def user_not_authorized
     flash[:alert] = 'You are not authorized to perform this action.'
-    redirect_to(request.referrer || root_path)
+    redirect_to root_path
 
     # continue to raise Pundit errors if under test
     raise Pundit::NotAuthorizedError if Rails.env.test?
