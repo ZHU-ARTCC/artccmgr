@@ -14,6 +14,10 @@ FactoryGirl.define do
       min_controlling_hours { rand(9) }
     end
 
+    trait :two_factor_required do
+	    two_factor_required true
+    end
+
     trait :perm_airport_create do
       after :build do |g|
         g.permissions << Permission.where(name: 'airport create')

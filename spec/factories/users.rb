@@ -25,6 +25,10 @@ FactoryGirl.define do
       group { create(:group, :local_controllers) }
     end
 
+    trait :two_factor_required do
+	    group { create(:group, :two_factor_required) }
+    end
+
     trait :two_factor_via_otp do
       before(:create) do |user|
         user.otp_required_for_login = true

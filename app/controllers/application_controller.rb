@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include EnforceTwoFactorAuthentication
   include Pundit
   protect_from_forgery with: :exception
 
@@ -9,6 +10,8 @@ class ApplicationController < ActionController::Base
   before_action :store_current_location, unless: :devise_controller?
   before_action :online,  unless: :devise_controller?
   before_action :metar,   unless: :devise_controller?
+
+  skip_before_action :check_two_factor_requirement, if: :devise_controller?
 
   protected
 

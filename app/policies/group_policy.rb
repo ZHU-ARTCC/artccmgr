@@ -33,6 +33,6 @@ class GroupPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [ :name, :staff, :atc, :visiting, :min_controlling_hours, permission_ids: [] ]
+    [ :name, :staff, :atc, :visiting, :min_controlling_hours, :two_factor_required, permission_ids: [] ]
   end
 end

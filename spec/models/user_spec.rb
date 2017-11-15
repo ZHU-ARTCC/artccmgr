@@ -56,6 +56,7 @@ RSpec.describe User, type: :model do
   it { should delegate_method(:min_controlling_hours).to(:group) }
   it { should delegate_method(:permissions).to(:group) }
   it { should delegate_method(:staff?).to(:group) }
+  it { should delegate_method(:two_factor_required?).to(:group) }
   it { should delegate_method(:visiting?).to(:group) }
 
   # Devise Two Factor Tests

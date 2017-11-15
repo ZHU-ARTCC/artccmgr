@@ -34,6 +34,7 @@ class User < ApplicationRecord
   delegate  :min_controlling_hours, to: :group
   delegate  :permissions,           to: :group
   delegate  :staff?,                to: :group
+  delegate  :two_factor_required?,  to: :group
   delegate  :visiting?,             to: :group
 
   validates :cid,         presence: true, numericality: :only_integer, allow_blank: false, uniqueness: true

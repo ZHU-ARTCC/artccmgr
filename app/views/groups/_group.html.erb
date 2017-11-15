@@ -29,6 +29,11 @@
     </small>
   </td>
   <td class="text-center">
+    <small>
+      <%= group.two_factor_required? ? fa_icon(:check) : nil %>
+    </small>
+  </td>
+  <td class="text-center">
     <small><%= group.users.count %></small>
   </td>
 </tr>

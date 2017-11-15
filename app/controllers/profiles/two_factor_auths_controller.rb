@@ -2,6 +2,8 @@ class Profiles::TwoFactorAuthsController < ApplicationController
 	before_action :authenticate_user!
 	# after_action  :verify_authorized
 
+	skip_before_action :check_two_factor_requirement
+
 	def create
 		if current_user.validate_and_consume_otp!(params[:pin_code])
 			current_user.otp_required_for_login = true
