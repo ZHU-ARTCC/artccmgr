@@ -62,6 +62,21 @@ class RosterController < ApplicationController
     end
   end
 
+  # Allows appropriate Roster administrators to delete two-factor authentication for users
+  #
+  def disable_2fa
+    authorize User, :update?
+    @user = policy_scope(User).friendly.find(params[:user_id])
+
+    if @user.disable_two_factor!
+      flash['success'] = "Two-factor Authentication for #{@user.name_full} disabled."
+      redirect_to users_path
+    else
+      flash['alert'] = "Unable to disable two-factor authentication for #{@user.name_full}!"
+      redirect_to users_path
+    end
+  end
+
   def edit
     @user = policy_scope(User).friendly.find(params[:id])
     authorize @user

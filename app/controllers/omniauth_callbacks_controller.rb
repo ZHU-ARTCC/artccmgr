@@ -1,4 +1,5 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  include AuthenticatesWithTwoFactor
 
   # Callback method to handle SSO failures
   #
@@ -25,8 +26,13 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       # Check for changes since last login
       reconcile_vatsim_data(@user, sso_info)
 
-      # Sign in to website
-      sign_in_and_redirect @user, event: :authentication
+      # Check for two factor authentication
+      if @user.two_factor_enabled?
+        prompt_for_two_factor(@user)
+      else
+        # Sign in to website
+        sign_in_and_redirect @user, event: :authentication
+      end
     else
       #reason = "Member not found on website"
       #set_flash_message(:notice, :failure, kind: 'VATSIM', reason: reason)

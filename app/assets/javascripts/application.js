@@ -17,6 +17,7 @@
 //= require popper
 //= require bootstrap-multiselect
 //= require bootstrap-sprockets
+//= require u2f
 //= require_tree .
 
 // Load tooltips used by Bootstrap 4

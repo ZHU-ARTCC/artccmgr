@@ -4,11 +4,24 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
   before_action :store_current_location, unless: :devise_controller?
   before_action :online,  unless: :devise_controller?
   before_action :metar,   unless: :devise_controller?
 
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:otp_attempt])
+  end
+
   private
+
+  # Used to identify the AppID for U2F
+  def u2f_app_id
+    request.base_url
+  end
 
   # Obtain the Controllers Online
   #

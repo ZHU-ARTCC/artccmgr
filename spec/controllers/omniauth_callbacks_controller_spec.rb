@@ -65,7 +65,6 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
 		end
 
 		context 'with new user' do
-
 			it 'should create a new user object' do
 				expect{get :vatsim}.to change{User.count}.by(1)
 			end
@@ -113,6 +112,17 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
 				expect(@user.group).to eq group
 			end
 
+			context 'with 2FA' do
+				before :each do
+					User.destroy_all
+					@user = create(:user, :two_factor_via_otp, :two_factor_via_u2f, cid: 9999999)
+				end
+
+				it 'prompts the user for the second factor' do
+					get :vatsim
+					expect(response).to render_template 'two_factor', 'sessions/two_factor'
+				end
+			end # context 'with 2FA user'
 		end # context 'with existing user'
 
 		it 'should sign in the user' do
@@ -123,8 +133,101 @@ RSpec.describe OmniauthCallbacksController, type: :controller do
 		it 'should redirect to the website' do
 			get :vatsim
 			expect(response).to redirect_to root_path
-		end
+    end
+  end # describe '#vatsim'
 
-	end # describe '#vatsim'
+  describe '#authenticate_with_two_factor' do
+    before do
+			@request.env["devise.mapping"] = Devise.mappings[:user]
+    end
+
+    context 'via OTP' do
+      before do
+      	@user = create(:user, :two_factor_via_otp)
+      	session[:otp_user_id] = @user.id
+      end
+
+      context 'valid attempt' do
+        before do
+          allow_any_instance_of(User).to receive(:validate_and_consume_otp!).and_return(true)
+					post :authenticate_with_two_factor, params: { otp_attempt: '123456' }
+        end
+
+        it 'deletes the otp_user_id from the session' do
+          expect(session[:otp_user_id]).to be nil
+        end
+
+        it 'signs in the user' do
+          expect(controller.current_user).to eq @user
+        end
+      end
+
+      context 'using backup code' do
+				before do
+					allow_any_instance_of(User).to receive(:invalidate_otp_backup_code!).and_return(true)
+					post :authenticate_with_two_factor, params: { otp_attempt: '123456' }
+        end
+
+        it 'signs in the user' do
+          expect(controller.current_user).to eq @user
+        end
+      end
+
+      context 'invalid attempt' do
+        before do
+					allow_any_instance_of(User).to receive(:validate_and_consume_otp!).and_return(false)
+					post :authenticate_with_two_factor, params: { otp_attempt: '123456' }
+        end
+
+        it 'prompts again for the second factor' do
+					expect(response).to render_template 'two_factor', 'sessions/two_factor'
+        end
+      end
+    end
+
+    context 'via U2F' do
+      before do
+        @user = create(:user, :two_factor_via_u2f)
+        session[:otp_user_id] = @user.id
+        session[:challenge]   = 'abcdef'
+      end
+
+      context 'valid attempt' do
+        before do
+					allow(U2fRegistration).to receive(:authenticate).and_return(true)
+          post :authenticate_with_two_factor, params: { user: { device_response: '1234'} }
+        end
+
+        it 'deletes the otp_user_id from the session' do
+          expect(session[:otp_user_id]).to be nil
+        end
+
+        it 'deletes the challenge from the session' do
+          expect(session[:challenge]).to be nil
+        end
+      end
+
+      context 'invalid attempt' do
+        before do
+					allow(U2fRegistration).to receive(:authenticate).and_return(false)
+					post :authenticate_with_two_factor, params: { user: { device_response: '1234'} }
+        end
+
+        it 'prompts again for the second factor' do
+					expect(response).to render_template 'two_factor', 'sessions/two_factor'
+        end
+      end
+
+      context 'empty device response' do
+        before do
+					post :authenticate_with_two_factor, params: { user: { device_response: nil } }
+        end
+
+				it 're-prompts the user for the second factor' do
+					expect(response).to render_template 'two_factor', 'sessions/two_factor'
+				end
+      end
+    end
+  end # describe '#authenticate_with_two_factor'
 
 end

@@ -152,6 +152,72 @@ RSpec.describe RosterController, type: :controller do
     end
   end
 
+
+  describe 'DELETE #disable_2fa' do
+    before :each do
+      @user = create(:user, :two_factor_via_otp, :two_factor_via_u2f)
+    end
+
+    context 'when not logged in' do
+	    it 'does not delete the OTP credentials' do
+        delete :disable_2fa, params: { user_id: @user }
+        @user.reload
+        expect(@user.otp_required_for_login).to_not eq false
+        expect(@user.encrypted_otp_secret).to_not eq nil
+        expect(@user.encrypted_otp_secret_iv).to_not eq nil
+        expect(@user.encrypted_otp_secret_salt).to_not eq nil
+	    end
+
+      it 'does not delete the U2F credentials' do
+        expect {
+          delete :disable_2fa, params: { user_id: @user }
+        }.to_not change(U2fRegistration, :count)
+      end
+
+      it 'redirects to root path' do
+        delete :disable_2fa, params: { user_id: @user }
+        expect(response).to redirect_to root_path
+      end
+    end
+
+    context 'when logged in' do
+      before :each do
+        sign_in create(:user, group: create(:group, :perm_user_read, :perm_user_update))
+      end
+
+      it 'deletes the OTP credentials' do
+        delete :disable_2fa, params: { user_id: @user }
+	      @user.reload
+        expect(@user.otp_required_for_login).to eq false
+	      expect(@user.encrypted_otp_secret).to eq nil
+	      expect(@user.encrypted_otp_secret_iv).to eq nil
+	      expect(@user.encrypted_otp_secret_salt).to eq nil
+      end
+
+      it 'deletes the U2F credentials' do
+	      expect {
+		      delete :disable_2fa, params: { user_id: @user }
+	      }.to change(U2fRegistration, :count).by(-5)
+      end
+
+      it 'redirects to user#index' do
+        delete :disable_2fa, params: { user_id: @user }
+        expect(response).to redirect_to users_path
+      end
+
+	    context 'and unable to disable 2FA' do
+		    before :each do
+			    allow_any_instance_of(User).to receive(:disable_two_factor!).and_return(false)
+		    end
+
+        it 'redirects to user#index' do
+          delete :disable_2fa, params: { user_id: @user }
+          expect(response).to redirect_to users_path
+        end
+	    end
+    end
+  end
+
   describe 'GET #edit' do
 	  context 'when not logged in' do
       it 'redirects to the root page' do

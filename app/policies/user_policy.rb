@@ -1,12 +1,17 @@
 class UserPolicy < ApplicationPolicy
 
+  def initialize(user, obj)
+    @user = user
+    @obj  = obj
+  end
+
   def index?
     @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
     group.permissions.pluck('name').include? 'user read'
   end
 
   def show?
-    index?
+    index? || @user == @obj
   end
 
   def create?
@@ -24,7 +29,7 @@ class UserPolicy < ApplicationPolicy
 
   def edit?
     @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
-    group.permissions.pluck('name').include? 'user update'
+    group.permissions.pluck('name').include?('user update')
   end
 
   def destroy?
@@ -33,6 +38,11 @@ class UserPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    [ :cid, :name_first, :name_last, :email, :reg_date, :group_id, :initials, :rating_id ]
+    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    if (group.permissions.pluck('name') & ['user create', 'user update']).present?
+      [ :cid, :name_first, :name_last, :email, :reg_date, :group_id, :initials, :rating_id ]
+    # elsif @user == @obj
+    #   []
+    end
   end
 end
