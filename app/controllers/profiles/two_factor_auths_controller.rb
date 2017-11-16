@@ -21,7 +21,8 @@ class Profiles::TwoFactorAuthsController < ApplicationController
 
 	def destroy
 		current_user.disable_two_factor!
-		redirect_to profile_path, status: 302
+		msg = 'Your Two-Factor Authentication has been disabled'
+		redirect_to profile_path, alert: msg, status: 302
 	end
 
 	def show

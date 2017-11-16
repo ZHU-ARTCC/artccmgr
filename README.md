@@ -18,6 +18,7 @@ Requirements
 
 * Ruby 2.4
 * Bundler ruby gem
+* GPG
 * ImageMagick
 
 Installation
@@ -69,6 +70,29 @@ Configuration settings are maintained in a few separate places:
     
         VATUSA_API_URL={normally: https://api.vatusa.net}
         VATUSA_API_KEY={your organizations specific API key}
+        
+* Optional GPG/PGP configuration
+
+    When a user has a GPG key configured on their account, the user will
+    receive notifications encrypted to their key. Keys are automatically
+    added to the default keyring when they are used.
+
+    In addition to user's receiving encrypted emails, you can also
+    have ARTCC Manager sign the encrypted emails with a GPG key. 
+    
+    If a signing key is configured, emails will be automatically 
+    signed when they are sent to users with a valid GPG key. The signing
+    key **must** match ARTCC Manager's configured "mail_from" address as set in
+    [config/settings.yml](config/settings.yml)
+    
+    To make use of this feature, configure the the environment variables below:
+    
+        GPG_KEY={one line output of GPG Private Key *see notes below*}
+        GPG_PASSPHRASE={password to unlock the GPG Private Key}
+        
+    The GPG_KEY needs to be formatted carefully. Use the output of:
+        
+            awk 1 ORS='\\n' <keyfile>
         
 * Customization options
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171115190500) do
+ActiveRecord::Schema.define(version: 20171116025939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,18 @@ ActiveRecord::Schema.define(version: 20171115190500) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "gpg_keys", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
+    t.binary "primary_keyid"
+    t.binary "fingerprint"
+    t.text "key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fingerprint"], name: "index_gpg_keys_on_fingerprint", unique: true
+    t.index ["primary_keyid"], name: "index_gpg_keys_on_primary_keyid", unique: true
+    t.index ["user_id"], name: "index_gpg_keys_on_user_id"
   end
 
   create_table "groups", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|

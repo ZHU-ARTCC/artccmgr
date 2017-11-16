@@ -74,7 +74,7 @@ RSpec.describe Profiles::TwoFactorAuthsController, type: :controller do
 			delete :destroy
 		end
 
-		it 'redirects to profile_account_path' do
+		it 'redirects to profile path' do
 			delete :destroy
 			expect(response).to redirect_to(profile_path)
 		end
