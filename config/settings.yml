@@ -15,6 +15,9 @@ airport_update_interval: 1
 # At 15:30:
 airport_update_time: '15:30'
 
+# Email address used as the sender address for notifications:
+mail_from: 'noreply@example.com'
+
 # METAR/Airport Conditions Settings
 # update interval in hours
 metar_update_interval: 1

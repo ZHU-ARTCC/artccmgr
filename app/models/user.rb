@@ -18,17 +18,16 @@ class User < ApplicationRecord
   belongs_to  :group
   belongs_to  :rating
 
-  has_many    :endorsements,    dependent: :destroy
-  has_many    :certifications,  through: :endorsements
-  has_many    :positions,       through: :certifications
+  has_many  :endorsements,      dependent: :destroy
+  has_many  :certifications,    through: :endorsements
+  has_many  :positions,         through: :certifications
+  has_many  :event_positions,   class_name: 'Event::Position'
+  has_many  :event_flights,     class_name: 'Event::Pilot', dependent: :destroy
+  has_many  :event_signups,     class_name: 'Event::Signup', dependent: :destroy
+  has_many  :online_sessions,   class_name: 'Vatsim::Atc', dependent: :destroy
+  has_many  :u2f_registrations, dependent: :destroy
 
-  has_many    :event_positions, class_name: 'Event::Position'
-  has_many    :event_flights,   class_name: 'Event::Pilot', dependent: :destroy
-  has_many    :event_signups,   class_name: 'Event::Signup', dependent: :destroy
-
-  has_many    :online_sessions, class_name: 'Vatsim::Atc'
-
-  has_many    :u2f_registrations, dependent: :destroy
+  has_one :gpg_key, dependent: :destroy
 
   delegate  :atc?,                  to: :group
   delegate  :min_controlling_hours, to: :group
@@ -79,6 +78,11 @@ class User < ApplicationRecord
   #
   def encrypted_password
     nil
+  end
+
+  # Determines whether the user has configured a GPG key
+  def gpg_enabled?
+    gpg_key.present?
   end
 
   # Enforce capitalization on initials

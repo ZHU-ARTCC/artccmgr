@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for @gpg_key, url: profile_gpg_key_path do |f| %>
+        <% if @gpg_key.errors.present? %>
+          <span class="text-danger">
+            <%= @gpg_key.errors.full_messages.join(',') %>
+          </span>
+          <div class="top-buffer"></div>
+        <% end %>
+
+        <div class="form-group">
+          <%= f.label :key, 'Paste your Public Key below:' %>
+          <%= f.text_area :key, class: 'form-control', cols: 10, rows: 15,  required: true %>
+        </div>
+
+        <%= f.submit 'Register GPG/PGP Key', class: 'btn btn-sm btn-success' %>
+    <% end %>
+  </div>
+</div>

@@ -14,6 +14,27 @@
       <div class="card-body">
         <div class="row">
           <div class="col-lg-4">
+            <h5>Email Encryption</h5>
+            <p class="small">
+              Increase email security by adding a GPG or PGP key to receive
+              encrypted emails.
+            </p>
+          </div>
+          <div class="col-lg-8">
+            <p class="small">Status: <%= @user.gpg_enabled? ? 'Enabled' : 'Disabled' %></p>
+            <%= link_to 'Manage PGP/GPG Key', profile_gpg_key_path, class: 'btn btn-primary' %>
+            <%= link_to 'Disable', profile_gpg_key_path, method: :delete, class: 'btn btn-danger' %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <hr/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4">
             <h5>Two-Factor Authentication</h5>
             <p class="small">Increase your account's security by enabling Two-Factor Authentication (2FA)</p>
           </div>

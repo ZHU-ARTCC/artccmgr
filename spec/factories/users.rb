@@ -17,6 +17,12 @@ FactoryGirl.define do
       name_last  { nil }
     end
 
+    trait :gpg_key do
+      after(:create) do |user|
+        create(:gpg_key, user: user)
+      end
+    end
+
     trait :guest do
       group { Group.find_by(name: 'Guest') }
     end

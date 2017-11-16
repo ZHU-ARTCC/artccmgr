@@ -46,9 +46,12 @@ RSpec.describe User, type: :model do
 
     it { expect(user).to have_many(:endorsements).dependent(:destroy) }
     it { expect(user).to have_many(:certifications).through(:endorsements) }
+    it { expect(user).to have_many(:online_sessions).dependent(:destroy) }
     it { expect(user).to have_many(:positions).through(:certifications) }
 
     it { expect(user).to have_many(:u2f_registrations).dependent(:destroy) }
+
+    it { expect(user).to have_one(:gpg_key).dependent(:destroy) }
 
   end # describe 'ActiveRecord associations'
 
@@ -129,6 +132,18 @@ RSpec.describe User, type: :model do
       create(:vatsim_atc, user: user, logon_time: (Time.now - 10.minutes), last_seen: (Time.now - 6.minutes))
 		  expect(user.activity_report(Time.now - 1.day, Time.now).first).to eq session
 	  end
+  end
+
+  describe '#gpg_enabled?' do
+    it 'returns true if the user has a GPG key configured' do
+      user = create(:user, :gpg_key)
+      expect(user.gpg_enabled?).to eq true
+    end
+
+    it 'returns false if the user does not have a GPG key enabled' do
+      user = create(:user)
+      expect(user.gpg_enabled?).to eq false
+    end
   end
 
   describe '#initials=' do

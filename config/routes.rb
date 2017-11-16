@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   resources :positions
 
   resource :profile, only: [:show, :update] do
+    resource :gpg_key, only: [:create, :destroy, :show], controller: 'profiles/gpg_key'
 	  resource :two_factor_auth, only: [:create, :destroy, :show], controller: 'profiles/two_factor_auths' do
 		  resources :u2f, only: [:create, :destroy], controller: 'profiles/two_factor_auths/u2f'
 	  end
