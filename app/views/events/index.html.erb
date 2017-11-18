@@ -1,0 +1,41 @@
+<% content_for(:title, 'Events') %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">
+            Events Calendar
+          </div>
+          <div class="col-auto">
+            <%= link_to events_path(format: :rss), class: 'event-title-rss-btn', title: 'RSS' do %>
+              <%= fa_icon 'rss-square' %>
+            <% end %>
+
+            <% if policy(Event).create? %>
+              <%= link_to new_event_path, class: 'event-title-btn', title: 'Add Event' do %>
+                <%= fa_icon('plus-square') %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body pb-0 pl-0 pr-0">
+        <%= month_calendar(events: @events, end_attribute: '') do |date, events| %>
+          <%= date.day %>
+
+          <% events.each do |event| %>
+            <div>
+              <small>
+                <%= event.start_time.strftime("%H:%M") %></small>
+                <%= link_to event.name, event, title: "#{event.start_time.strftime('%d %b %Y %H:%M %Z')} - #{event.name}" %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

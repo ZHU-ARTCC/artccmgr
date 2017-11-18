@@ -1,0 +1,85 @@
+current directory: /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ext/gpgme
+/home/travis/.rvm/rubies/ruby-2.3.3/bin/ruby -r ./siteconf20171118-5599-iktdoa.rb extconf.rb
+************************************************************************
+IMPORTANT!  gpgme gem uses locally built versions of required C libraries,
+namely libgpg-error, libassuan, and gpgme.
+
+If this is a concern for you and you want to use the system library
+instead, abort this installation process and reinstall gpgme gem as
+follows:
+
+    gem install gpgme -- --use-system-libraries
+
+************************************************************************
+Extracting libgpg-error-1.27.tar.bz2 into tmp/x86_64-linux-gnu/ports/libgpg-error/1.27... OK
+Running 'configure' for libgpg-error 1.27... OK
+Running 'compile' for libgpg-error 1.27... OK
+Running 'install' for libgpg-error 1.27... OK
+Activating libgpg-error 1.27 (from /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27)...
+Extracting libassuan-2.4.3.tar.bz2 into tmp/x86_64-linux-gnu/ports/libassuan/2.4.3... OK
+Running 'configure' for libassuan 2.4.3... OK
+Running 'compile' for libassuan 2.4.3... OK
+Running 'install' for libassuan 2.4.3... OK
+Activating libassuan 2.4.3 (from /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3)...
+Extracting gpgme-1.9.0.tar.bz2 into tmp/x86_64-linux-gnu/ports/gpgme/1.9.0... OK
+Running 'configure' for gpgme 1.9.0... OK
+Running 'compile' for gpgme 1.9.0... OK
+Running 'install' for gpgme 1.9.0... OK
+Activating gpgme 1.9.0 (from /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0)...
+checking for linker flags for static linking... -Wl,-Bstatic
+checking for gpgme.h... yes
+checking for gpgme >= 1.1.3... yes
+checking for gpgme_op_export_keys()... yes
+creating Makefile
+
+current directory: /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ext/gpgme
+make "DESTDIR=" clean
+
+current directory: /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ext/gpgme
+make "DESTDIR="
+compiling gpgme_n.c
+gpgme_n.c: In function ‘rb_s_gpgme_ctx_get_engine_info’:
+gpgme_n.c:210:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   gpgme_engine_info_t info = gpgme_ctx_get_engine_info (ctx);
+   ^
+gpgme_n.c: In function ‘rb_s_gpgme_ctx_set_engine_info’:
+gpgme_n.c:237:3: warning: ISO C90 forbids mixed declarations and code [-Wdeclaration-after-statement]
+   gpgme_error_t err = gpgme_ctx_set_engine_info (ctx,
+   ^
+gpgme_n.c: In function ‘rb_s_gpgme_data_new_from_mem’:
+gpgme_n.c:302:28: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+   if (RSTRING_LEN(vbuffer) < size)
+                            ^
+gpgme_n.c: In function ‘rb_s_gpgme_op_keylist_start’:
+gpgme_n.c:853:34: warning: suggest braces around empty body in an ‘if’ statement [-Wempty-body]
+     SET_KEYLIST_IN_PROGRESS(vctx);
+                                  ^
+gpgme_n.c: In function ‘rb_s_gpgme_op_keylist_ext_start’:
+gpgme_n.c:882:34: warning: suggest braces around empty body in an ‘if’ statement [-Wempty-body]
+     SET_KEYLIST_IN_PROGRESS(vctx);
+                                  ^
+gpgme_n.c: In function ‘rb_s_gpgme_op_edit’:
+gpgme_n.c:1446:3: warning: ‘gpgme_op_edit’ is deprecated (declared at /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/include/gpgme.h:2487) [-Wdeprecated-declarations]
+   err = gpgme_op_edit (ctx, key, edit_cb, (void *)vcb, out);
+   ^
+gpgme_n.c: In function ‘rb_s_gpgme_op_edit_start’:
+gpgme_n.c:1475:3: warning: ‘gpgme_op_edit_start’ is deprecated (declared at /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/include/gpgme.h:2484) [-Wdeprecated-declarations]
+   err = gpgme_op_edit_start (ctx, key, edit_cb, (void *)vcb, out);
+   ^
+gpgme_n.c: In function ‘rb_s_gpgme_op_card_edit’:
+gpgme_n.c:1504:3: warning: ‘gpgme_op_card_edit’ is deprecated (declared at /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/include/gpgme.h:2494) [-Wdeprecated-declarations]
+   err = gpgme_op_card_edit (ctx, key, edit_cb, (void *)vcb, out);
+   ^
+gpgme_n.c: In function ‘rb_s_gpgme_op_card_edit_start’:
+gpgme_n.c:1533:3: warning: ‘gpgme_op_card_edit_start’ is deprecated (declared at /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/include/gpgme.h:2490) [-Wdeprecated-declarations]
+   err = gpgme_op_card_edit_start (ctx, key, edit_cb, (void *)vcb, out);
+   ^
+linking shared-object gpgme_n.so
+Cleaning files only used during build.
+rm -rf /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ext/gpgme/tmp/x86_64-linux-gnu/ports
+rmdir -p /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ext/gpgme/tmp/x86_64-linux-gnu
+rm -rf /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports
+
+current directory: /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ext/gpgme
+make "DESTDIR=" install
+/usr/bin/install -m 0755 gpgme_n.so ./.gem.20171118-5599-1rb1ax

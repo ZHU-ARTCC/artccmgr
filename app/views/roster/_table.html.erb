@@ -1,0 +1,33 @@
+<table class="table table-sm table-bordered table-responsive mb-0">
+  <tbody>
+    <tr class="bg-light">
+      <% if policy(User).update? -%>
+        <th></th>
+      <% end -%>
+
+      <th class="text-center" colspan="3">
+        <small>Controller</small>
+      </th>
+
+      <th class="text-center pl-0 pr-0 pb-0">
+        <small>Minor</small>
+      </th>
+
+      <th class="text-center pl-0 pr-0 pb-0">
+        <small>Major</small>
+      </th>
+    </tr>
+
+    <% if controllers.empty? %>
+      <tr>
+        <td colspan="6" class="text-center">
+          <small><i>No information available</i></small>
+        </td>
+      </tr>
+    <% end %>
+
+    <% controllers.each do |c| -%>
+      <%= render 'user', controller: c %>
+    <% end -%>
+  </tbody>
+</table>

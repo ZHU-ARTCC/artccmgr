@@ -1,0 +1,47 @@
+<% content_for(:title, 'Email Encryption') %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">
+            Email Encryption
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-lg-4">
+            <h5>Register GPG/PGP Key</h5>
+            <p class="small">
+              GPG keys allow you to receive encrypted emails.
+            </p>
+          </div>
+          <div class="col-lg-8">
+            <% if current_user.gpg_key.persisted? -%>
+                <div class="row">
+                  <div class="col-sm-2">
+                    <h1 class="text-success"><%= fa_icon 'check-circle' %></h1>
+                  </div>
+                  <div class="col-sm-10">
+                    <p class="small">
+                      You have already registered your public GPG/PGP key. You can disable
+                      encrypted emails from your profile page.
+                    </p>
+                    <p class="small">
+                      Key Fingerprint: <code><%= @gpg_key.fingerprint %></code>
+                    </p>
+                  </div>
+                </div>
+            <% else -%>
+              <%= render 'profiles/gpg_key/register' %>
+            <% end -%>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

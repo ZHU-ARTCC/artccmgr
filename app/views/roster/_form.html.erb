@@ -1,0 +1,123 @@
+<div class="container">
+  <%= form_for @user do |f| %>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">CID</label>
+        <div class="col-sm-9">
+          <% @user.errors[:cid].present? ? cid_invalid = 'is-invalid' : cid_invalid = nil %>
+          <%= f.text_field :cid, class: "form-control #{cid_invalid}", required: true %>
+          <% unless cid_invalid.nil? %>
+              <div class="invalid-feedback">
+                <%= @user.errors[:cid].join(', ').capitalize %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label 'First Name*', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @user.errors[:name_first].present? ? fn_invalid = 'is-invalid' : fn_invalid = nil %>
+          <%= f.text_field :name_first, class: "form-control #{fn_invalid}", required: true %>
+          <% unless fn_invalid.nil? %>
+              <div class="invalid-feedback">
+                <%= @user.errors[:name_first].join(', ').capitalize %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label 'Last Name*', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @user.errors[:name_last].present? ? ln_invalid = 'is-invalid' : ln_invalid = nil %>
+          <%= f.text_field :name_last, class: "form-control #{ln_invalid}", required: true %>
+          <% unless ln_invalid.nil? %>
+              <div class="invalid-feedback">
+                <%= @user.errors[:name_last].join(', ').capitalize %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label 'Email*', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @user.errors[:email].present? ? email_invalid = 'is-invalid' : email_invalid = nil %>
+          <%= f.email_field :email, class: "form-control #{email_invalid}", required: true %>
+          <% unless email_invalid.nil? %>
+              <div class="invalid-feedback">
+                <%= @user.errors[:email].join(', ').capitalize %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label 'Rating*', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @user.errors[:rating].present? ? rating_invalid = 'is-invalid' : rating_invalid = nil %>
+          <%= f.collection_select :rating_id, Rating.all.order(:number), :id, :to_s, {}, class: "form-control #{rating_invalid}" %>
+          <% unless rating_invalid.nil? %>
+              <div class="invalid-feedback">
+                <%= @user.errors[:rating].join(', ').capitalize %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label 'Operating Initials', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @user.errors[:initials].present? ? initials_invalid = 'is-invalid' : initials_invalid = nil %>
+          <%= f.select :initials, initials_options, {include_blank: true}, class: "form-control #{initials_invalid}" %>
+          <% unless initials_invalid.nil? %>
+              <div class="invalid-feedback">
+                <%= @user.errors[:initials].join(', ').capitalize %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :group, class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @user.errors[:group].present? ? group_invalid = 'is-invalid' : group_invalid = nil %>
+          <% groups = Group.all.order(:name).collect{|g| [g.name.titleize, g.id]} %>
+          <%= f.select :group_id, groups, {}, class: "form-control #{group_invalid}" %>
+          <% unless group_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @user.errors[:group].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label 'Registration Date*', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9 form-inline">
+          <% @user.errors[:reg_date].present? ? date_invalid = 'is-invalid' : date_invalid = nil %>
+          <%= f.datetime_select :reg_date, {}, class: "form-control #{date_invalid}" %>
+          &nbsp; UTC
+          <% unless date_invalid.nil? %>
+              <div class="invalid-feedback">
+                <%= @user.errors[:reg_date].join(', ').capitalize %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-12 text-center">
+          <%= f.submit 'Save User', class: 'btn btn-primary' %>
+          <%= link_to 'Cancel', users_path, class: 'btn btn-outline-info' %>
+        </div>
+      </div>
+  <% end %>
+
+  <div class="row col-sm-12 text-center">
+    <small>
+      * If edited locally it will be reset with
+      the user's current VATSIM information on their next login.
+    </small>
+  </div>
+</div>

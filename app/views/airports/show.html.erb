@@ -1,0 +1,73 @@
+<% content_for(:title, "#{@airport.name} (#{@airport.icao})") %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">
+            <%= @airport.name %> (<%= @airport.icao %>)
+          </div>
+          <div class="col-auto">
+            <% if policy(@airport).edit? %>
+                <%= link_to 'Edit', edit_airport_path(@airport), class: 'btn btn-sm btn-outline-warning', title: 'Edit Airport' %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-sm-12">
+                <strong><%= @airport.name %></strong>
+              </div>
+            </div>
+            <% if @airport.latitude && @airport.longitude -%>
+              <div class="row">
+                <div class="col-sm-12">
+                  <strong>Coordinates:</strong>
+                  <%= @airport.latitude %>, <%= @airport.longitude %>
+                </div>
+              </div>
+            <% end -%>
+            <% if @airport.elevation -%>
+              <div class="row">
+                <div class="col-sm-12">
+                  <strong>Elevation:</strong>
+                  <%= @airport.elevation %>ft MSL
+                </div>
+              </div>
+            <% end -%>
+            <% if @airport.weather -%>
+              <div class="row mt-2">
+                <div class="col-sm-2 text-center">
+                  <h4>
+                    <span class="badge badge-primary <%= @airport.weather.rules.downcase %>">
+                      <%= @airport.weather.rules %>
+                    </span>
+                  </h4>
+                </div>
+                <div class="col-sm-10 text-muted">
+                  <%= @airport.weather.metar %>
+                </div>
+              </div>
+            <% end -%>
+          </div>
+
+          <div class="col-md-4">
+            <span class="float-right">
+              <h1 class="text-muted"><%= @airport.icao %></h1>
+            </span>
+          </div>
+        </div>
+
+        <div class="top-buffer"></div>
+
+        <%= render 'charts' unless @airport.charts.empty? %>
+      </div>
+
+    </div>
+  </div>
+</div>

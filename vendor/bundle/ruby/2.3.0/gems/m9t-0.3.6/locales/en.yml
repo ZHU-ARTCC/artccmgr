@@ -1,0 +1,81 @@
+# encoding: utf8
+en:
+  numbers:
+    thousands_separator: ','
+    decimal_separator: '.'
+  units:
+    distance:
+      meters:
+        full:
+          zero: meters
+          one: meter
+          other: meters
+        abbreviated: m
+      kilometers:
+        full:
+          zero: kilometers
+          one: kilometer
+          other: kilometers
+        abbreviated: km
+      miles:
+        full:
+          zero: miles
+          one: mile
+          other: miles
+        abbreviated: mi
+      feet:
+        full:
+          one: foot
+          other: feet
+        abbreviated: ft
+    direction:
+      degrees:
+        full:
+          zero: degrees
+          one: degree
+          other: degrees
+        abbreviated: °
+    speed:
+      miles_per_hour:
+        full:
+          zero: miles per hour
+          one: mile per hour
+          other: miles per hour
+        abbreviated: mph
+      meters_per_second:
+        full:
+          zero: meters per second
+          one: meter per second
+          other: meters per second
+        abbreviated: m/s
+      kilometers_per_hour:
+        full:
+          one: kilometer per hour
+          other: kilometers per hour
+        abbreviated: km/h
+      knots:
+        full:
+          zero: knots
+          one: knot
+          other: knots
+    temperature:
+      fahrenheit:
+        full:
+          zero: degrees
+          one: degree
+          other: degrees
+        abbreviated: °F
+      degrees:
+        full:
+          zero: degrees
+          one: degree
+          other: degrees
+        abbreviated: °C
+      kelvin:
+        full:
+          zero: kelvin
+          one: kelvin
+          other: kelvin
+        abbreviated: K
+  direction:
+    sectors: ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N']

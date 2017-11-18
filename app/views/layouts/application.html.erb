@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title><%= Settings.artcc_name %> - <%= yield(:title) %></title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <link rel="alternate" type="application/rss+xml" title="<%= Settings.artcc_name %> Events" href="<%= events_url(format: :rss)%>">
+  </head>
+
+  <body>
+    <%= Gon::Base.render_data %>
+
+    <!-- Masthead -->
+    <div class="d-none d-sm-block header-image">
+      <div class="masthead">
+        <h1 class="align-middle display-4"><%= Settings.artcc_name %></h1>
+        <p class="lead d-none d-md-block">
+          <%= Settings.artcc_tagline %>
+        </p>
+      </div>
+    </div>
+    <!-- End Masthead -->
+
+    <!-- Navigation -->
+    <%= render 'shared/navbar' %>
+    <!-- End Navigation -->
+
+    <!-- Body -->
+    <div class="container">
+
+      <% flash.each do |type, contents| %>
+      <!-- Alerts -->
+      <div class="row top-buffer">
+        <div class="col-lg-12">
+          <div class="alert alert-<%= type %> alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <%= contents %>
+          </div>
+        </div>
+      </div>
+      <!-- End Alerts -->
+      <% end %>
+
+      <div class="row top-buffer">
+        <div class="col-lg-3 order-2 order-lg-3">
+          <%= render 'shared/sidebar' %>
+        </div>
+
+        <div class="col-lg-9 order-1 order-lg-9">
+          <%= yield %>
+
+          <div class="row top-buffer"></div>
+        </div>
+      </div>
+    </div>
+    <!-- End Body -->
+
+    <%= render 'shared/ajax_loading' %>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">
+          <small>
+            This site is a subsidiary of <%= link_to 'VATSIM', 'https://www.vatsim.net' %>.
+            All information contained within is for flight simulation
+            purposes only. We are in no way affiliated or endorsed by the
+            Federal Aviation Administration or any other real world aviation authority.
+          </small>
+        </span>
+      </div>
+    </footer>
+    <!-- End Footer -->
+  </body>
+</html>

@@ -1,0 +1,53 @@
+<% content_for(:title, 'Two-Factor Authentication') %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">
+            Two-Factor Authentication
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-lg-4">
+            <h5>Register Two-Factor Authentication App</h5>
+            <p class="small">
+              Use an app on your mobile device to enable two-factor authentication (2FA).
+            </p>
+          </div>
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col-sm-2">
+                <h1 class="text-success"><%= fa_icon 'check-circle' %></h1>
+              </div>
+              <div class="col-sm-10">
+                <p class="small">
+                  You have successfully enabled two-factor authentication!
+                </p>
+                <p class="small">
+                  Should you ever lose your phone, each of these recovery codes can be used one
+                  time each to regain access to your account. Please keep them in a safe place, or
+                  you may have to contact the webmaster to regain access to your account.
+
+                  <ul>
+                    <% @codes.each do |code| -%>
+                      <li><%= code %></li>
+                    <% end -%>
+                  </ul>
+                </p>
+                <%= link_to 'Proceed', profile_path, class: 'btn btn-sm btn-success' %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+# ARTCC Settings
+artcc_icao: 'ZTV'
+artcc_name: 'ARTCC Manager'
+artcc_tagline: 'A full featured ARTCC management system.'
+
+# See config/database.yml for Database configuration
+# See config/secrets.yml for VATSIM SSO configuration
+
+# The default Gravatar image
+# Used for users without an email associated Gravatar
+default_gravatar: 'https://assets.github.com/images/gravatars/gravatar-140.png'
+
+# Update airports/charts every 1 day
+airport_update_interval: 1
+# At 15:30:
+airport_update_time: '15:30'
+
+# Email address used as the sender address for notifications:
+mail_from: 'noreply@example.com'
+
+# METAR/Airport Conditions Settings
+# update interval in hours
+metar_update_interval: 1
+# minutes after the top of the hour to run
+metar_update_time: 01
+
+# New Feed Settings (in XML format)
+news_rss_url: 'https://forums.vatusa.net/index.php?type=rss;action=.xml'
+
+# Statistics settings
+stats_url: 'https://stats.vatsim.net/search_id.php?id='
+
+# Unique operating initials
+# Requires users to have unique operating initials if set to true
+unique_operating_initials: false
+
+# VATSIM Status URL
+vatsim_status_url: 'https://status.vatsim.net'
+
+# VATUSA API settings
+# How often in hours to synchronize roster from VATUSA
+vatusa_roster_sync_interval: 1
+# minutes after the top of the hour to run
+vatusa_roster_sync_time: 30

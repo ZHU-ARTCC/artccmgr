@@ -1,0 +1,100 @@
+<div class="container">
+  <%= form_for @position do |f| %>
+
+      <div class="form-group row">
+        <%= f.label :name, 'Position Name', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @position.errors[:name].present? ? name_invalid = 'is-invalid' : name_invalid = nil %>
+          <%= f.text_field :name, class: "form-control #{name_invalid}", placeholder: 'Example: Dayton Tower', required: true %>
+          <% unless name_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @position.errors[:name].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :frequency, 'Frequency', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @position.errors[:frequency].present? ? frequency_invalid = 'is-invalid' : frequency_invalid = nil %>
+          <%= f.text_field :frequency, class: "form-control #{frequency_invalid}", placeholder: 'Example: 119.9', required: true %>
+          <% unless frequency_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @position.errors[:frequency].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :callsign, 'Text Callsign', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @position.errors[:callsign].present? ? callsign_invalid = 'is-invalid' : callsign_invalid = nil %>
+          <%= f.text_field :callsign, class: "form-control #{callsign_invalid}", placeholder: 'Example: DAY_TWR', required: true %>
+          <% unless callsign_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @position.errors[:callsign].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :identification, 'Radio Identification', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @position.errors[:identification].present? ? identification_invalid = 'is-invalid' : identification_invalid = nil %>
+          <%= f.text_field :identification, class: "form-control #{identification_invalid}", placeholder: 'Example: Dayton Tower', required: true %>
+          <% unless identification_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @position.errors[:identification].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :beacon_codes, 'Beacon Range', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @position.errors[:beacon_codes].present? ? beacon_invalid = 'is-invalid' : beacon_invalid = nil %>
+          <%= f.text_field :beacon_codes, class: "form-control #{beacon_invalid}", placeholder: 'Example: 1400-1500' %>
+          <% unless beacon_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @position.errors[:beacon_codes].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-3 col-form-label">Primary Status</div>
+        <div class="col-sm-9 form-check form-check-inline">
+          <%= f.check_box :primary, class: 'form-check-label' %>
+          <%= f.label 'Primary combined facility', class: 'col-form-label' %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-3 col-form-label">Major Status</div>
+        <div class="col-sm-9 form-check form-check-inline">
+          <%= f.check_box :major, class: 'form-check-label' %>
+          <%= f.label 'This is a major position', class: 'col-form-label' %>
+        </div>
+      </div>
+
+      <% unless @position.errors[:certification].empty? -%>
+        <div class="form-group row">
+          <div class="col-sm-12 text-center text-danger">
+            Certification <%= @position.errors[:certification].join(', ') %>
+          </div>
+        </div>
+      <% end -%>
+
+      <div class="form-group row">
+        <div class="col-sm-12 text-center">
+          <%= f.submit 'Save Position', class: 'btn btn-primary' %>
+          <%= link_to 'Cancel', positions_path, class: 'btn btn-outline-info' %>
+        </div>
+      </div>
+  <% end %>
+</div>

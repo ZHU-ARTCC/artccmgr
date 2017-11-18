@@ -1,0 +1,93 @@
+<div class="container">
+  <%= form_for(:feedback, url: feedback_index_path) do |f| %>
+    <div class="form-group row">
+      <label for="submitter" class="col-sm-3 col-form-label">Name</label>
+      <div class="col-sm-9">
+        <input type="name" class="form-control" id="feedbackName" placeholder="<%= current_user.name_full %> (<%= current_user.cid %>)" readonly>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="email" class="col-sm-3 col-form-label">Email</label>
+      <div class="col-sm-9">
+        <input type="email" class="form-control" id="feedbackEmail" placeholder="<%= current_user.email %>" readonly>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-3 col-form-label">Privacy</div>
+      <div class="col-sm-9 form-check form-check-inline">
+        <%= f.check_box :anonymous, class: 'form-check-label', id: 'feedbackAnonymous' %>
+        <%= f.label 'Post feedback anonymously', class: 'col-form-label' %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :callsign, class: 'col-sm-3 col-form-label' %>
+      <div class="col-sm-9">
+        <% @feedback.errors[:callsign].present? ? callsign_invalid = 'is-invalid' : callsign_invalid = nil %>
+        <%= f.text_field :callsign, class: "form-control text-uppercase #{callsign_invalid}", id: 'feedbackCallsign' %>
+        <% unless callsign_invalid.nil? %>
+          <div class="invalid-feedback">
+            Please provide the callsign you were using.
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <% controllers = User.all_controllers.order(:name_first).collect{|a| [ a.name_full, a.name_full ]} %>
+    <% controllers.unshift ['Unknown (Not specified)', 'Not specified'] %>
+
+    <div class="form-group row">
+      <%= f.label :controller, class: 'col-sm-3 col-form-label' %>
+      <div class="col-sm-9">
+        <%= f.select :controller, controllers, {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <% positions = Position.all.order(:callsign).collect{|p| ["#{p.callsign} (#{'%.3f' % p.frequency})", p.callsign]} %>
+    <% positions.unshift ['Unknown (Not specified)', 'Not specified'] %>
+
+    <div class="form-group row">
+      <%= f.label :position, class: 'col-sm-3 col-form-label' %>
+      <div class="col-sm-9">
+        <%= f.select :position, positions, {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <% service_levels = [['Excellent', 5], ['Good', 4], ['Fair', 3], ['Poor', 2], ['Unsatisfactory', 1]] %>
+
+    <div class="form-group row">
+      <%= f.label :service_level, 'Level of service', class: 'col-sm-3 col-form-label' %>
+      <div class="col-sm-9">
+        <%= f.select :service_level, service_levels, {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :fly_again, 'Would you fly again?', class: 'col-sm-3 col-form-label' %>
+      <div class="col-sm-9">
+        <%= f.select :fly_again, [['Yes', true], ['No', false]], {}, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <%= f.label :comments, class: 'col-sm-3 col-form-label' %>
+      <div class="col-sm-9">
+        <% @feedback.errors[:comments].present? ? comments_invalid = 'is-invalid' : comments_invalid = nil %>
+        <%= f.text_area :comments, class: "form-control #{comments_invalid}" %>
+        <% unless comments_invalid.nil? %>
+            <div class="invalid-feedback">
+              Please provide your comments.
+            </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-12 text-center">
+        <%= f.submit 'Send Feedback', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+</div>

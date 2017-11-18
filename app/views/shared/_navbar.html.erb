@@ -1,0 +1,71 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <%= link_to Settings.artcc_name, root_path, class: 'navbar-brand d-block d-sm-none d-md-none d-lg-none d-xl-none' %>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav mr-auto">
+
+        <!-- Home -->
+        <li class="nav-item">
+          <%= link_to 'Home', root_path, class: "nav-link #{active_class(root_path)}" %>
+        </li>
+
+        <!-- Events -->
+        <li class="nav-item">
+          <%= link_to 'Events', events_path, class: "nav-link #{active_class(events_path)}" if policy(Event).index? %>
+        </li>
+
+        <!-- Pilots -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarPilotsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Pilots
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarPilotsDropdown">
+            <%= link_to 'Airports',  airports_path, class: 'dropdown-item' if policy(Airport).index? %>
+          </div>
+        </li>
+
+        <!-- Controllers -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarControllersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Controllers
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarControllersDropdown">
+            <%= link_to 'Activity Report', activity_index_path, class: 'dropdown-item' if policy(User).update? %>
+            <%= link_to 'Certification Management', certifications_path, class: 'dropdown-item' if policy(Certification).update? %>
+            <%= link_to 'Positions', positions_path, class: 'dropdown-item'  if policy(Position).index? %>
+            <%= link_to 'Roster',    users_path, class: 'dropdown-item' if policy(User).index? %>
+          </div>
+        </li>
+
+        <!-- Feedback -->
+        <li class="nav-item">
+          <%= link_to 'Feedback', feedback_index_path, class: "nav-link #{active_class(feedback_index_path)}" if policy(Feedback).index? %>
+        </li>
+      </ul>
+      <div class="form-inline my-2 my-lg-0">
+        <% if user_signed_in? %>
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarUserDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= current_user.name_full %> (<%= current_user.rating.short_name %>)
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarUserDropdown">
+                <%= link_to 'Profile', profile_path, class: 'dropdown-item' %>
+                <%= link_to 'Group Management', groups_path, class: 'dropdown-item' if policy(Group).index? %>
+                <%= link_to 'Log Out', users_sign_out_path, method: :delete, class: 'dropdown-item' %>
+              </div>
+            </li>
+
+          </ul>
+        <% else %>
+          <%= link_to 'Log In', user_vatsim_omniauth_authorize_path, class: 'btn btn-success my-2 my-sm-0' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

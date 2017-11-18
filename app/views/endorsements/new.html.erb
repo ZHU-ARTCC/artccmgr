@@ -1,0 +1,22 @@
+<% content_for(:title, 'New Endorsement') %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">
+            New Endorsement for
+            <%= @controller.name_first %> <%= @controller.name_last %>
+            <%= "(#{@controller.initials})" unless @controller.initials.blank? %>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <%= render 'form' %>
+      </div>
+
+    </div>
+  </div>
+</div>

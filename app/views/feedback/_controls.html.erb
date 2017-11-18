@@ -1,0 +1,35 @@
+<% if policy(feedback).update? || policy(feedback).destroy? %>
+    <div class="row alert-secondary ml-2 mr-2 pt-1 pb-1 rounded">
+      <div class="col-auto mr-auto">
+        <% if policy(feedback).edit? %>
+          <% if feedback.published? %>
+            <%= link_to feedback_path(feedback, feedback: {published: false}), method: :put, class: 'btn btn-sm btn-success ml-2', title: 'Published' do %>
+              <%= fa_icon 'eye' %>
+            <% end %>
+          <% else %>
+            <%= link_to feedback_path(feedback, feedback: {published: true}), method: :put, class: 'btn btn-sm btn-outline-info ml-2', title: 'Unpublished' do %>
+              <%= fa_icon 'eye-slash' %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if policy(feedback).destroy? %>
+          <%= link_to feedback_path(feedback), method: :delete, data: { confirm: 'Are you sure? '}, class: 'btn btn-sm btn-danger ml-2', title: 'Delete' do %>
+            <%= fa_icon 'trash' %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="col-auto">
+        <% unless feedback.anonymous? %>
+          <span class="small mt-1">
+            <%= feedback.name %> (<%= mail_to feedback.email, nil, class: 'alert-link' %>)
+          </span>
+        <% end %>
+
+        <% unless feedback.fly_again? %>
+          <span class="badge badge-danger">Would not fly again</span>
+        <% end %>
+      </div>
+    </div>
+<% end %>

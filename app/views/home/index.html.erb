@@ -1,0 +1,64 @@
+<% content_for(:title, 'Home') %>
+
+<% unless @events.empty? %>
+<!-- Events Carousel -->
+<div class="row">
+  <div class="col-lg-12 text-center">
+    <div id="carouselEvents" class="carousel slide d-none d-sm-block" data-ride="carousel">
+      <div class="carousel-inner">
+        <% @events.each_with_index do |event, index| %>
+        <div class="carousel-item <%= 'active' if index == 0 %>">
+          <% alt = "#{event.name} - #{event.start_time.strftime('%d %b %Y %H:%M %Z')}" %>
+          <%= link_to image_tag(event.image, alt: alt, class: 'img-fluid', title: alt), event_path(event) %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row top-buffer"></div>
+<!-- Events Carousel -->
+<% end %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card card-body bg-light">
+      <h3>Welcome to ARTCC!</h3>
+      <p>
+        Some random text here about your ARTCC and the local area. Which airports are
+        fun to fly to and perhaps which are the busiest.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="row top-buffer">
+  <div class="col-lg-12">
+    <div class="card border-0">
+      <div class="card-header bg-dark text-light">
+        Latest News
+      </div>
+      <div class="card-body pb-0 pl-0 pr-0 pt-0">
+        <table class="table table-sm table-bordered table-responsive mb-0">
+          <% if @news.empty? %>
+          <tr>
+            <td class="text-center">
+              <span class="text-italic">Unable to retrieve news.</span>
+            </td>
+          </tr>
+          <% end %>
+
+          <% @news.each do |article| %>
+          <tr>
+            <td class="pl-3 pr-3">
+              <%= link_to article.title, article.link %>
+              <span class="float-right"><%= article.pubDate.strftime('%b %e, %Y') %></span>
+            </td>
+          </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

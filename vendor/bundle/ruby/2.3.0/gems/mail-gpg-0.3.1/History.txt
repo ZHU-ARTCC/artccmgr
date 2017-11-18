@@ -1,0 +1,125 @@
+== 0.3.1 2017-04-13
+
+* fixes a bug with signature verification that only surfaced in environments
+  where ActiveSupport isn't loaded. Thanks @mashedcode for pointing this out.
+
+== 0.3.0 2016-12-27
+
+* [MIGHT BREAK THINGS] All mail headers will preserved now, if you want to
+  suppress headers you'll have to remove them yourself from now on.
+* Strip "headers" when stripping inline signature (patch by @duckdalbe)
+* support hkps URI scheme
+* bugfix for verifying the "encapsulated" variant of pgp/mime (patch by @duckdalbe)
+
+== 0.2.9 2016-11-15
+
+* add missing require to test case (patch by @ge-fa)
+
+== 0.2.8 2016-10-26
+
+* fix tests with gnupg2 (patch by @duckdalbe)
+
+== 0.2.7 2016-09-28
+
+* fix replying to message objects #35
+* remove usage of deprecated alias_method_chain
+* fix tests with Rails >= 4
+* run tests with Rails 5, bump versions in travis config
+
+== 0.2.6 2015-10-20
+
+* fix handling of inline encrypted messages
+
+== 0.2.5 2015-09-30
+
+* allow overriding of encrypted attachment name (patch by @chrislewis60)
+
+== 0.2.4 2015-04-20
+
+* preserve List-Id and List-Unsubscribe headers
+* run tests on travis under Ruby 2.2.2
+
+== 0.2.3 2015-02-18
+
+* inline pgp detection now ignores signature.asc attachments
+
+== 0.2.2 2014-09-03
+
+* add option to import missing keys for signature verification
+* better Hkp error handling
+
+== 0.2.1 2014-07-23
+
+* keep original message id if set
+
+== 0.2.0 2014-07-16
+
+* implement signature verification for inline signed messages
+* make signature verification more consistent with decryption by providing
+  Mail::Message#verify which strips raw signature data and initializes verify_result member.
+* add Mail::Message#signatures as an easy way to retrieve all signatures on a Message
+
+== 0.1.7 2014-06-03
+
+* preserve References: header
+
+== 0.1.6 2014-05-30
+
+* preserve names in mail headers (i.e. Jane Doe <user@host.com>)
+
+== 0.1.5 2014-05-28
+
+* signing refactoring so the signed part only contains the necessary headers
+* preserve Auto-Submitted header
+
+== 0.1.4 2014-05-26
+
+* preserve return path headers and message id
+* fix signature verification
+
+== 0.1.3 2014-02-17
+
+* Signature checking implemented, thanks to Morten Andersen
+
+== 0.1.2 2013-11-19
+
+* bugfix release
+
+== 0.1.1 2013-11-14
+
+* bugfix release
+
+== 0.1.0 2013-11-06
+
+* decryption support (thanks to Morten Andersen)
+* sign-only operation (thanks to FewKinG)
+* keyserver url lookup (thanks to FewKinG)
+
+== 0.0.6 2013-08-28
+
+* bugfix: only encrypt to specified keys if :keys option is present
+
+== 0.0.5 2013-08-28
+
+* add some docs to the Hkp client
+* also add convenience method to fetch and import keys
+
+== 0.0.4 2013-08-27
+
+* better ActionMailer integration
+
+== 0.0.3 2013-08-20
+
+* better ActionMailer integration
+* 'gpg encrypt: true' instead of 'gpg true'
+* test coverage
+
+== 0.0.2 2013-08-19
+
+* ActionMailer integration
+* add gpg method to Mail::Message
+* support importing of public keys
+
+== 0.0.1 2013-08-18
+
+* Initial release

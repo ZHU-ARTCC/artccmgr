@@ -1,0 +1,5 @@
+current directory: /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/shoulda-callback-matchers-1.1.4/ext
+/home/travis/.rvm/rubies/ruby-2.3.3/bin/ruby mkrf_conf.rb
+
+current directory: /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/shoulda-callback-matchers-1.1.4/ext
+/home/travis/.rvm/rubies/ruby-2.3.3/bin/ruby -rrubygems /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/rake-10.5.0/bin/rake RUBYARCHDIR=/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/extensions/x86_64-linux/2.3.0/shoulda-callback-matchers-1.1.4 RUBYLIBDIR=/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/extensions/x86_64-linux/2.3.0/shoulda-callback-matchers-1.1.4

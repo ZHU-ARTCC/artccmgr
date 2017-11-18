@@ -1,0 +1,53 @@
+<div class="card border-0">
+  <div class="card-header bg-dark text-light">
+    Airport Conditions
+  </div>
+  <div class="card-body pb-0 pl-0 pr-0 pt-0">
+    <table class="table table-bordered mb-0">
+      <tr class="bg-light pl-0 pr-0">
+        <th class="pt-1 pb-1 text-center">
+          <small class="font-weight-bold">ICAO</small>
+        </th>
+        <th class="pt-1 pb-1 text-center">
+          <small class="font-weight-bold">Rules</small>
+        </th>
+        <th class="pt-1 pb-1 text-center">
+          <small class="font-weight-bold">Wind</small>
+        </th>
+        <th class="pt-1 pb-1 text-center">
+          <small class="font-weight-bold">Baro</small>
+        </th>
+      </tr>
+
+      <% if @metar.empty? %>
+        <tr class="pl-0 pr-0">
+          <td colspan="4" class="text-center">
+            <i>No information available</i>
+          </td>
+        </tr>
+      <% end %>
+
+      <% @metar.each do |station| %>
+      <tr class="pl-0 pr-0" data-toggle="tooltip" data-placement="bottom" title="<%= station.metar %>">
+        <td class="pt-1 pb-1 text-center">
+          <small><%= station.icao %></small>
+        </td>
+        <td class="pt-1 pb-1 text-center <%= station.rules.downcase %> text-white">
+          <small><%= station.rules %></small>
+        </td>
+
+        <th class="pt-1 pb-1 pl-0 pr-0 text-center">
+          <small>
+            <%= station.wind %>
+          </small>
+        </th>
+        <th class="pt-1 pb-1 text-center">
+          <small>
+            <%= '%.2f' % station.altimeter %>
+          </small>
+        </th>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

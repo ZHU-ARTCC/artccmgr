@@ -1,0 +1,67 @@
+# encoding: utf-8
+it:
+  numbers:
+    thousands_separator: '.'
+    decimal_separator: ','
+  units:
+    distance:
+      meters:
+        full:
+          zero: metri
+          one: metro
+          other: metri
+        abbreviated: m
+      kilometers:
+        full:
+          zero: chilometri
+          one: chilometro
+          other: chilometri
+        abbreviated: km
+      miles:
+        full:
+          zero: miglia
+          one: miglio
+          other: miglia
+      feet:
+        full:
+          one: foot
+          other: feet
+    direction:
+      degrees:
+        full:
+          zero: gradi
+          one: grado
+          other: gradi
+        abbreviated: °
+    speed:
+      meters_per_second:
+        full:
+          zero: metri al second
+          one: metro al second
+          other: metri al second
+        abbreviated: m/s
+      kilometers_per_hour:
+        full:
+          one: "chilometro l'ora"
+          other: "chilometro l'ora"
+        abbreviated: km/h
+      knots:
+        full:
+          zero: nodi
+          one: nodo
+          other: nodi
+    temperature:
+      degrees:
+        full:
+          zero: gradi
+          one: grado
+          other: gradi
+        abbreviated: °C
+      kelvin:
+        full:
+          zero: kelvin
+          one: kelvin
+          other: kelvin
+        abbreviated: K
+  direction:
+    sectors: ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSO', 'SO', 'OSO', 'O', 'ONO', 'NO', 'NNO', 'N']

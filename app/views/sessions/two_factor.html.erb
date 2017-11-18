@@ -1,0 +1,78 @@
+<% content_for(:title, 'Two-Factor Authentication Required') -%>
+
+<% if @user.two_factor_otp_enabled? %>
+  <%= form_tag(users_auth_2fa_path, method: :post, id: 'js-login-otp-form') do |f| %>
+    <% resource_params = params[resource_name].presence || params %>
+    <div class="form-group form-inline">
+      <%= label_tag :otp_attempt, 'Authentication code', class: 'col-sm-5 col-form-label' %>
+      <div class="col-sm-7">
+        <%= text_field_tag :otp_attempt, nil, id:'otp-code', class: 'form-control', required: true, autofocus: true, autcomplete: 'off', title: 'This field is required' %>
+      </div>
+    </div>
+    <small id="otp_attempt_help" class="form-text text-muted text-center">
+      Enter the code from the two-factor app on your mobile device. If you have lost your device, you may enter
+      one of your recovery codes.
+    </small>
+    <p class="text-center pt-3">
+      <%= submit_tag 'Verify Code', class: 'btn btn-success' %>
+    </p>
+  <% end %>
+<% end %>
+<% if @user.two_factor_u2f_enabled? %>
+  <div id="js-authenticate-u2f"></div>
+
+  <script id="js-authenticate-u2f-not-supported" type="text/template">
+    <div class="row">
+      <div class="col-md-2 ml-5">
+        <span class="text-danger"><%= fa_icon 'exclamation-circle' %></span>
+      </div>
+      <div class="col-md-8">
+        <p class="small text-danger">
+          Your browser doesn't support U2F. Please use Google Chrome desktop (version 41 or newer).
+        </p>
+      </div>
+    </div>
+  </script>
+
+  <script id="js-authenticate-u2f-in-progress" type="text/template">
+    <div class="row">
+      <div class="col-md-2 ml-5">
+        <%= image_tag 'yubikey.png' %>
+      </div>
+      <div class="col-md-8">
+        <p class="small pt-2">
+          Trying to communicate with your U2F device. Plug it in (if you haven't already) and press the button on the device now.
+        </p>
+      </div>
+    </div>
+  </script>
+
+  <script id="js-authenticate-u2f-error" type="text/template">
+    <div class="row">
+      <div class="col-md-2 ml-5">
+        <button class="btn btn-warning btn-sm" id="js-u2f-try-again">Try again?</button>
+      </div>
+      <div class="col-md-8 ml-2">
+        <p class="small">
+          <span class='text-danger' id="js-u2f-error-message"></span>
+        </p>
+      </div>
+    </div>
+  </script>
+
+  <script id="js-authenticate-u2f-authenticated" type="text/template">
+    <div class="row">
+      <div class="col-md-4 text-right">
+        <span class="text-success"><h1><%= fa_icon 'check-circle' %></h1></span>
+      </div>
+      <div class="col-md-6">
+        <p class="small">We heard back from your U2F device. Attempting to authenticate.</p>
+        <%= form_tag(users_auth_2fa_path, method: :post, id: 'js-login-u2f-form') do |f| %>
+            <% resource_params = params[resource_name].presence || params %>
+            <%= hidden_field_tag 'user[remember_me]', resource_params.fetch(:remember_me, 0) %>
+            <%= hidden_field_tag 'user[device_response]', nil, class: 'form-control', required: true, id: 'js-device-response' %>
+        <% end %>
+      </div>
+    </div>
+  </script>
+<% end %>

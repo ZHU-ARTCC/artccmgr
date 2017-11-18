@@ -1,0 +1,96 @@
+image: registry.gitlab.com/jvoss1/artccmgr/ci:latest
+
+services:
+  - postgres:latest
+
+stages:
+  - build
+  - test
+  - reports
+  - staging
+
+variables:
+  CI: 'true'
+  POSTGRES_DB: 'artccmgr_test'
+  POSTGRES_USER: 'artccmgr'
+  POSTGRES_PASSWORD: 'artccmgr'
+
+.cache_bundler: &cache_bundler
+  cache:
+    untracked: true
+    key: "$CI_COMMIT_REF_NAME"
+    paths:
+      - cache/bundler/
+
+.setup_test_env: &setup_test_env
+  before_script:
+    - ruby -v
+    - which ruby
+    - RAILS_ENV=test bundle install --path=cache/bundler --jobs $(nproc) "${FLAGS[@]}"
+    - cp config/database-gitlab.yml config/database.yml
+    - RAILS_ENV=test bundle exec rake db:create db:schema:load db:seed
+
+build:
+  stage: build
+  <<: *cache_bundler
+  <<: *setup_test_env
+  script:
+    - echo Build complete
+
+rspec:
+  stage: test
+  <<: *cache_bundler
+  <<: *setup_test_env
+  artifacts:
+    paths:
+      - coverage/
+    expire_in: 1 week
+    when: always
+  dependencies:
+    - build
+  variables:
+    COVERAGE: 'true'
+    RAILS_ENV: 'test'
+  script:
+    - bundle exec rspec
+
+security:
+  stage: test
+  <<: *cache_bundler
+  <<: *setup_test_env
+  artifacts:
+    paths:
+      - log/brakeman.html
+    expire_in: 1 week
+  dependencies:
+      - build
+  script:
+    - RAILS_ENV=test bundle exec brakeman -A -f html -o log/brakeman.html
+
+pages:
+  stage: reports
+  dependencies:
+    - rspec
+    - security
+  script:
+    - rm -r public
+    - mkdir -p public/brakeman
+    - mv coverage/ public/coverage
+    - mv log/brakeman.html public/brakeman/index.html
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - development
+  allow_failure: true
+
+heroku_development:
+  stage: staging
+  only:
+    - development
+  variables:
+    HEROKU_API_KEY: $HEROKU_API_KEY
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=artccmgr-dev --api-key=$HEROKU_API_KEY

@@ -1,0 +1,143 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ ** Remove all require statements for use with Bootstrap gem, use @import instead
+ ** = require_tree .
+ ** = require_self
+ */
+
+@import "bootstrap";
+@import "bootstrap-multiselect";
+@import "font-awesome";
+@import "events";
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+
+body.loading {
+  overflow: hidden;
+}
+
+body.loading .ajaxModal {
+  display: block;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.alert-error { @extend .alert-danger; }
+.alert-alert { @extend .alert-primary; }
+.alert-notice { @extend .alert-info; }
+
+.ajaxModal {
+  display:    none;
+  position:   fixed;
+  z-index:    1000;
+  top:        0;
+  left:       0;
+  height:     100%;
+  width:      100%;
+  background: rgba( 255, 255, 255, .8 )
+  image-url('radar_loading.gif')
+  50% 50%
+  no-repeat;
+}
+
+.badge-ratings {
+  border-style: groove;
+  border-width: 1px;
+}
+
+.badge-obs { @extend .badge-ratings; @extend .badge-secondary;  }
+.badge-s1  { @extend .badge-ratings; @extend .badge-warning; }
+.badge-s2  { @extend .badge-ratings; @extend .badge-warning; }
+.badge-s3  { @extend .badge-ratings; @extend .badge-warning; }
+.badge-c1  { @extend .badge-ratings; @extend .badge-success; }
+.badge-c2  { @extend .badge-ratings; @extend .badge-success; }
+.badge-c3  { @extend .badge-ratings; @extend .badge-success; }
+.badge-i1  { @extend .badge-ratings; @extend .badge-danger; }
+.badge-i2  { @extend .badge-ratings; @extend .badge-danger; }
+.badge-i3  { @extend .badge-ratings; @extend .badge-danger; }
+.badge-sup  { @extend .badge-ratings; background-color: rgb(166, 14, 175); }
+.badge-adm  { @extend .badge-ratings; background-color: rgb(69, 74, 175); }
+
+.dropdown-menu{
+  background-color: rgba(52, 58, 64, 0.9);
+  //border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin-top: 7px;
+}
+
+.dropdown-item{
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.dropdown-item:hover{
+  color: #000 !important;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  //line-height: 60px; /* Vertically center the text */
+  background-color: #f5f5f5;
+  text-align: center;
+}
+
+.header-image {
+  background:
+          linear-gradient(rgba(20,20,20, .5), rgba(20,20,20, .5)),
+          asset-url('artccmgr.png');
+  width: 100%;
+  height: 200px;
+}
+
+.masthead {
+  position: relative;
+  top: 50%; left: 40%;
+  transform: translate(-50%,-50%);
+  color: #F7F7F7;
+  height: 50%;
+  width: 50%;
+}
+
+.tooltip-inner {
+  max-width: 800px;
+}
+
+.top-buffer {
+  margin-top: 20px;
+}
+
+.ifr {
+  background-color: rgb(217, 83, 79);
+}
+
+.lifr {
+  background-color: rgb(255, 0, 255);
+}
+
+.mvfr {
+  background-color: rgb(2, 117, 216);
+}
+
+.vfr {
+  background-color: rgb(40, 167, 69);
+}

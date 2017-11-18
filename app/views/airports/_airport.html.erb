@@ -1,0 +1,33 @@
+<tr>
+  <% if policy(Airport).update? -%>
+    <td class="text-center">
+      <%= link_to edit_airport_path(airport),
+                  class: 'badge badge-secondary',
+                  'data-toggle': :tooltip,
+                  'data-placement': :bottom,
+                  title: 'Edit' do %>
+        <%= fa_icon 'pencil' %>
+      <% end %>
+    </td>
+  <% end -%>
+  <td class="text-center">
+    <small>
+      <%= link_to airport.icao, airport_path(airport) %>
+    </small>
+  </td>
+  <td class="text-center">
+    <small><%= airport.name %></small>
+  </td>
+  <td class="text-center">
+    <small><%= airport.charts.count %></small>
+  </td>
+  <td class="text-center <%= airport.weather.rules.downcase unless airport.weather.nil? %>">
+    <small class="text-white"><%= airport.weather.rules unless airport.weather.nil? %></small>
+  </td>
+  <td class="text-center">
+    <small><%= airport.weather.wind unless airport.weather.nil? %></small>
+  </td>
+  <td class="text-center">
+    <small><%= '%.2f' % airport.weather.altimeter unless airport.weather.nil? %></small>
+  </td>
+</tr>

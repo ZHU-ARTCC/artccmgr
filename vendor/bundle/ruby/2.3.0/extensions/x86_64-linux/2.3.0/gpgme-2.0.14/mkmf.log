@@ -1,0 +1,94 @@
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0 -I. -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/include -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/include -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat  -fPIC conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.3.3/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.3.3/lib -L/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib -Wl,-R/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib -L/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib -Wl,-R/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib -L/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib -Wl,-R/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic    /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib/libgpgme.a /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib/libassuan.a /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib/libgpg-error.a -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lpthread -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0 -I. -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/include -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/include -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat  -fPIC conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.3.3/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.3.3/lib -L/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib -Wl,-R/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib -L/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib -Wl,-R/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib -L/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib -Wl,-R/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic    /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib/libgpgme.a /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib/libassuan.a /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib/libgpg-error.a -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby -Wl,-Bstatic -lgpgme -Wl,-Bdynamic -lpthread -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(void) { return 0; }
+/* end */
+
+have_header: checking for gpgme.h... -------------------- yes
+
+"gcc -E -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0 -I. -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/include -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/include -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat  -fPIC  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <gpgme.h>
+/* end */
+
+--------------------
+
+checking for gpgme >= 1.1.3... -------------------- yes
+
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0 -I. -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/include -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/include -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat  -fPIC conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.3.3/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.3.3/lib -L/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib -Wl,-R/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib -L/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib -Wl,-R/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib -L/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib -Wl,-R/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic    /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib/libgpgme.a /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib/libassuan.a /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib/libgpg-error.a -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby  -lpthread -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <gpgme.h>
+4: #include <stdlib.h>
+5: int main (void) {
+6:   return gpgme_check_version ("1.1.3") == NULL;
+7: }
+/* end */
+
+./conftest
+--------------------
+
+have_func: checking for gpgme_op_export_keys()... -------------------- yes
+
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0 -I. -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/include -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/include -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat  -fPIC conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.3.3/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.3.3/lib -L/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib -Wl,-R/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib -L/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib -Wl,-R/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib -L/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib -Wl,-R/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic    /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib/libgpgme.a /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib/libassuan.a /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib/libgpg-error.a -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib/libgpgme.a /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib/libassuan.a /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib/libgpg-error.a -lpthread -ldl -lcrypt -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:13:57: error: ‘gpgme_op_export_keys’ undeclared (first use in this function)
+ int t(void) { void ((*volatile p)()); p = (void ((*)()))gpgme_op_export_keys; return !p; }
+                                                         ^
+conftest.c:13:57: note: each undeclared identifier is reported only once for each function it appears in
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: int t(void) { void ((*volatile p)()); p = (void ((*)()))gpgme_op_export_keys; return !p; }
+/* end */
+
+"gcc -o conftest -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0/x86_64-linux -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0/ruby/backward -I/home/travis/.rvm/rubies/ruby-2.3.3/include/ruby-2.3.0 -I. -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/include -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/include -I/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/include     -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wunused-variable -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wimplicit-function-declaration -Wdeprecated-declarations -Wno-packed-bitfield-compat  -fPIC conftest.c  -L. -L/home/travis/.rvm/rubies/ruby-2.3.3/lib -Wl,-R/home/travis/.rvm/rubies/ruby-2.3.3/lib -L/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib -Wl,-R/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib -L/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib -Wl,-R/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib -L/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib -Wl,-R/home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib -L. -fstack-protector -rdynamic -Wl,-export-dynamic    /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib/libgpgme.a /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib/libassuan.a /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib/libgpg-error.a -Wl,-rpath,'/../lib' -Wl,-R'/../lib' -lruby /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/gpgme/1.9.0/lib/libgpgme.a /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libassuan/2.4.3/lib/libassuan.a /home/travis/build/jvoss/artccmgr/vendor/bundle/ruby/2.3.0/gems/gpgme-2.0.14/ports/x86_64-linux-gnu/libgpg-error/1.27/lib/libgpg-error.a -lpthread -ldl -lcrypt -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     printf("%p", &t);
+ 9:   }
+10: 
+11:   return 0;
+12: }
+13: extern void gpgme_op_export_keys();
+14: int t(void) { gpgme_op_export_keys(); return 0; }
+/* end */
+
+--------------------
+

@@ -1,0 +1,68 @@
+<% content_for(:title, 'Feedback') %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">Feedback Archive</div>
+          <div class="col-auto">
+            <% if policy(Feedback).create? || current_user.nil? -%>
+              <%= link_to 'Leave Feedback', new_feedback_path, class: 'btn btn-sm btn-outline-info' %>
+            <% end -%>
+          </div>
+        </div>
+      </div>
+      <div class="card-body pl-0 pr-0">
+        <% if @feedback.empty? %>
+          <p class="text-center font-italic top-buffer">There is currently no feedback</p>
+        <% end %>
+        <% @feedback.each do |f| %>
+        <div class="ml-2 mr-2 pl-2 pr-2 pb-2 pt-2">
+          <div class="row">
+            <div class="col-md-3 col-auto mr-auto">
+              <h5><%= f.position %></h5>
+            </div>
+            <div class="col-auto">
+              <%= f.created_at.strftime('%B %d, %Y') %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-7 col-auto mr-auto">
+              <small><%= f.controller %></small>
+            </div>
+            <div class="col-auto">
+              <% f.service_level.times do %>&#9733;<% end %>
+            </div>
+          </div>
+          <div class="row top-buffer">
+            <div class="col-md-12">
+              <blockquote class="blockquote pl-4">
+                <p class="mb-0">"<%= f.comments %>"</p>
+                <footer class="blockquote-footer">
+                  <% if f.anonymous? %>
+                    Anonymous
+                  <% else %>
+                    <%= f.name %>
+                    (<%= link_to f.cid, "#{Settings.stats_url}#{f.cid}" %>)
+                    operating as <%= f.callsign %>
+                  <% end %>
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+
+          <%= render 'controls', feedback: f %>
+        </div>
+        <div class="row top-buffer"></div>
+        <% end %>
+
+        <div class="row">
+          <div class="d-flex mx-auto">
+            <%= paginate @feedback, theme: 'twitter-bootstrap-4', pagination_class: 'pagination-sm' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

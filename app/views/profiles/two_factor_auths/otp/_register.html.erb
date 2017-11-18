@@ -1,0 +1,43 @@
+<p class="small">
+  Download the Google Authenticator application from the App Store or Google Play store and
+  scan this code:
+</p>
+
+<div class="row">
+  <div class="col-md-4">
+    <%= raw @qr_code %>
+  </div>
+  <div class="col-md-8">
+    <p class="small">Can't scan the code?</p>
+    <p class="small">
+      To add the entry manually, enter the details below into the application
+      on your phone:
+    </p>
+    <p class="small">
+      <b>Account:</b> <%= Settings.artcc_name %>
+    </p>
+    <p class="small">
+      <b>Key:</b> <%= current_user.otp_secret %>
+    </p>
+    <p class="small">
+      <b>Time based:</b> Yes
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= form_tag profile_two_factor_auth_path, method: :post do |f| %>
+      <% if @error %>
+        <span class="text-danger"><%= @error %></span>
+      <% end %>
+
+      <div class="form-group">
+        <%= label_tag :pin_code, nil %>
+        <%= text_field_tag :pin_code, nil, class: 'form-control', required: true %>
+      </div>
+
+      <%= submit_tag 'Register with two-factor app', class: 'btn btn-sm btn-success' %>
+    <% end %>
+  </div>
+</div>

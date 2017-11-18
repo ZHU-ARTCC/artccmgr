@@ -1,0 +1,45 @@
+<div class="container">
+  <%= form_for @airport do |f| %>
+
+      <div class="form-group row">
+        <%= f.label :icao, 'ICAO', class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @airport.errors[:icao].present? ? icao_invalid = 'is-invalid' : icao_invalid = nil %>
+          <%= f.text_field :icao, class: "form-control #{icao_invalid}", placeholder: 'Example: KIWS', required: true %>
+          <% unless icao_invalid.nil? %>
+            <div class="invalid-feedback">
+              <%= @airport.errors[:icao].join(', ').capitalize %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <%= f.label :name, class: 'col-sm-3 col-form-label' %>
+        <div class="col-sm-9">
+          <% @airport.errors[:name].present? ? name_invalid = 'is-invalid' : name_invalid = nil %>
+          <%= f.text_field :name, class: "form-control #{name_invalid}", placeholder: 'Example: West Houston', required: true %>
+          <% unless name_invalid.nil? %>
+              <div class="invalid-feedback">
+                <%= @airport.errors[:name].join(', ').capitalize %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-3 col-form-label">Display</div>
+        <div class="col-sm-9 form-check form-check-inline">
+          <%= f.check_box :show_metar, class: 'form-check-label' %>
+          <%= f.label 'Show weather in Airport Conditions panel (if weather is available)', class: 'col-form-label' %>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-sm-12 text-center">
+          <%= f.submit 'Save Airport', class: 'btn btn-primary' %>
+          <%= link_to 'Cancel', airports_path, class: 'btn btn-outline-info' %>
+        </div>
+      </div>
+  <% end %>
+</div>

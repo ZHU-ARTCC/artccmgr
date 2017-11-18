@@ -1,0 +1,104 @@
+<% content_for(:title, "Edit User: #{@user.name_full}") %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">
+            Edit <%= @user.name_full %>
+          </div>
+          <div class="col-auto">
+            <% if policy(@user).update? -%>
+              <% if @user.two_factor_enabled? -%>
+                <%= link_to '#', class: 'btn btn-sm btn-outline-warning', title: 'Disable 2FA', data: {toggle: :modal, target: '#2faDeleteModal'} do %>
+                  <%= fa_icon('unlock') %> Disable 2FA
+                <% end %>
+              <% end -%>
+            <% end %>
+            <% if policy(@user).destroy? -%>
+              <%= link_to '#', class: 'btn btn-sm btn-outline-danger', title: 'Delete User', data: {toggle: :modal, target: '#userDeleteModal'} do %>
+                <%= fa_icon('trash') %> Delete
+              <% end %>
+            <% end -%>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body pl-0 pr-0">
+        <%= render 'form' %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Deletion Modal -->
+<%= form_tag user_path(@user), method: :delete do %>
+    <div class="modal fade" id="userDeleteModal" tabindex="-1" role="dialog" aria-labelledby="userDeleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="userDeleteModalLabel">
+              <%= fa_icon 'exclamation-triangle', class: 'text-danger' %> Delete User
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Are you sure you want to delete <%= @user.name_full %>?
+            </p>
+            <p>
+              <b>Deletion will remove all local training records, group settings, and activity!</b>
+            </p>
+            <% if @user.is_local? -%>
+                <p>
+                  <%= check_box_tag :vatusa_remove %> Also remove from roster at VATUSA
+                </p>
+                <p>
+                  <%= text_field_tag :vatusa_reason, nil, class: 'form-control', placeholder: 'Please enter a reason for removal' %>
+                </p>
+            <% end -%>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= submit_tag 'Delete', class: 'btn btn-danger' %>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end -%>
+<!-- End Deletion Modal -->
+
+<!-- 2FA Disable Modal -->
+<%= form_tag user_disable_2fa_path(@user), method: :delete do %>
+    <div class="modal fade" id="2faDeleteModal" tabindex="-1" role="dialog" aria-labelledby="2faDeleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="2faDeleteModalLabel">
+              <%= fa_icon 'exclamation-triangle', class: 'text-danger' %> Disable Two-Factor Authentication (2FA)
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Are you sure you want to disable two-factor authentication (2FA) for <%= @user.name_full %>?
+            </p>
+            <p>
+              <b>Disabling 2FA should only been done when the user has lost all tokens for their account.</b>
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <%= submit_tag 'Disable', class: 'btn btn-danger' %>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end -%>
+<!-- 2FA Disable Modal -->

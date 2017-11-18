@@ -1,0 +1,64 @@
+<% content_for(:title, 'Airports') %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card border-0">
+      <div class="card-header bg-dark text-light">
+        <div class="row">
+          <div class="col-auto mr-auto pt-1">
+            Airport Information
+          </div>
+          <% if policy(Airport).create? -%>
+              <div class="col-auto">
+                <%= link_to new_airport_path, class: 'event-title-btn', 'data-toggle': :tooltip, 'data-placement': :bottom, title: 'Add Airport' do %>
+                  <%= fa_icon('plus-square') %>
+                <% end %>
+              </div>
+          <% end -%>
+        </div>
+      </div>
+
+      <div class="card-body pb-0 pl-0 pr-0 pt-0">
+        <table class="table table-sm table-bordered table-responsive mb-0">
+          <tbody>
+          <tr class="bg-light">
+            <% if policy(Airport).update? -%>
+              <th></th>
+            <% end -%>
+            <th class="text-center">
+              <small>ICAO</small>
+            </th>
+            <th class="text-center">
+              <small>Name</small>
+            </th>
+            <th class="text-center">
+              <small>Charts</small>
+            </th>
+            <th class="text-center">
+              <small>Rules</small>
+            </th>
+            <th class="text-center">
+              <small>Wind</small>
+            </th>
+            <th class="text-center">
+              <small>Altimeter</small>
+            </th>
+          </tr>
+          <% if @airports.empty? %>
+            <tr>
+              <td colspan="7" class="text-center">
+                <small><i>No information available</i></small>
+              </td>
+            </tr>
+          <% end %>
+
+          <% @airports.each do |a| -%>
+            <%= render 'airport', airport: a %>
+          <% end -%>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>
