@@ -1,6 +1,6 @@
 ## Reporting Issues
 
-You can report issues at https://gitlab.com/jvoss1/artccmgr/issues
+You can report issues at https://github.com/jvoss/artccmgr/issues
 
 Before you submit a new issue, please search existing issues for your problem,
 someone else may have already reported it.
@@ -17,7 +17,7 @@ If you would like to contribute, please:
   
 To fetch and set up your development environment:
 
-    $ git clone git@gitlab.com:jvoss1/artccmgr.git
+    $ git clone git@github.com:jvoss/artccmgr.git
     $ cd artccmgr
     $ bundle
     

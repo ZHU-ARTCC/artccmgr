@@ -1,6 +1,6 @@
 # ARTCC Manager
 
-[![pipeline status](https://gitlab.com/jvoss1/artccmgr/badges/development/pipeline.svg)](https://gitlab.com/jvoss1/artccmgr/commits/development) [![coverage report](https://gitlab.com/jvoss1/artccmgr/badges/development/coverage.svg)](https://gitlab.com/jvoss1/artccmgr/commits/development)
+[![Build Status](https://travis-ci.org/jvoss/artccmgr.svg?branch=development)](https://travis-ci.org/jvoss/artccmgr) [![Test Coverage](https://api.codeclimate.com/v1/badges/22c80ebbf0b39960ac03/test_coverage)](https://codeclimate.com/github/jvoss/artccmgr/test_coverage) [![Maintainability](https://api.codeclimate.com/v1/badges/22c80ebbf0b39960ac03/maintainability)](https://codeclimate.com/github/jvoss/artccmgr/maintainability) 
 
 ARTCC Manager is a full featured VATSIM/VATUSA ARTCC website and management platform
 developed on Ruby on Rails. It utilizes VATUSA API integration and VATSIM Single sign-on
@@ -10,7 +10,7 @@ Contact
 -------
 *Code and Bug Reports*
 
-* [Issue Tracker](https://gitlab.com/jvoss1/artccmgr/issues)
+* [Issue Tracker](https://github.com/jvoss/artccmgr/issues)
 * See [CONTRIBUTING](CONTRIBUTING.md) for how to contribute to this project
 
 Requirements
@@ -25,7 +25,7 @@ Installation
 ------------
 Clone the repository and install the gem requirements:
     
-    $ git clone git@gitlab.com:jvoss1/artccmgr.git
+    $ git clone git@github.com:jvoss/artccmgr.git
     $ cd artccmgr
     $ bundle install
 
@@ -60,7 +60,7 @@ Configuration settings are maintained in a few separate places:
         VATSIM_SSO_URL={normally: https://cert.vatsim.net/sso/}
         VATSIM_SSO_RSA_KEY={one line output of RSA key *see notes below*}
         
-    The VATSIM_SSO_RSA_KEY **must** be formatted carefully. Use the exact output of:
+    The VATSIM_SSO_RSA_KEY **must** be formatted carefully. Use the exact output of in quotes:
     
         awk 1 ORS='\\n' <keyfile>
         
@@ -90,7 +90,7 @@ Configuration settings are maintained in a few separate places:
         GPG_KEY={one line output of GPG Private Key *see notes below*}
         GPG_PASSPHRASE={password to unlock the GPG Private Key}
         
-    The GPG_KEY needs to be formatted carefully. Use the output of:
+    The GPG_KEY needs to be formatted carefully. Use the output of in quotes:
         
             awk 1 ORS='\\n' <keyfile>
         

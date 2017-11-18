@@ -1,0 +1,90 @@
+language: ruby
+sudo: false
+
+cache:
+  bundler: true
+
+addons:
+  postgresql: "9.6"
+
+bundler_args: --without test --jobs 3 --retry 3
+
+before_script:
+  - psql -c "CREATE DATABASE artccmgr_test;" -U postgres
+  - cp config/database.yml.travis config/database.yml
+  - bundle exec rake db:schema:load db:seed
+
+env:
+  global:
+    - "RAILS_ENV=test"
+
+rvm:
+  - 2.3
+  - 2.4
+  - ruby-head
+
+allow_failures:
+  - rvm: ruby-head
+
+jobs:
+  include:
+    - stage: Coverage & security
+      rvm: 2.3.3
+      env:
+        - "COVERAGE=true"
+
+    - stage: Coverage & security
+      rvm: 2.3.3
+      env:
+        - "BRAKEMAN=true"
+      before_script: /bin/true
+      script:
+        - bundle exec brakeman -A
+
+    - stage: Code climate & github pages
+      rvm: 2.3.3
+      env:
+        - "COVERAGE=true"
+        - "BRAKEMAN=true"
+      before_script:
+        - psql -c "CREATE DATABASE artccmgr_test;" -U postgres
+        - cp config/database.yml.travis config/database.yml
+        - bundle exec rake db:schema:load db:seed
+        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        - chmod +x ./cc-test-reporter
+        - ./cc-test-reporter before-build
+        - mkdir -p public/reports/brakeman
+      script:
+        - bundle exec rspec
+        - mv coverage public/reports/
+        - bundle exec brakeman -A -f html -o public/reports/brakeman/index.html
+      after_script:
+        - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+#      deploy:
+#        provider: pages
+#        skip_cleanup: true
+#        github_token: $GITHUB_TOKEN
+#        on:
+#          branch: development
+      if: branch = development AND (NOT type = pull_request)
+
+    - stage: Staging
+      rvm: 2.3.3
+      before_script: /bin/true
+      script: /bin/true
+      deploy: &heroku
+        provider: heroku
+        app: artccmgr-dev
+        api_key: $HEROKU_API_KEY
+        on: development
+      if: branch = development AND (NOT type = pull_request)
+
+    - stage: Deploy
+      rvm: 2.3.3
+      before_script: /bin/true
+      script: /bin/true
+      deploy:
+        <<: *heroku
+        app: artccmgr
+        on: master
+      if: branch = master AND (NOT type = pull_request)
