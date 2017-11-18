@@ -1,6 +1,9 @@
 language: ruby
 sudo: false
 
+notifications:
+  email: false
+  
 cache:
   bundler: true
 
@@ -41,11 +44,11 @@ jobs:
       script:
         - bundle exec brakeman -A
 
-    - stage: Code climate & github pages
+    - stage: Code climate
       rvm: 2.3.3
       env:
         - "COVERAGE=true"
-        - "BRAKEMAN=true"
+      skip_cleanup: true
       before_script:
         - psql -c "CREATE DATABASE artccmgr_test;" -U postgres
         - cp config/database.yml.travis config/database.yml
@@ -53,19 +56,10 @@ jobs:
         - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
         - chmod +x ./cc-test-reporter
         - ./cc-test-reporter before-build
-        - mkdir -p public/reports/brakeman
       script:
         - bundle exec rspec
-        - mv coverage public/reports/
-        - bundle exec brakeman -A -f html -o public/reports/brakeman/index.html
       after_script:
-        - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
-#      deploy:
-#        provider: pages
-#        skip_cleanup: true
-#        github_token: $GITHUB_TOKEN
-#        on:
-#          branch: development
+        - ./cc-test-reporter after-build --debug --exit-code $TRAVIS_TEST_RESULT
       if: branch = development AND (NOT type = pull_request)
 
     - stage: Staging
