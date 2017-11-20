@@ -1,6 +1,6 @@
 # ARTCC Manager
 
-[![Build Status](https://travis-ci.org/jvoss/artccmgr.svg?branch=development)](https://travis-ci.org/jvoss/artccmgr) [![Test Coverage](https://api.codeclimate.com/v1/badges/22c80ebbf0b39960ac03/test_coverage)](https://codeclimate.com/github/jvoss/artccmgr/test_coverage) [![Maintainability](https://api.codeclimate.com/v1/badges/22c80ebbf0b39960ac03/maintainability)](https://codeclimate.com/github/jvoss/artccmgr/maintainability) 
+[![Build Status](https://travis-ci.org/jvoss/artccmgr.svg?branch=development)](https://travis-ci.org/jvoss/artccmgr) [![Coverage Status](https://coveralls.io/repos/github/jvoss/artccmgr/badge.svg?branch=development)](https://coveralls.io/github/jvoss/artccmgr?branch=development) [![Maintainability](https://api.codeclimate.com/v1/badges/22c80ebbf0b39960ac03/maintainability)](https://codeclimate.com/github/jvoss/artccmgr/maintainability) 
 
 ARTCC Manager is a full featured VATSIM/VATUSA ARTCC website and management platform
 developed on Ruby on Rails. It utilizes VATUSA API integration and VATSIM Single sign-on

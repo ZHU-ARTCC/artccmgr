@@ -1,7 +1,14 @@
 require 'simplecov'
+require 'coveralls'
 
 if ENV['COVERAGE']
   SimpleCov.minimum_coverage 90
+
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
+    SimpleCov::Formatter::HTMLFormatter,
+    Coveralls::SimpleCov::Formatter
+  ]
+
   SimpleCov.start 'rails' do
     add_filter "cache/"
   end

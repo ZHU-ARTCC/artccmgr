@@ -113,6 +113,7 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'timecop'
   gem 'webmock'
+	gem 'coveralls', require: false # used for code coverage reporting: https://coveralls.io
 end
 
 group :development do
