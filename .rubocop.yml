@@ -36,3 +36,6 @@ Style/Documentation:
 
 Style/Lambda:
   EnforcedStyle: literal
+
+Style/NumericLiterals:
+  Enabled: false
