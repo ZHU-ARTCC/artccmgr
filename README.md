@@ -6,6 +6,10 @@ ARTCC Manager is a full featured VATSIM/VATUSA ARTCC website and management plat
 developed on Ruby on Rails. It utilizes VATUSA API integration and VATSIM Single sign-on
 (SSO) to provide a seamless experience to users and ease website management for ARTCC staff.
 
+Demo
+----
+View the [Development Demo](https://artccmgr-dev.herokuapp.com)
+
 Contact
 -------
 *Code and Bug Reports*
