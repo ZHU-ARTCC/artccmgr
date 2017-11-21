@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe GroupsController, type: :controller do
-
   describe 'GET #index' do
     context 'when not logged in' do
       it 'redirects to the root_path' do
@@ -17,7 +18,7 @@ RSpec.describe GroupsController, type: :controller do
         end
 
         it 'redirects to the root_path' do
-          expect{get :index}.to raise_error(Pundit::NotAuthorizedError)
+          expect { get :index }.to raise_error(Pundit::NotAuthorizedError)
         end
       end # context 'without group read permission'
 
@@ -42,9 +43,9 @@ RSpec.describe GroupsController, type: :controller do
   describe 'POST #create' do
     context 'when not logged in' do
       it 'does not create Group' do
-        expect {
+        expect do
           post :create, params: { group: attributes_for(:group) }
-        }.to_not change(Group, :count)
+        end.to_not change(Group, :count)
       end
     end
 
@@ -54,9 +55,9 @@ RSpec.describe GroupsController, type: :controller do
       end
 
       it 'creates a new group' do
-        expect {
+        expect do
           post :create, params: { group: attributes_for(:group) }
-        }.to change(Group, :count).by 1
+        end.to change(Group, :count).by 1
       end
 
       it 'redirects to the group #index page' do
@@ -72,9 +73,9 @@ RSpec.describe GroupsController, type: :controller do
       end
 
       it 'does not save the new group' do
-        expect{
+        expect do
           post :create, params: { group: attributes_for(:group, :invalid) }
-        }.to_not change(Group,:count)
+        end.to_not change(Group, :count)
       end
 
       it 're-renders the new template' do
@@ -91,21 +92,23 @@ RSpec.describe GroupsController, type: :controller do
 
     context 'when not logged in' do
       it 'does not delete the group' do
-        expect {
+        expect do
           delete :destroy, params: { id: @group }
-        }.to_not change(Group, :count)
+        end.to_not change(Group, :count)
       end
     end
 
     context 'when logged in' do
       before :each do
-        sign_in create(:user, group: create(:group, :perm_group_read, :perm_group_delete))
+        sign_in create(:user, group: create(
+          :group, :perm_group_read, :perm_group_delete
+        ))
       end
 
       it 'deletes the group' do
-        expect{
+        expect do
           delete :destroy, params: { id: @group }
-        }.to change(Group,:count).by(-1)
+        end.to change(Group, :count).by(-1)
       end
 
       it 'redirects to group#index' do
@@ -136,9 +139,9 @@ RSpec.describe GroupsController, type: :controller do
         end
 
         it 'redirects to the root_path' do
-          expect{
+          expect do
             get :edit, params: { id: create(:group).friendly_id }
-          }.to raise_error(Pundit::NotAuthorizedError)
+          end.to raise_error(Pundit::NotAuthorizedError)
         end
       end # context 'without group create permission'
 
@@ -176,7 +179,7 @@ RSpec.describe GroupsController, type: :controller do
         end
 
         it 'redirects to the root_path' do
-          expect{get :new}.to raise_error(Pundit::NotAuthorizedError)
+          expect { get :new }.to raise_error(Pundit::NotAuthorizedError)
         end
       end # context 'without group create permission'
 
@@ -205,7 +208,10 @@ RSpec.describe GroupsController, type: :controller do
 
     context 'when not logged in' do
       it 'does not update Group' do
-        put :update, params: { id: @group, group: attributes_for(:group, name: 'Testing') }
+        put :update, params: {
+          id: @group,
+          group: attributes_for(:group, name: 'Testing')
+        }
         @group.reload
         expect(@group.name).to_not eq 'Testing'
       end
@@ -213,7 +219,9 @@ RSpec.describe GroupsController, type: :controller do
 
     context 'valid attributes' do
       before :each do
-        sign_in create(:user, group: create(:group, :perm_group_read, :perm_group_update))
+        sign_in create(:user, group: create(
+          :group, :perm_group_read, :perm_group_update
+        ))
       end
 
       it 'located the requested @group' do
@@ -223,8 +231,8 @@ RSpec.describe GroupsController, type: :controller do
 
       it 'changes @group attributes' do
         put :update, params: {
-            id: @group,
-            group: attributes_for(:group, name: 'Test Group')
+          id: @group,
+          group: attributes_for(:group, name: 'Test Group')
         }
         @group.reload
         expect(@group.name).to eq 'Test Group'
@@ -239,7 +247,9 @@ RSpec.describe GroupsController, type: :controller do
 
     context 'invalid attributes' do
       before :each do
-        sign_in create(:user, group: create(:group, :perm_group_read, :perm_group_update))
+        sign_in create(:user, group: create(
+          :group, :perm_group_read, :perm_group_update
+        ))
       end
 
       it 'locates the requested @group' do
@@ -249,18 +259,19 @@ RSpec.describe GroupsController, type: :controller do
 
       it 'does not change the @group attributes' do
         put :update, params: { id: @group,
-                               group: attributes_for(:group, :invalid)
-        }
+                               group: attributes_for(:group, :invalid) }
 
         @group.reload
         expect(@group.name).to_not be_nil
       end
 
       it 're-renders the edit method' do
-        put :update, params: { id: @group, group: attributes_for(:group, :invalid) }
+        put :update, params: {
+          id: @group,
+          group: attributes_for(:group, :invalid)
+        }
         expect(response).to render_template :edit
       end
     end
   end # describe 'PUT #update'
-
 end

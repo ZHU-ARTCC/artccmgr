@@ -1,11 +1,14 @@
+# frozen_string_literal: true
+
 require 'aircharts'
 
 class AirportUpdateJob < ApplicationJob
   queue_as :default
 
   def perform(airport = nil)
-    airport.nil? ? airports = Airport.all : airports = [airport]
+    airports = airport.nil? ? Airport.all : [airport]
 
+    # rubocop:disable Lint/ShadowingOuterLocalVariable
     airports.each do |airport|
       begin
         aircharts = AirCharts::Airport.new(airport.icao)
@@ -39,15 +42,14 @@ class AirportUpdateJob < ApplicationJob
     aircharts.charts.each_pair do |category, charts|
       charts.each do |chart|
         attributes = {
-            airport:  airport,
-            category: category,
-            name:     chart.chartname,
-            url:      chart.url
+          airport:  airport,
+          category: category,
+          name:     chart.chartname,
+          url:      chart.url
         }
 
         Airport::Chart.create(attributes)
       end # charts.each
     end # aircharts.each_pair
   end # def update_charts
-
 end # class AirportUpdateJob

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Events::PilotsController < ApplicationController
   before_action :authenticate_user!
   after_action :verify_authorized
@@ -25,10 +27,11 @@ class Events::PilotsController < ApplicationController
     event = @event_pilot.event
 
     if @event_pilot.destroy
-      redirect_to event_path(event), success: 'Your pilot event registration has been deleted'
+      redirect_to event_path(event),
+                  success: 'Your pilot event registration has been deleted'
     else
-      redirect_to event_path(event), alert: 'Unable to remove your event registration'
+      redirect_to event_path(event),
+                  alert: 'Unable to remove your event registration'
     end
   end
-
 end

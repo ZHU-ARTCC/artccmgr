@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationMailer < ActionMailer::Base
   default from: "\"#{Settings.artcc_name}\" <#{Settings.mail_from}>"
   default subject: "#{Settings.artcc_name} Notification"
@@ -6,6 +8,7 @@ class ApplicationMailer < ActionMailer::Base
   # Override default mail method to automatically encrypt GPG
   # email notifications
   #
+  # rubocop:disable Metrics/MethodLength
   def mail(headers = {}, &block)
     # Attempt to find user object for recipient
     user = User.find_by(email: headers[:to])
@@ -17,8 +20,8 @@ class ApplicationMailer < ActionMailer::Base
 
       # Use encryption when building the message
       headers[:gpg] = {
-          encrypt:  true,
-          keys:     { headers[:to] => user.gpg_key.key }
+        encrypt:  true,
+        keys:     { headers[:to] => user.gpg_key.key }
       }
 
       # Sign the email if GPG signatures are configured
@@ -36,6 +39,7 @@ class ApplicationMailer < ActionMailer::Base
     Gitlab::Gpg::CurrentKeyChain.add(gpg_key)
     super(headers, &block)
   end
+  # rubocop:enable Metrics/MethodLength
 
   def test(recipient)
     @user = recipient

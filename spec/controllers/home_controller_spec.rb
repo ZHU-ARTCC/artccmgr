@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe HomeController, type: :controller do
-
   describe 'GET #index' do
-	  before :each do
-		  Rails.cache.clear
-	  end
+    before :each do
+      Rails.cache.clear
+    end
 
     it 'obtains news articles via RSS' do
       get :index
@@ -23,5 +24,4 @@ RSpec.describe HomeController, type: :controller do
       expect(response).to render_template :index
     end
   end
-
 end

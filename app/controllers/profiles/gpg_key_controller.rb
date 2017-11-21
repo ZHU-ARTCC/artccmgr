@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Profiles::GpgKeyController < ApplicationController
   before_action :authenticate_user!
   after_action  :verify_authorized, except: :destroy
@@ -7,7 +9,8 @@ class Profiles::GpgKeyController < ApplicationController
     authorize @gpg_key
 
     if @gpg_key.update_attributes(permitted_attributes(@gpg_key))
-      redirect_to profile_gpg_key_path, notice: 'Your GPG/PGP key has been saved'
+      redirect_to profile_gpg_key_path,
+                  notice: 'Your GPG/PGP key has been saved'
     else
       flash.now[:alert] = 'Unable to GPG/PGP key'
       render :show
@@ -19,7 +22,8 @@ class Profiles::GpgKeyController < ApplicationController
     authorize @gpg_key unless @gpg_key.nil?
 
     if @gpg_key.nil?
-      redirect_to profile_path, notice: 'Your email encryption is already disabled'
+      redirect_to profile_path,
+                  notice: 'Your email encryption is already disabled'
     elsif @gpg_key.destroy
       redirect_to profile_path, notice: 'Your GPG/PGP key has been removed'
     else
@@ -32,5 +36,4 @@ class Profiles::GpgKeyController < ApplicationController
     @gpg_key = GpgKey.new(user: current_user) if @gpg_key.nil?
     authorize @gpg_key
   end
-
 end

@@ -1,12 +1,13 @@
-class UserPolicy < ApplicationPolicy
+# frozen_string_literal: true
 
+class UserPolicy < ApplicationPolicy
   def initialize(user, obj)
     @user = user
     @obj  = obj
   end
 
   def index?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'user read'
   end
 
@@ -19,7 +20,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'user create'
   end
 
@@ -28,21 +29,22 @@ class UserPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include?('user update')
   end
 
   def destroy?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'user delete'
   end
 
   def permitted_attributes
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
-    if (group.permissions.pluck('name') & ['user create', 'user update']).present?
-      [ :cid, :name_first, :name_last, :email, :reg_date, :group_id, :initials, :rating_id ]
-    # elsif @user == @obj
-    #   []
-    end
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
+
+    return if (
+      group.permissions.pluck('name') & ['user create', 'user update']
+    ).blank?
+
+    %i[cid name_first name_last email reg_date group_id initials rating_id]
   end
 end

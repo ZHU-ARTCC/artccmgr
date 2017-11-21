@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class FeedbackController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :new, :show]
+  before_action :authenticate_user!, except: %i[index new show]
   after_action :verify_authorized, except: :new
 
   def index
@@ -19,7 +21,7 @@ class FeedbackController < ApplicationController
     end
 
     if @feedback.update_attributes(permitted_attributes(@feedback))
-      flash[:success] = t('feedback.alerts.create.success') unless t('feedback.alerts.create.success').blank?
+      flash[:success] = t('feedback.alerts.create.success')
       redirect_to feedback_index_path
     else
       flash.now[:alert] = t('feedback.alerts.create.errors')
@@ -32,9 +34,11 @@ class FeedbackController < ApplicationController
     @feedback = policy_scope(Feedback).find(params[:id])
 
     if @feedback.destroy
-      redirect_to feedback_index_path, success: t('feedback.alerts.destroy.success')
+      redirect_to feedback_index_path,
+                  success: t('feedback.alerts.destroy.success')
     else
-      redirect_to feedback_index_path, alert: t('feedback.alerts.destroy.errors')
+      redirect_to feedback_index_path,
+                  alert: t('feedback.alerts.destroy.errors')
     end
   end
 
@@ -59,5 +63,4 @@ class FeedbackController < ApplicationController
       render :edit
     end
   end
-
 end

@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 # Credit to the Gitlab project for how they manage
 # GPG keys and temporary keychains for key validation
 #
+# rubocop:disable Style/ModuleFunction
 module Gitlab
   module Gpg
     extend self
@@ -19,13 +22,13 @@ module Gitlab
       #
       def delete(email)
         keys = GPGME::Key.find(:public, email.to_s)
-        keys.each{|key| key.delete! } unless keys.empty?
+        keys.each(&:delete!) unless keys.empty?
       end
 
       def fingerprints_from_key(key)
         import = GPGME::Key.import(key)
 
-        return [] if import.imported == 0
+        return [] if import.imported.zero?
 
         import.imports.map(&:fingerprint)
       end
@@ -41,10 +44,13 @@ module Gitlab
       using_tmp_keychain do
         fingerprints = CurrentKeyChain.fingerprints_from_key(key)
 
-        GPGME::Key.find(:public, fingerprints).map { |raw_key| raw_key.primary_subkey.keyid }
+        GPGME::Key.find(:public, fingerprints).map do |raw_key|
+          raw_key.primary_subkey.keyid
+        end
       end
     end
 
+    # rubocop:disable Metrics/LineLength
     # Not currently used by ARTCC Manager
     # def subkeys_from_key(key)
     #   using_tmp_keychain do
@@ -71,6 +77,7 @@ module Gitlab
     #     end
     #   end
     # end
+    # rubocop:enable Metrics/LineLength
 
     # Allows thread safe switching of temporary keychain files
     #

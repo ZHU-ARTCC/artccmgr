@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require 'ostruct'
 
 RSpec.describe U2fRegistration, type: :model do
-
   it 'has a valid factory' do
     expect(build(:u2f_registration)).to be_valid
   end
@@ -22,15 +23,20 @@ RSpec.describe U2fRegistration, type: :model do
 
     context 'success' do
       before :each do
-        @reg_data = OpenStruct.new({
+        @reg_data = OpenStruct.new(
           certificate: Faker::Crypto.sha256,
           key_handle:  Faker::Name.first_name,
           public_key:  Faker::Crypto.sha1,
           counter:     0
-        })
+        )
 
-        allow(U2F::RegisterResponse).to receive(:load_from_json).and_return(true)
-        allow_any_instance_of(U2F::U2F).to receive(:register!).and_return(@reg_data)
+        allow(U2F::RegisterResponse).to(
+          receive(:load_from_json).and_return(true)
+        )
+
+        allow_any_instance_of(U2F::U2F).to(
+          receive(:register!).and_return(@reg_data)
+        )
 
         @reg = U2fRegistration.register(@user, @app_id, @params, nil)
       end
@@ -66,19 +72,29 @@ RSpec.describe U2fRegistration, type: :model do
 
     context 'JSON error' do
       before do
-        allow(U2F::RegisterResponse).to receive(:load_from_json).and_raise(JSON::ParserError)
+        allow(U2F::RegisterResponse).to(
+          receive(:load_from_json).and_raise(JSON::ParserError)
+        )
         @reg = U2fRegistration.register(@user, @app_id, @params, nil)
       end
 
       it 'adds a validation error' do
-        expect(@reg.errors[:base].first).to eq 'Your U2F device did not send a valid JSON response'
+        expect(
+          @reg.errors[:base].first
+        ).to eq 'Your U2F device did not send a valid JSON response'
       end
     end
 
     context 'U2F error' do
       before do
-        allow(U2F::RegisterResponse).to receive(:load_from_json).and_return(true)
-        allow_any_instance_of(U2F::U2F).to receive(:register!).and_raise(U2F::Error, 'test')
+        allow(U2F::RegisterResponse).to(
+          receive(:load_from_json).and_return(true)
+        )
+
+        allow_any_instance_of(U2F::U2F).to(
+          receive(:register!).and_raise(U2F::Error, 'test')
+        )
+
         @reg = U2fRegistration.register(@user, @app_id, @params, nil)
       end
 
@@ -97,9 +113,15 @@ RSpec.describe U2fRegistration, type: :model do
 
     context 'success' do
       before do
-        response = OpenStruct.new({key_handle: @key_handle, counter: 1})
-        allow(U2F::SignResponse).to receive(:load_from_json).and_return(response)
-        allow_any_instance_of(U2F::U2F).to receive(:authenticate!).and_return(true)
+        response = OpenStruct.new(key_handle: @key_handle, counter: 1)
+
+        allow(U2F::SignResponse).to(
+          receive(:load_from_json).and_return(response)
+        )
+
+        allow_any_instance_of(U2F::U2F).to(
+          receive(:authenticate!).and_return(true)
+        )
 
         @response = U2fRegistration.authenticate(@user, @app_id, nil, nil)
       end
@@ -116,9 +138,15 @@ RSpec.describe U2fRegistration, type: :model do
 
     context 'failure' do
       before do
-        response = OpenStruct.new({key_handle: @key_handle, counter: 1})
-        allow(U2F::SignResponse).to receive(:load_from_json).and_return(response)
-        allow_any_instance_of(U2F::U2F).to receive(:authenticate!).and_raise(U2F::Error, 'test')
+        response = OpenStruct.new(key_handle: @key_handle, counter: 1)
+
+        allow(U2F::SignResponse).to(
+          receive(:load_from_json).and_return(response)
+        )
+
+        allow_any_instance_of(U2F::U2F).to(
+          receive(:authenticate!).and_raise(U2F::Error, 'test')
+        )
 
         @response = U2fRegistration.authenticate(@user, @app_id, nil, nil)
       end
@@ -127,7 +155,5 @@ RSpec.describe U2fRegistration, type: :model do
         expect(@response).to be false
       end
     end
-
   end # describe '#self.authenticate'
-
 end

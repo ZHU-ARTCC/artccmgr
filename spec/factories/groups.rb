@@ -1,21 +1,23 @@
+# frozen_string_literal: true
+
 FactoryGirl.define do
   factory :group do
-    sequence(:name){|i| "group #{i}"}
+    sequence(:name) { |i| "group #{i}" }
 
     trait :local_controllers do
       atc true
-	    visiting false
+      visiting false
       min_controlling_hours { rand(9) }
     end
 
     trait :visiting_controllers do
       atc true
-	    visiting true
+      visiting true
       min_controlling_hours { rand(9) }
     end
 
     trait :two_factor_required do
-	    two_factor_required true
+      two_factor_required true
     end
 
     trait :perm_airport_create do

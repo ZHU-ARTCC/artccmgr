@@ -1,15 +1,15 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe AirportsController, type: :controller do
-
-	before :all do
-		# Disable the ActiveJob queue due to the create callback firing
-		# the AirportUpdateJob. The job is tested in it's own RSpec
+  before :all do
+    # Disable the ActiveJob queue due to the create callback firing
+    # the AirportUpdateJob. The job is tested in it's own RSpec
     ActiveJob::Base.queue_adapter = :test
-	end
+  end
 
   describe 'GET #index' do
-
     it 'populates an array of @airports' do
       airport = create(:airport)
       get :index
@@ -20,15 +20,14 @@ RSpec.describe AirportsController, type: :controller do
       get :index
       expect(response).to render_template :index
     end
-
   end
 
   describe 'POST #create' do
     context 'when not logged in' do
       it 'does not create the Airport' do
-        expect {
+        expect do
           post :create, params: { airport: attributes_for(:airport) }
-        }.to_not change(Airport, :count)
+        end.to_not change(Airport, :count)
       end
     end
 
@@ -38,9 +37,9 @@ RSpec.describe AirportsController, type: :controller do
       end
 
       it 'creates a new airport' do
-        expect {
+        expect do
           post :create, params: { airport: attributes_for(:airport) }
-        }.to change(Airport, :count).by 1
+        end.to change(Airport, :count).by 1
       end
 
       it 'redirects to the airport #index' do
@@ -55,9 +54,9 @@ RSpec.describe AirportsController, type: :controller do
       end
 
       it 'does not save the new airport' do
-        expect{
+        expect do
           post :create, params: { airport: attributes_for(:airport, :invalid) }
-        }.to_not change(Airport,:count)
+        end.to_not change(Airport, :count)
       end
 
       it 're-renders the new template' do
@@ -74,21 +73,23 @@ RSpec.describe AirportsController, type: :controller do
 
     context 'when not logged in' do
       it 'does not delete the airport' do
-        expect {
+        expect do
           delete :destroy, params: { id: @airport }
-        }.to_not change(Airport, :count)
+        end.to_not change(Airport, :count)
       end
     end
 
     context 'when logged in' do
       before :each do
-        sign_in create(:user, group: create(:group, :perm_airport_read, :perm_airport_delete))
+        sign_in create(:user, group: create(
+          :group, :perm_airport_read, :perm_airport_delete
+        ))
       end
 
       it 'deletes the airport' do
-        expect{
+        expect do
           delete :destroy, params: { id: @airport }
-        }.to change(Airport, :count).by(-1)
+        end.to change(Airport, :count).by(-1)
       end
 
       it 'redirects to airport#index' do
@@ -114,7 +115,9 @@ RSpec.describe AirportsController, type: :controller do
 
     context 'when logged in' do
       before :each do
-        sign_in create(:user, group: create(:group, :perm_airport_read, :perm_airport_update))
+        sign_in create(:user, group: create(
+          :group, :perm_airport_read, :perm_airport_update
+        ))
         @airport = create(:airport)
       end
 
@@ -175,7 +178,10 @@ RSpec.describe AirportsController, type: :controller do
 
     context 'when not logged in' do
       it 'does not update Airport' do
-        put :update, params: { id: @airport, airport: attributes_for(:airport, name: 'Testing') }
+        put :update, params: {
+          id: @airport,
+          airport: attributes_for(:airport, name: 'Testing')
+        }
         @airport.reload
         expect(@airport.name).to_not eq 'Testing'
       end
@@ -183,7 +189,9 @@ RSpec.describe AirportsController, type: :controller do
 
     context 'valid attributes' do
       before :each do
-        sign_in create(:user, group: create(:group, :perm_airport_read, :perm_airport_update))
+        sign_in create(:user, group: create(
+          :group, :perm_airport_read, :perm_airport_update
+        ))
       end
 
       it 'located the requested @airport' do
@@ -193,8 +201,8 @@ RSpec.describe AirportsController, type: :controller do
 
       it 'changes @airport\'s attributes' do
         put :update, params: {
-            id: @airport,
-            airport: attributes_for(:airport, name: 'Houston Airport')
+          id: @airport,
+          airport: attributes_for(:airport, name: 'Houston Airport')
         }
         @airport.reload
         expect(@airport.name).to eq 'Houston Airport'
@@ -208,28 +216,32 @@ RSpec.describe AirportsController, type: :controller do
 
     context 'invalid attributes' do
       before :each do
-        sign_in create(:user, group: create(:group, :perm_airport_read, :perm_airport_update))
+        sign_in create(:user, group: create(
+          :group, :perm_airport_read, :perm_airport_update
+        ))
       end
 
       it 'locates the requested @airport' do
-        put :update, params: { id: @airport, airport: attributes_for(:airport, :invalid) }
+        put :update, params: {
+          id: @airport, airport: attributes_for(:airport, :invalid)
+        }
         expect(assigns(:airport)).to eq @airport
       end
 
       it "does not change @airport's attributes" do
         put :update, params: { id: @airport,
-                               airport: attributes_for(:airport, name: nil)
-        }
+                               airport: attributes_for(:airport, name: nil) }
 
         @airport.reload
         expect(@airport.name).to_not be_nil
       end
 
       it 're-renders the edit method' do
-        put :update, params: { id: @airport, airport: attributes_for(:airport, :invalid) }
+        put :update, params: {
+          id: @airport, airport: attributes_for(:airport, :invalid)
+        }
         expect(response).to render_template :edit
       end
     end
   end
-
 end

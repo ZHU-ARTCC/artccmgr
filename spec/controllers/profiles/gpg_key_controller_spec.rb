@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require 'gitlab/gpg'
 
@@ -8,7 +10,7 @@ RSpec.describe Profiles::GpgKeyController, type: :controller do
   end
 
   describe 'POST #create' do
-    let(:user){ create(:user) }
+    let(:user) { create(:user) }
 
     def go
       post :create, params: { gpg_key: { key: key } }
@@ -18,8 +20,13 @@ RSpec.describe Profiles::GpgKeyController, type: :controller do
       let(:key) { build(:gpg_key, user: nil).key }
 
       before do
-        expect(Gitlab::Gpg).to receive(:fingerprints_from_key).and_return(['ABC123'])
-        expect(Gitlab::Gpg).to receive(:primary_keyids_from_key).and_return(['TEST123'])
+        expect(Gitlab::Gpg).to(
+          receive(:fingerprints_from_key).and_return(['ABC123'])
+        )
+
+        expect(Gitlab::Gpg).to(
+          receive(:primary_keyids_from_key).and_return(['TEST123'])
+        )
       end
 
       it 'enables GPG for the user' do
@@ -56,7 +63,7 @@ RSpec.describe Profiles::GpgKeyController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    let(:user){ create(:user, :gpg_key) }
+    let(:user) { create(:user, :gpg_key) }
 
     context 'when user has a gpg key' do
       it 'destroys the users gpg key' do
@@ -66,10 +73,10 @@ RSpec.describe Profiles::GpgKeyController, type: :controller do
     end
 
     context 'when user does not have a gpg key' do
-      let(:user){ create(:user) }
+      let(:user) { create(:user) }
 
       it 'does not change the GpgKey table' do
-        expect{delete :destroy}.to_not change(GpgKey, :count)
+        expect { delete :destroy }.to_not change(GpgKey, :count)
       end
     end
 
@@ -80,7 +87,7 @@ RSpec.describe Profiles::GpgKeyController, type: :controller do
   end
 
   describe 'GET #show' do
-    let(:user){ create(:user, :gpg_key) }
+    let(:user) { create(:user, :gpg_key) }
 
     before do
       user
@@ -94,7 +101,7 @@ RSpec.describe Profiles::GpgKeyController, type: :controller do
     end
 
     context 'when user does not have a gpg key' do
-      let(:user){ create(:user) }
+      let(:user) { create(:user) }
 
       it 'instantiates a new gpg key object assigned to the user' do
         expect(assigns[:gpg_key].user).to eq user
@@ -106,5 +113,4 @@ RSpec.describe Profiles::GpgKeyController, type: :controller do
       expect(response).to render_template :show
     end
   end
-
 end

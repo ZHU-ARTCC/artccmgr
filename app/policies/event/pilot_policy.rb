@@ -1,14 +1,14 @@
+# frozen_string_literal: true
+
 class Event
-
   class PilotPolicy < ApplicationPolicy
-
     def index?
-      @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+      group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
       group.permissions.pluck('name').include? 'event pilot signup read'
     end
 
     def show?
-      @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+      group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
       group.permissions.pluck('name').include? 'event pilot signup read'
     end
 
@@ -17,7 +17,7 @@ class Event
     end
 
     def new?
-      @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+      group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
       group.permissions.pluck('name').include? 'event pilot signup create'
     end
 
@@ -26,14 +26,16 @@ class Event
     end
 
     def edit?
-      @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+      group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
       group.permissions.pluck('name').include? 'event pilot signup update'
     end
 
     # Allows for Pilots to delete their own registrations
     def destroy?
-      @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
-      set_permission = group.permissions.pluck('name').include? 'event pilot signup delete'
+      group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
+      set_permission = group.permissions.pluck('name').include?(
+        'event pilot signup delete'
+      )
       if @record
         set_permission || @user == @record.user
       else
@@ -42,11 +44,12 @@ class Event
     end
 
     def permitted_attributes
-      if (@user.group.permissions.pluck('name') & ['event pilot signup create', 'event pilot signup update']).present?
-        [ :event_id, :user_id, :callsign ]
-      end
+      return if (
+        @user.group.permissions.pluck('name') &
+        ['event pilot signup create', 'event pilot signup update']
+      ).blank?
+
+      %i[event_id user_id callsign]
     end
-
   end
-
 end

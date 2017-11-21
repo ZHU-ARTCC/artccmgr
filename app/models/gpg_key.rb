@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'gitlab/gpg'
 
 class GpgKey < ApplicationRecord
-  KEY_PREFIX = '-----BEGIN PGP PUBLIC KEY BLOCK-----'.freeze
-  KEY_SUFFIX = '-----END PGP PUBLIC KEY BLOCK-----'.freeze
+  KEY_PREFIX = '-----BEGIN PGP PUBLIC KEY BLOCK-----'
+  KEY_SUFFIX = '-----END PGP PUBLIC KEY BLOCK-----'
 
   belongs_to :user
 
@@ -12,23 +14,25 @@ class GpgKey < ApplicationRecord
             presence:   true,
             uniqueness: true,
             format: {
-                with: /\A#{KEY_PREFIX}((?!#{KEY_PREFIX})(?!#{KEY_SUFFIX}).)+#{KEY_SUFFIX}\Z/m,
-                message: "is invalid. A valid public GPG key begins with '#{KEY_PREFIX}' and ends with '#{KEY_SUFFIX}'"
+              # rubocop:disable Metrics/LineLength
+              with: /\A#{KEY_PREFIX}((?!#{KEY_PREFIX})(?!#{KEY_SUFFIX}).)+#{KEY_SUFFIX}\Z/m,
+              message: "is invalid. A valid public GPG key begins with '#{KEY_PREFIX}' and ends with '#{KEY_SUFFIX}'"
+              # rubocop:enable Metrics/LineLength
             }
 
   validates :fingerprint,
             presence:   true,
             uniqueness: true,
-            # only validate when the `key` is valid, as we don't want the user to show
-            # the error about the fingerprint
-            unless: -> { errors.has_key?(:key) }
+            # only validate when the `key` is valid, as we don't want
+            # the user to show the error about the fingerprint
+            unless: -> { errors.key?(:key) }
 
   validates :primary_keyid,
             presence:   true,
             uniqueness: true,
-            # only validate when the `key` is valid, as we don't want the user to show
-            # the error about the key ID
-            unless: -> { errors.has_key?(:key) }
+            # only validate when the `key` is valid, as we don't want t
+            # he user to show the error about the key ID
+            unless: -> { errors.key?(:key) }
 
   before_destroy :delete_from_keychain
   before_validation :extract_fingerprint, :extract_primary_keyid
@@ -37,7 +41,7 @@ class GpgKey < ApplicationRecord
     super&.upcase
   end
 
-  alias_method :keyid, :primary_keyid
+  alias keyid primary_keyid
 
   def fingerprint
     super&.upcase

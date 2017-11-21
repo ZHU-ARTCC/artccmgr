@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Events::SignupsController < ApplicationController
   before_action :authenticate_user!, except: :new
   after_action :verify_authorized, except: :new
@@ -24,11 +26,12 @@ class Events::SignupsController < ApplicationController
       @pilot  = Event::Pilot.new(event: @event)
 
       @signup.requests.build
-      @signup.requests.each{|r| r.build_position; r.position.event = @event}
+      @signup.requests.each do |r|
+        r.build_position
+        r.position.event = @event
+      end
     else
       redirect_to user_vatsim_omniauth_authorize_path
     end
   end
-
 end
-

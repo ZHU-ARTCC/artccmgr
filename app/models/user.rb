@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/ClassLength
 class User < ApplicationRecord
   devise :two_factor_authenticatable,
          :two_factor_backupable,
@@ -36,7 +39,12 @@ class User < ApplicationRecord
   delegate  :two_factor_required?,  to: :group
   delegate  :visiting?,             to: :group
 
-  validates :cid,         presence: true, numericality: :only_integer, allow_blank: false, uniqueness: true
+  validates :cid,
+            presence: true,
+            numericality: :only_integer,
+            allow_blank: false,
+            uniqueness: true
+
   validates :name_first,  presence: true, allow_blank: false
   validates :name_last,   presence: true, allow_blank: false
   validates :name_last,   presence: true, allow_blank: false
@@ -47,28 +55,41 @@ class User < ApplicationRecord
   validates :rating,      presence: true, allow_blank: false
 
   # Validates initials must be unique if preference is set
-  validates :initials, uniqueness: true, allow_blank: true, if: :require_unique_initials?
+  validates :initials,
+            uniqueness: true,
+            allow_blank: true,
+            if: :require_unique_initials?
 
-  scope :all_controllers,       -> { local_controllers.or(visiting_controllers) }
-  scope :local_controllers,     -> { joins(:group).where(groups: { atc: true, visiting: false}) }
-  scope :visiting_controllers,  -> { joins(:group).where(groups: { atc: true, visiting: true}) }
+  # Default ordering
+  default_scope { order(:name_last, :name_first) }
+
+  scope :all_controllers, -> { local_controllers.or(visiting_controllers) }
+
+  scope :local_controllers, -> {
+    joins(:group).where(groups: { atc: true, visiting: false })
+  }
+
+  scope :visiting_controllers, -> {
+    joins(:group).where(groups: { atc: true, visiting: true })
+  }
 
   # Find the online activity for user between two dates
   #
   def activity_report(start_date, end_date)
-    online_sessions.where('last_seen BETWEEN ? AND ?', start_date, end_date).order(last_seen: :desc)
+    online_sessions.where('last_seen BETWEEN ? AND ?', start_date, end_date)
+                   .order(last_seen: :desc)
   end
 
   # Disables all two-factor authentication
   def disable_two_factor!
     transaction do
       update_attributes(
-          otp_required_for_login:     false,
-          encrypted_otp_secret:       nil,
-          encrypted_otp_secret_iv:    nil,
-          encrypted_otp_secret_salt:  nil,
+        otp_required_for_login:     false,
+        encrypted_otp_secret:       nil,
+        encrypted_otp_secret_iv:    nil,
+        encrypted_otp_secret_salt:  nil
       )
-      self.u2f_registrations.destroy_all
+      u2f_registrations.destroy_all
     end
   end
 
@@ -91,6 +112,7 @@ class User < ApplicationRecord
   end
 
   # Determines if this user is a controller at this facility
+  # rubocop:disable Style/PredicateName
   def is_controller?
     User.all_controllers.include?(self)
   end
@@ -99,6 +121,7 @@ class User < ApplicationRecord
   def is_local?
     User.local_controllers.include?(self)
   end
+  # rubocop:enable Style/PredicateName
 
   # Titleize the first name
   def name_first=(name)
@@ -137,5 +160,4 @@ class User < ApplicationRecord
   def require_unique_initials?
     Settings.unique_operating_initials
   end
-
 end

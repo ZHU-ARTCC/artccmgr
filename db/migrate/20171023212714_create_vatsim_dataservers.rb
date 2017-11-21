@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateVatsimDataservers < ActiveRecord::Migration[5.1]
   def change
     create_table :vatsim_dataservers, id: :uuid do |t|

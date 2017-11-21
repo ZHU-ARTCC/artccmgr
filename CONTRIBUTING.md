@@ -12,6 +12,9 @@ If you would like to contribute, please:
   * Fork the project.
   * Make your feature addition or bug fix.
   * Add RSpec tests for it. This is important so we do not break functionality.
+  * Ensure all RSpec tests are passing.
+  * Ensure Brakeman tests pass (static security analysis)
+  * Ensure Rubocop passes (lint testing)
   * Squash your changes to a single commit.
   * Send a merge request.
   
@@ -76,4 +79,14 @@ To test the current project:
 
 ```bash
 RAILS_ENV=test bundle exec brakeman -A
+```
+
+Rubocop Analysis
+----------------
+We use [Rubocop](https://github.com/bbatsov/rubocop) to enforce coding standards.
+
+To test the current project:
+
+```bash
+bundle exec rubocop
 ```

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddAnonymousFeedback < ActiveRecord::Migration[5.1]
   def change
     add_column :feedbacks, :anonymous, :boolean, default: false

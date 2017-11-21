@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 FactoryGirl.define do
   factory :airport do
-    sequence(:icao){ |x| [*'AAAA'..'ZZZZ'][x] }
-	  sequence(:name){ |x| "Airport #{x}" }
+    sequence(:icao) { |x| [*'AAAA'..'ZZZZ'][x] }
+    sequence(:name) { |x| "Airport #{x}" }
 
     trait :invalid do
       icao { nil }

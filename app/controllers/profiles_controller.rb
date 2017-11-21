@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 class ProfilesController < ApplicationController
-	before_action :authenticate_user!
-	after_action  :verify_authorized
+  before_action :authenticate_user!
+  after_action :verify_authorized
 
-	def show
-		@user = current_user
-		authorize @user
-	end
-
+  def show
+    @user = current_user
+    authorize @user
+  end
 end

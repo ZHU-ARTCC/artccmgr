@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Email address filter
 #
 # Prevents sending email to certain destination email addresses.
@@ -8,20 +10,21 @@
 class EmailAddressFilter
   def self.delivering_email(message)
     # Only do this in production - other environments catch all email
-    if Rails.env.production?
-      message.perform_deliveries = false
+    return unless Rails.env.production?
 
-      # checks here; return if matched
-      matched = message.to.join('').match(/noreply\@vatsim\.net/)
+    message.perform_deliveries = false
 
-      if matched
-        Rails.logger.warn "EmailAddressFilter: Filtered email for: #{matched.to_a.join(', ')}"
-        return
-      end
+    # checks here; return if matched
+    matched = message.to.join('').match(/noreply\@vatsim\.net/)
 
-      # otherwise, the email should be sent
-      message.perform_deliveries = true
+    if matched
+      msg = "EmailAddressFilter: Filtered email for: #{matched.to_a.join(', ')}"
+      Rails.logger.warn msg
+      return
     end
+
+    # otherwise, the email should be sent
+    message.perform_deliveries = true
   end
 end
 

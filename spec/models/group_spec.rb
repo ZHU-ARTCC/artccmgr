@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Group, type: :model do
-
   it 'has a valid factory' do
     expect(build(:group)).to be_valid
   end
@@ -9,7 +10,6 @@ RSpec.describe Group, type: :model do
   let(:group) { build(:group) }
 
   describe 'ActiveModel validations' do
-
     # Basic validations
     it { expect(group).to validate_presence_of(:name) }
 
@@ -17,25 +17,24 @@ RSpec.describe Group, type: :model do
 
     # Inclusion/acceptance of values
     it { expect(group).to_not allow_value('').for(:name) }
-    it { expect(group).to validate_uniqueness_of(:name).ignoring_case_sensitivity }
-    it { expect(group).to validate_numericality_of(:min_controlling_hours) }
 
+    it {
+      expect(group).to validate_uniqueness_of(:name).ignoring_case_sensitivity
+    }
+
+    it { expect(group).to validate_numericality_of(:min_controlling_hours) }
   end # describe 'ActiveModel validations'
 
   describe 'ActiveRecord associations' do
-
     it { expect(group).to have_many(:assignments) }
     it { expect(group).to have_many(:users) }
     it { expect(group).to have_many(:permissions) }
-
   end # describe 'ActiveRecord associations'
 
   describe '#name=' do
-
-	  it 'titleizes the name' do
-		  expect(build(:group, name: 'test').name).to eq 'Test'
-	  end
-
+    it 'titleizes the name' do
+      expect(build(:group, name: 'test').name).to eq 'Test'
+    end
   end
 
   describe 'that have members of this ARTCC' do
@@ -59,19 +58,18 @@ RSpec.describe Group, type: :model do
   describe '#destroy' do
     it 'does not allow deletion if users are still a member' do
       group = create(:user).group
-      expect{group.destroy}.to_not change(Group, :count)
+      expect { group.destroy }.to_not change(Group, :count)
     end
   end # describe '#destroy'
 
   describe 'built in named' do
-
     context 'Air Traffic Manager' do
       before :each do
         @group = Group.find_by(name: 'Air Traffic Manager')
       end
 
       it 'should not be deleted' do
-        expect{@group.destroy}.to_not change(Group, :count)
+        expect { @group.destroy }.to_not change(Group, :count)
       end
 
       it 'should not be valid if the name changes' do
@@ -86,7 +84,7 @@ RSpec.describe Group, type: :model do
       end
 
       it 'should not be deleted' do
-        expect{@group.destroy}.to_not change(Group, :count)
+        expect { @group.destroy }.to_not change(Group, :count)
       end
 
       it 'should not be valid if the name changes' do
@@ -101,7 +99,7 @@ RSpec.describe Group, type: :model do
       end
 
       it 'should not be deleted' do
-        expect{@group.destroy}.to_not change(Group, :count)
+        expect { @group.destroy }.to_not change(Group, :count)
       end
 
       it 'should not be valid if the name changes' do
@@ -116,7 +114,7 @@ RSpec.describe Group, type: :model do
       end
 
       it 'should not be deleted' do
-        expect{@group.destroy}.to_not change(Group, :count)
+        expect { @group.destroy }.to_not change(Group, :count)
       end
 
       it 'should not be valid if the name changes' do
@@ -131,7 +129,7 @@ RSpec.describe Group, type: :model do
       end
 
       it 'should not be deleted' do
-        expect{@group.destroy}.to_not change(Group, :count)
+        expect { @group.destroy }.to_not change(Group, :count)
       end
 
       it 'should not be valid if the name changes' do
@@ -146,7 +144,7 @@ RSpec.describe Group, type: :model do
       end
 
       it 'should not be deleted' do
-        expect{@group.destroy}.to_not change(Group, :count)
+        expect { @group.destroy }.to_not change(Group, :count)
       end
 
       it 'should not be valid if the name changes' do
@@ -161,7 +159,7 @@ RSpec.describe Group, type: :model do
       end
 
       it 'should not be deleted' do
-        expect{@group.destroy}.to_not change(Group, :count)
+        expect { @group.destroy }.to_not change(Group, :count)
       end
 
       it 'should not be valid if the name changes' do
@@ -176,7 +174,7 @@ RSpec.describe Group, type: :model do
       end
 
       it 'should not be deleted' do
-        expect{@group.destroy}.to_not change(Group, :count)
+        expect { @group.destroy }.to_not change(Group, :count)
       end
 
       it 'should not be valid if the name changes' do
@@ -184,7 +182,5 @@ RSpec.describe Group, type: :model do
         expect(@group).to_not be_valid
       end
     end # context 'Public'
-
   end # describe 'builtin group'
-
 end

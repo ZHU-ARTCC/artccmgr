@@ -1,23 +1,38 @@
+# rubocop:disable Style/FrozenStringLiteralComment
+# String changes are required for modifying attributes of weather
+
 class MetarJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
+  def perform(*_args)
     # Grab all configured airports
     Airport.all.each do |airport|
       begin
         update_metar_for(airport)
       rescue => e
-        Rails.logger.error "MetarJob: Unable to update weather for #{airport.icao}: #{e}"
+        msg = "MetarJob: Unable to update weather for #{airport.icao}: #{e}"
+        Rails.logger.error msg
       end
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def update_metar_for(airport)
+    # rubocop:disable Rails/DynamicFindBy
+    # This find_by method is provided by Metar::Station
     metar = Metar::Station.find_by_cccc(airport.icao)
+    # rubocop:enable Rails/DynamicFindBy
 
-    unless metar.nil?
+    if metar.nil?
+      msg = "MetarJob: Unable to retrieve METAR for #{airport.icao}, skipping"
+      Rails.logger.error msg
+    else
       rules = format_rules(metar.parser.sky_conditions, metar.parser.visibility)
-      wind  = format_wind(metar.parser.wind.direction, metar.parser.wind.speed, metar.parser.wind.gusts)
+
+      wind  = format_wind(metar.parser.wind.direction,
+                          metar.parser.wind.speed,
+                          metar.parser.wind.gusts)
+
       baro  = format_altimeter(metar.parser.sea_level_pressure)
 
       # Save to database
@@ -27,10 +42,9 @@ class MetarJob < ApplicationJob
       weather.altimeter = baro
       weather.metar     = metar.parser.metar
       weather.save
-    else
-      Rails.logger.error "MetarJob: Unable to retrieve METAR for #{airport.icao}, skipping"
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   private
 
@@ -38,16 +52,23 @@ class MetarJob < ApplicationJob
     baro.raw.sub('A', '').insert(2, '.') unless baro.nil?
   end
 
+  # TODO: Refactor wx rule generation
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
+  # rubocop:disable Metrics/PerceivedComplexity
   def format_rules(sky_conditions, visibility)
     rules      = ''
     visibility = visibility.to_s(units: :miles).to_i
 
     # By ceiling
     sky_conditions.each do |conditions|
-      # conditions = sky_conditions.first
       layer_type = conditions.quantity.to_s
 
-      conditions.height.nil? ? layer_height = 5000 : layer_height = conditions.height.to_s(units: :feet).to_i
+      layer_height = case conditions.height
+                     when nil
+                       5000
+                     else
+                       conditions.height.to_s(units: :feet).to_i
+                     end
 
       # Limited IFR
       if layer_height <= 500
@@ -60,7 +81,9 @@ class MetarJob < ApplicationJob
         rules = 'MVFR' if %w[broken overcast].include? layer_type
       # Basic VFR
       else
+        # rubocop:disable Style/IfInsideElse
         rules = 'VFR' if rules.blank?
+        # rubocop:enable Style/IfInsideElse
       end
     end # sky_conditions.each
 
@@ -68,22 +91,25 @@ class MetarJob < ApplicationJob
     if visibility < 1
       rules = 'LIFR'
     elsif visibility.between?(1, 3)
-      rules = 'IFR' if rules.blank? or %w[MVFR VFR].include? rules
+      rules = 'IFR' if rules.blank? || %w[MVFR VFR].include?(rules)
     elsif visibility.between?(3, 5)
-      rules = 'MVFR' if rules.blank? or rules == 'VFR'
+      rules = 'MVFR' if rules.blank? || rules == 'VFR'
     elsif visibility > 5
       rules = 'VFR' if rules.blank?
     end
 
     rules
   end
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/MethodLength
+  # rubocop:enable Metrics/PerceivedComplexity
 
+  # rubocop:disable Metrics/PerceivedComplexity, Metrics/MethodLength
   def format_wind(direction, speed, gusts)
     if direction == :variable_direction
       wind_direction = 'VRB'
     else
-      wind_direction = '%03i' % direction.to_f.to_i
-      wind_direction = 360 if wind_direction.to_i == 0
+      wind_direction = format('%03i', direction.to_f.to_i)
+      wind_direction = 360 if wind_direction.to_i.zero?
     end
 
     wind_speed = speed.to_s(units: :knots).to_i
@@ -101,5 +127,5 @@ class MetarJob < ApplicationJob
 
     wind_string
   end
-
+  # rubocop:enable Metrics/PerceivedComplexity, Metrics/MethodLength
 end

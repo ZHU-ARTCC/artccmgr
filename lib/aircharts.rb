@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'httparty'
 require 'ostruct'
 
@@ -18,7 +20,6 @@ require 'ostruct'
 #   airport.charts['General'].first.chartname : 'TAKEOFF MINIMUMS'
 #
 module AirCharts
-
   class Airport
     include HTTParty
     base_uri 'https://api.aircharts.org/v2'
@@ -28,19 +29,19 @@ module AirCharts
     def initialize(icao)
       @response = self.class.get("/Airport/#{icao.upcase}")
 
-      if @response.code == 200
-        @info   = OpenStruct.new(@response[icao.upcase]['info'])
-        @charts = @response[icao.upcase]['charts']
-      else
+      unless @response.code == 200
         raise ArgumentError, "ICAO identifier #{icao} not found"
       end
+
+      @info   = OpenStruct.new(@response[icao.upcase]['info'])
+      @charts = @response[icao.upcase]['charts']
     end # def initialize
 
     def charts
       hash = {}
 
       @charts.collect do |type, array|
-        hash[type] = array.collect{|c| OpenStruct.new(c)}
+        hash[type] = array.collect { |c| OpenStruct.new(c) }
       end
 
       hash
@@ -61,7 +62,5 @@ module AirCharts
     def longitude
       @info.longitude
     end
-
   end # class Airport
-
 end # module AirCharts

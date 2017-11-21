@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe UserPolicy do
@@ -6,18 +8,18 @@ describe UserPolicy do
   let(:user) { create(:user) }
 
   context 'user with user create permission' do
-    let(:test_user){ create(:user, group: create(:group, :perm_user_create)) }
+    let(:test_user) { create(:user, group: create(:group, :perm_user_create)) }
 
     it { is_expected.to permit_new_and_create_actions }
 
     it { is_expected.to forbid_edit_and_update_actions }
-    it { is_expected.to forbid_actions([:index, :destroy, :show]) }
+    it { is_expected.to forbid_actions(%i[index destroy show]) }
   end
 
   context 'user with user read permission' do
-    let(:test_user){ create(:user, group: create(:group, :perm_user_read)) }
+    let(:test_user) { create(:user, group: create(:group, :perm_user_read)) }
 
-    it { is_expected.to permit_actions([:index, :show]) }
+    it { is_expected.to permit_actions(%i[index show]) }
 
     it { is_expected.to forbid_new_and_create_actions }
     it { is_expected.to forbid_edit_and_update_actions }
@@ -25,37 +27,36 @@ describe UserPolicy do
   end
 
   context 'user with user update permission' do
-    let(:test_user){ create(:user, group: create(:group, :perm_user_update)) }
+    let(:test_user) { create(:user, group: create(:group, :perm_user_update)) }
 
     it { is_expected.to permit_edit_and_update_actions }
 
     it { is_expected.to forbid_new_and_create_actions }
-    it { is_expected.to forbid_actions([:index, :destroy, :show]) }
+    it { is_expected.to forbid_actions(%i[index destroy show]) }
   end
 
   context 'user with user delete permission' do
-    let(:test_user){ create(:user, group: create(:group, :perm_user_delete)) }
+    let(:test_user) { create(:user, group: create(:group, :perm_user_delete)) }
 
     it { is_expected.to permit_action(:destroy) }
 
     it { is_expected.to forbid_new_and_create_actions }
     it { is_expected.to forbid_edit_and_update_actions }
-    it { is_expected.to forbid_actions([:index, :show]) }
+    it { is_expected.to forbid_actions(%i[index show]) }
   end
 
   describe 'allows users own profile' do
-	  subject { described_class.new(user, user_obj) }
-	  let(:user_obj) { create(:user) }
+    subject { described_class.new(user, user_obj) }
+    let(:user_obj) { create(:user) }
 
-	  context 'permit show action' do
-		  let(:user){ user_obj }
+    context 'permit show action' do
+      let(:user) { user_obj }
       it { is_expected.to permit_action(:show) }
-	  end
+    end
 
-	  context 'forbid actions index, create, destroy' do
-		  let(:user){ user_obj }
-      it { is_expected.to forbid_actions([:index, :create, :destroy, :edit]) }
-	  end
+    context 'forbid actions index, create, destroy' do
+      let(:user) { user_obj }
+      it { is_expected.to forbid_actions(%i[index create destroy edit]) }
+    end
   end # describe 'users own profiles'
-
 end

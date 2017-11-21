@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
+# rubocop:disable Metrics/BlockLength, Metrics/LineLength
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
@@ -250,16 +253,16 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   private_key = OpenSSL::PKey::RSA.new(
-      Rails.application.secrets.vatsim_sso_rsa_key,
-      Rails.application.secrets.vatsim_sso_secret
+    Rails.application.secrets.vatsim_sso_rsa_key,
+    Rails.application.secrets.vatsim_sso_secret
   )
 
   config.omniauth :vatsim, Rails.application.secrets.vatsim_sso_consumer_key,
                   private_key,
                   client_options: {
-                      site: Rails.application.secrets.vatsim_sso_url,
-                      signature_method: 'RSA-SHA1',
-                      private_key: private_key
+                    site: Rails.application.secrets.vatsim_sso_url,
+                    signature_method: 'RSA-SHA1',
+                    private_key: private_key
                   }
 
   # ==> Warden configuration
@@ -271,9 +274,9 @@ Devise.setup do |config|
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
 
-	config.warden do |manager|
-		manager.default_strategies(scope: :user).unshift :two_factor_backupable
-	end
+  config.warden do |manager|
+    manager.default_strategies(scope: :user).unshift :two_factor_backupable
+  end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine

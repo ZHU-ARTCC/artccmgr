@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class EventsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
   before_action { Date.beginning_of_week = :sunday }
 
   def index
@@ -7,7 +9,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.rss { render :layout => false }
+      format.rss { render layout: false }
     end
   end
 
@@ -61,5 +63,4 @@ class EventsController < ApplicationController
       render :edit
     end
   end
-
 end

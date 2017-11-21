@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FeedbackPolicy < ApplicationPolicy
   class Scope
     attr_reader :user, :scope
@@ -8,7 +10,7 @@ class FeedbackPolicy < ApplicationPolicy
     end
 
     def resolve
-      @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+      group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
 
       if group.permissions.pluck('name').include? 'feedback read'
         scope.all.order(created_at: :desc)
@@ -19,14 +21,16 @@ class FeedbackPolicy < ApplicationPolicy
   end
 
   def index?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
-    (group.permissions.pluck('name') & ['feedback read published', 'feedback read']).present?
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
+    (group.permissions.pluck('name') &
+    ['feedback read published', 'feedback read']).present?
   end
 
   def show?
     # scope.where(:id => record.id).exists?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
-    (group.permissions.pluck('name') & ['feedback read published', 'feedback read']).present?
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
+    (group.permissions.pluck('name') &
+    ['feedback read published', 'feedback read']).present?
   end
 
   def create?
@@ -34,7 +38,7 @@ class FeedbackPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'feedback create'
   end
 
@@ -43,22 +47,22 @@ class FeedbackPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'feedback update'
   end
 
   def destroy?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'feedback delete'
   end
 
   def permitted_attributes
     if @user.permissions.pluck('name').include? 'feedback update'
-      [ :anonymous, :cid, :name, :email, :callsign, :controller, :position, :service_level,
-        :comments, :fly_again, :published
-      ]
+      %i[anonymous cid name email callsign controller position service_level
+         comments fly_again published]
     else
-      [ :anonymous, :callsign, :controller, :position, :service_level, :comments, :fly_again ]
+      %i[anonymous callsign controller
+         position service_level comments fly_again]
     end
   end
 end

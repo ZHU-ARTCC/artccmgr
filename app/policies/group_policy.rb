@@ -1,7 +1,8 @@
-class GroupPolicy < ApplicationPolicy
+# frozen_string_literal: true
 
+class GroupPolicy < ApplicationPolicy
   def index?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'group read'
   end
 
@@ -14,7 +15,7 @@ class GroupPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'group create'
   end
 
@@ -23,16 +24,17 @@ class GroupPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'group update'
   end
 
   def destroy?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'group delete'
   end
 
   def permitted_attributes
-    [ :name, :staff, :atc, :visiting, :min_controlling_hours, :two_factor_required, permission_ids: [] ]
+    [:name, :staff, :atc, :visiting, :min_controlling_hours,
+     :two_factor_required, permission_ids: []]
   end
 end

@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe PositionsController, type: :controller do
-
   describe 'GET #index' do
     it 'populates an array of @positions' do
       position = create(:position)
@@ -18,9 +19,9 @@ RSpec.describe PositionsController, type: :controller do
   describe 'POST #create' do
     context 'when not logged in' do
       it 'does not create Position' do
-        expect {
+        expect do
           post :create, params: { position: attributes_for(:position) }
-        }.to_not change(Position, :count)
+        end.to_not change(Position, :count)
       end
     end
 
@@ -30,9 +31,9 @@ RSpec.describe PositionsController, type: :controller do
       end
 
       it 'creates a new position' do
-        expect {
+        expect do
           post :create, params: { position: attributes_for(:position) }
-        }.to change(Position, :count).by 1
+        end.to change(Position, :count).by 1
       end
 
       it 'redirects to the position #index' do
@@ -47,9 +48,11 @@ RSpec.describe PositionsController, type: :controller do
       end
 
       it 'does not save the new position' do
-        expect{
-          post :create, params: { position: attributes_for(:position, :invalid) }
-        }.to_not change(Position,:count)
+        expect do
+          post :create, params: {
+            position: attributes_for(:position, :invalid)
+          }
+        end.to_not change(Position, :count)
       end
 
       it 're-renders the new template' do
@@ -66,21 +69,23 @@ RSpec.describe PositionsController, type: :controller do
 
     context 'when not logged in' do
       it 'does not delete the position' do
-        expect {
+        expect do
           delete :destroy, params: { id: @position }
-        }.to_not change(Position, :count)
+        end.to_not change(Position, :count)
       end
     end
 
     context 'when logged in' do
       before :each do
-        sign_in create(:user, group: create(:group, :perm_position_read, :perm_position_delete))
+        sign_in create(:user, group: create(
+          :group, :perm_position_read, :perm_position_delete
+        ))
       end
 
       it 'deletes the position' do
-        expect{
+        expect do
           delete :destroy, params: { id: @position }
-        }.to change(Position,:count).by(-1)
+        end.to change(Position, :count).by(-1)
       end
 
       it 'redirects to position#index' do
@@ -88,7 +93,7 @@ RSpec.describe PositionsController, type: :controller do
         expect(response).to redirect_to positions_path
       end
 
-      it 'redirects to the position#show page if the position cannot be deleted' do
+      it 'redirects to position#show page if the position cannot be deleted' do
         allow_any_instance_of(Position).to receive(:destroy).and_return(false)
         delete :destroy, params: { id: @position }
         expect(response).to redirect_to position_path(@position)
@@ -96,9 +101,11 @@ RSpec.describe PositionsController, type: :controller do
     end
   end
 
-  describe "GET #edit" do
+  describe 'GET #edit' do
     before :each do
-      sign_in create(:user, group: create(:group, :perm_position_read, :perm_position_update))
+      sign_in create(:user, group: create(
+        :group, :perm_position_read, :perm_position_update
+      ))
       @position = create(:position)
     end
 
@@ -113,7 +120,7 @@ RSpec.describe PositionsController, type: :controller do
     end
   end
 
-  describe "GET #new" do
+  describe 'GET #new' do
     before :each do
       sign_in create(:user, group: create(:group, :perm_position_create))
     end
@@ -159,7 +166,10 @@ RSpec.describe PositionsController, type: :controller do
 
     context 'when not logged in' do
       it 'does not update Position' do
-        put :update, params: { id: @position, position: attributes_for(:position, name: 'Testing') }
+        put :update, params: {
+          id: @position,
+          position: attributes_for(:position, name: 'Testing')
+        }
         @position.reload
         expect(@position.name).to_not eq 'Testing'
       end
@@ -167,53 +177,67 @@ RSpec.describe PositionsController, type: :controller do
 
     context 'valid attributes' do
       before :each do
-        sign_in create(:user, group: create(:group, :perm_position_read, :perm_position_update))
+        sign_in create(:user, group: create(
+          :group, :perm_position_read, :perm_position_update
+        ))
       end
 
       it 'located the requested @position' do
-        put :update, params: { id: @position, position: attributes_for(:position) }
+        put :update, params: {
+          id: @position,
+          position: attributes_for(:position)
+        }
         expect(assigns(:position)).to eq @position
       end
 
       it "changes @positions's attributes" do
         put :update, params: {
-            id: @position,
-            position: attributes_for(:position, name: 'Houston Center')
+          id: @position,
+          position: attributes_for(:position, name: 'Houston Center')
         }
         @position.reload
         expect(@position.name).to eq 'Houston Center'
       end
 
       it 'redirects to the updated position' do
-        put :update, params: { id: @position, position: attributes_for(:position) }
+        put :update, params: {
+          id: @position,
+          position: attributes_for(:position)
+        }
         expect(response).to redirect_to positions_path
       end
     end
 
     context 'invalid attributes' do
       before :each do
-        sign_in create(:user, group: create(:group, :perm_position_read, :perm_position_update))
+        sign_in create(:user, group: create(
+          :group, :perm_position_read, :perm_position_update
+        ))
       end
 
       it 'locates the requested @position' do
-        put :update, params: { id: @position, position: attributes_for(:position, :invalid) }
+        put :update, params: {
+          id: @position,
+          position: attributes_for(:position, :invalid)
+        }
         expect(assigns(:position)).to eq @position
       end
 
       it "does not change @position's attributes" do
         put :update, params: { id: @position,
-                               position: attributes_for(:position, name: nil)
-        }
+                               position: attributes_for(:position, name: nil) }
 
         @position.reload
         expect(@position.name).to_not be_nil
       end
 
       it 're-renders the edit method' do
-        put :update, params: { id: @position, position: attributes_for(:position, :invalid) }
+        put :update, params: {
+          id: @position,
+          position: attributes_for(:position, :invalid)
+        }
         expect(response).to render_template :edit
       end
     end
   end
-
 end

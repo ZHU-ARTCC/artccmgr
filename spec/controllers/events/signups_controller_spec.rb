@@ -1,49 +1,71 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Events::SignupsController, type: :controller do
-
-  let(:event){ create(:event) }
+  let(:event) { create(:event) }
 
   describe 'POST #create' do
     context 'when not logged in' do
       it 'does not create Event Signup' do
-        expect {
-          post :create, params: { event_id: event.friendly_id, event_signup: build(:event_signup, event: event).attributes }
-        }.to_not change(Event::Signup, :count)
+        expect do
+          post :create, params: {
+            event_id: event.friendly_id,
+            event_signup: build(:event_signup, event: event).attributes
+          }
+        end.to_not change(Event::Signup, :count)
       end
     end
 
     context 'with valid attributes' do
       before :each do
-        sign_in create(:user, group: create(:group, :perm_event_signup_create))
+        sign_in create(:user, group: create(
+          :group, :perm_event_signup_create
+        ))
       end
 
       it 'creates a new event signup' do
-        expect {
-          post :create, params: { event_id: event.friendly_id, event_signup: build(:event_signup, event: event).attributes }
-        }.to change(Event::Signup, :count).by 1
+        expect do
+          post :create, params: {
+            event_id: event.friendly_id,
+            event_signup: build(:event_signup, event: event).attributes
+          }
+        end.to change(Event::Signup, :count).by 1
       end
 
       it 'redirects to the event #show page' do
         event_signup = build(:event_signup, event: event)
-        post :create, params: { event_id: event, event_signup: event_signup.attributes }
+        post :create, params: {
+          event_id: event,
+          event_signup: event_signup.attributes
+        }
         expect(response).to redirect_to event_path(event_signup.event)
       end
     end
 
     context 'with invalid attributes' do
       before :each do
-        sign_in create(:user, group: create(:group, :perm_event_signup_create))
+        sign_in create(:user, group: create(
+          :group, :perm_event_signup_create
+        ))
       end
 
       it 'does not save the new event signup' do
-        expect{
-          post :create, params: { event_id: event, event_signup: build(:event_signup, :invalid, event: event).attributes }
-        }.to_not change(Event::Signup,:count)
+        expect do
+          post :create, params: {
+            event_id: event,
+            event_signup: build(
+              :event_signup, :invalid, event: event
+            ).attributes
+          }
+        end.to_not change(Event::Signup, :count)
       end
 
       it 're-renders the new template' do
-        post :create, params: { event_id: event, event_signup: build(:event_signup, :invalid, event: event).attributes }
+        post :create, params: {
+          event_id: event,
+          event_signup: build(:event_signup, :invalid, event: event).attributes
+        }
         expect(response).to render_template :new
       end
     end
@@ -64,7 +86,9 @@ RSpec.describe Events::SignupsController, type: :controller do
   #
   #   context 'when logged in' do
   #     before :each do
-  #       sign_in create(:user, group: create(:group, :perm_event_read, :perm_event_delete))
+  #       sign_in create(:user, group: create(
+  #         :group, :perm_event_read, :perm_event_delete
+  #       ))
   #     end
   #
   #     it 'deletes the event' do
@@ -82,7 +106,9 @@ RSpec.describe Events::SignupsController, type: :controller do
 
   # describe "GET #edit" do
   #   before :each do
-  #     sign_in create(:user, group: create(:group, :perm_event_read, :perm_event_update))
+  #     sign_in create(:user, group: create(
+  #       :group, :perm_event_read, :perm_event_update
+  #     ))
   #     @event = create(:event)
   #   end
   #
@@ -142,7 +168,9 @@ RSpec.describe Events::SignupsController, type: :controller do
   #
   #   context 'when not logged in' do
   #     it 'does not update Event' do
-  #       put :update, params: { id: @event, event: attributes_for(:event, name: 'Testing') }
+  #       put :update, params: {
+  #         id: @event, event: attributes_for(:event, name: 'Testing')
+  #       }
   #       @event.reload
   #       expect(@event.name).to_not eq 'Testing'
   #     end
@@ -150,7 +178,9 @@ RSpec.describe Events::SignupsController, type: :controller do
   #
   #   context 'valid attributes' do
   #     before :each do
-  #       sign_in create(:user, group: create(:group, :perm_event_read, :perm_event_update))
+  #       sign_in create(:user, group: create(
+  #         :group, :perm_event_read, :perm_event_update
+  #       ))
   #     end
   #
   #     it 'located the requested @event' do
@@ -176,7 +206,9 @@ RSpec.describe Events::SignupsController, type: :controller do
   #
   #   context 'invalid attributes' do
   #     before :each do
-  #       sign_in create(:user, group: create(:group, :perm_event_read, :perm_event_update))
+  #       sign_in create(:user, group: create(
+  #         :group, :perm_event_read, :perm_event_update
+  #       ))
   #     end
   #
   #     it 'locates the requested @event' do
@@ -194,10 +226,12 @@ RSpec.describe Events::SignupsController, type: :controller do
   #     end
   #
   #     it 're-renders the edit method' do
-  #       put :update, params: { id: @event, event: attributes_for(:event, :invalid) }
+  #       put :update, params: {
+  #         id: @event,
+  #         event: attributes_for(:event, :invalid)
+  #       }
   #       expect(response).to render_template :edit
   #     end
   #   end
   # end
-
 end

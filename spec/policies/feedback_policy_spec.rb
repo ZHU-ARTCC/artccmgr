@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe FeedbackPolicy do
@@ -10,16 +12,16 @@ describe FeedbackPolicy do
   end
 
   context 'user with feedback create permission' do
-    let(:user){ create(:user, group: create(:group, :perm_feedback_create)) }
+    let(:user) { create(:user, group: create(:group, :perm_feedback_create)) }
 
     it { is_expected.to permit_new_and_create_actions }
 
     it { is_expected.to forbid_edit_and_update_actions }
-    it { is_expected.to forbid_actions([:index, :destroy, :show]) }
+    it { is_expected.to forbid_actions(%i[index destroy show]) }
   end
 
   context 'group with feedback read permission' do
-    let(:user){ create(:user, group: create(:group, :perm_feedback_read)) }
+    let(:user) { create(:user, group: create(:group, :perm_feedback_read)) }
 
     context 'accessing published feedback' do
       let(:feedback) { create(:feedback, published: true) }
@@ -37,7 +39,7 @@ describe FeedbackPolicy do
       end
     end
 
-    it { is_expected.to permit_actions([:index, :show]) }
+    it { is_expected.to permit_actions(%i[index show]) }
 
     it { is_expected.to forbid_new_and_create_actions }
     it { is_expected.to forbid_edit_and_update_actions }
@@ -45,7 +47,9 @@ describe FeedbackPolicy do
   end
 
   context 'user with feedback read published permission' do
-    let(:user){ create(:user, group: create(:group, :perm_feedback_read_published)) }
+    let(:user) do
+      create(:user, group: create(:group, :perm_feedback_read_published))
+    end
 
     context 'accessing published feedback' do
       let(:feedback) { create(:feedback, published: true) }
@@ -63,7 +67,7 @@ describe FeedbackPolicy do
       end
     end
 
-    it { is_expected.to permit_actions([:index, :show]) }
+    it { is_expected.to permit_actions(%i[index show]) }
 
     it { is_expected.to forbid_new_and_create_actions }
     it { is_expected.to forbid_edit_and_update_actions }
@@ -71,22 +75,21 @@ describe FeedbackPolicy do
   end
 
   context 'user with feedback update permission' do
-    let(:user){ create(:user, group: create(:group, :perm_feedback_update)) }
+    let(:user) { create(:user, group: create(:group, :perm_feedback_update)) }
 
     it { is_expected.to permit_edit_and_update_actions }
 
     it { is_expected.to forbid_new_and_create_actions }
-    it { is_expected.to forbid_actions([:index, :destroy, :show]) }
+    it { is_expected.to forbid_actions(%i[index destroy show]) }
   end
 
   context 'user with feedback delete permission' do
-    let(:user){ create(:user, group: create(:group, :perm_feedback_delete)) }
+    let(:user) { create(:user, group: create(:group, :perm_feedback_delete)) }
 
     it { is_expected.to permit_action(:destroy) }
 
     it { is_expected.to forbid_new_and_create_actions }
     it { is_expected.to forbid_edit_and_update_actions }
-    it { is_expected.to forbid_actions([:index, :show]) }
+    it { is_expected.to forbid_actions(%i[index show]) }
   end
-
 end

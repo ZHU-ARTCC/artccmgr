@@ -1,11 +1,14 @@
+# frozen_string_literal: true
+
 FactoryGirl.define do
   factory :gpg_key do
     association :user
 
-    key { <<-END
+    key do
+      <<-END
       -----BEGIN PGP PUBLIC KEY BLOCK-----
       Version: GnuPG v1.4.11 (Darwin)
-  
+
       mQSuBE1tOWYRDAC0MiL/mUsW1I18H9TZzurEXM0HMxFcQ5LlGm+0Zk+tSI/AVk4G
       mZRppURYAFPyOQLOT6sm4vPXJ29uRJ8WSHtryg1HqPvIPauZVB9tSW10K7gmpdSd
       pty2/QGa8dNEnlMIJN8Kti0qaU72jfBH1r3mdpZ+P4KNFIKgYTbavzJ3GOtrypBz
@@ -56,7 +59,7 @@ FactoryGirl.define do
       =T/Ce
       -----END PGP PUBLIC KEY BLOCK-----
       END
-    }
+    end
 
     trait :invalid do
       user { nil }

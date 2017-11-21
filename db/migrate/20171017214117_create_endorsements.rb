@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateEndorsements < ActiveRecord::Migration[5.1]
   def change
     create_table :endorsements, id: :uuid do |t|

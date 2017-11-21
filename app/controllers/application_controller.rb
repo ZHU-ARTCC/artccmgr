@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include EnforceTwoFactorAuthentication
   include Pundit
@@ -29,13 +31,16 @@ class ApplicationController < ActionController::Base
   # Obtain the Controllers Online
   #
   def online
-    @online_atc = Vatsim::Atc.where(last_seen: (Time.now - 3.minutes)..Time.now)
+    @online_atc = Vatsim::Atc.where(
+      last_seen: (Time.now.utc - 3.minutes)..Time.now.utc
+    )
   end
 
   # Obtain and display the latest METAR information received
   #
   def metar
-    @metar = Weather.joins(:airport).where(airports: {show_metar: true}).order('airports.icao asc')
+    @metar = Weather.joins(:airport).where(airports: { show_metar: true })\
+                    .order('airports.icao asc')
   end
 
   # override the devise helper to store the current location so we can
@@ -54,5 +59,4 @@ class ApplicationController < ActionController::Base
     # continue to raise Pundit errors if under test
     raise Pundit::NotAuthorizedError if Rails.env.test?
   end
-
 end

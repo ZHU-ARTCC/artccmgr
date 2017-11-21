@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateEventPilots < ActiveRecord::Migration[5.0]
   def change
     create_table :event_pilots, id: :uuid do |t|

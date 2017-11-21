@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe GpgKeyPolicy do
-
   describe 'permits users to manage their own keys' do
     subject { described_class.new(user, key) }
     let(:user)  { create(:user) }
@@ -21,7 +22,10 @@ describe GpgKeyPolicy do
     let(:user)  { create(:user) }
     let(:key)   { create(:gpg_key) }
 
-    it { is_expected.to forbid_actions([:index, :create, :destroy, :edit, :new, :show, :update]) }
+    it {
+      is_expected.to(
+        forbid_actions(%i[index create destroy edit new show update])
+      )
+    }
   end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Event
   class Pilot < ApplicationRecord
     belongs_to :event
@@ -11,12 +13,15 @@ class Event
     validate :not_a_controller
     validate :not_over
 
-    # Determines whether a user has signed up for the event as a pilot
+    # Determines whether a particular user has signed up for the event
+    # as a pilot
     # Example: event.pilots.has_user?(User.first)
     #
+    # rubocop:disable Style/PredicateName
     def self.has_user?(user)
-      !self.joins(:user).where(user: user).empty?
+      !joins(:user).where(user: user).empty?
     end
+    # rubocop:enable Style/PredicateName
 
     # Formats the callsign to uppercase
     #
@@ -29,17 +34,15 @@ class Event
     # Validates the user signing up for a pilot position is not
     # an active event controller
     def not_a_controller
-      unless event.nil?
-        errors[:user] << 'already controller in this event' unless event.event_positions.find_by(user: user).nil?
-      end
+      return if event.nil?
+      return if event.event_positions.find_by(user: user).nil?
+      errors[:user] << 'already controller in this event'
     end
 
     # Validates the event has not already ended
     def not_over
-      unless event.nil?
-        errors[:event] << 'is already over' unless event.end_time > Time.now
-      end
+      return if event.nil?
+      errors[:event] << 'is already over' unless event.end_time > Time.now.utc
     end
-
   end
 end

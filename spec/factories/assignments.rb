@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 FactoryGirl.define do
   factory :assignment do
     association :group
-    permission  { Permission.limit(1).order("RANDOM()").first }
+    permission  { Permission.limit(1).order('RANDOM()').first }
   end
 end

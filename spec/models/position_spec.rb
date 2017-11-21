@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Position, type: :model do
-
   it 'has a valid factory' do
     expect(build(:position)).to be_valid
   end
@@ -9,7 +10,6 @@ RSpec.describe Position, type: :model do
   let(:position) { build(:position) }
 
   describe 'ActiveModel validations' do
-
     # Basic validations
     it { expect(position).to validate_presence_of(:name) }
     it { expect(position).to validate_presence_of(:frequency) }
@@ -17,24 +17,30 @@ RSpec.describe Position, type: :model do
     it { expect(position).to validate_presence_of(:identification) }
 
     # Format validations
-    it { expect(position).to validate_uniqueness_of(:callsign).case_insensitive }
+    it {
+      expect(position).to validate_uniqueness_of(:callsign).case_insensitive
+    }
+
     it { expect(position).to validate_length_of(:callsign).is_at_most(12) }
     it { expect(position).to validate_length_of(:beacon_codes).is_at_most(9) }
 
-    it { expect(position).to validate_numericality_of(:frequency).is_greater_than_or_equal_to(118).is_less_than(137) }
+    it {
+      expect(position).to(
+        validate_numericality_of(:frequency)
+        .is_greater_than_or_equal_to(118)
+        .is_less_than(137)
+      )
+    }
 
     # Inclusion/acceptance of values
     it { expect(position).to_not allow_value('').for(:name) }
     it { expect(position).to_not allow_value('').for(:frequency) }
     it { expect(position).to_not allow_value('').for(:callsign) }
     it { expect(position).to_not allow_value('').for(:identification) }
-
   end # describe 'ActiveModel validations'
 
   describe 'ActiveRecord associations' do
-
     it { expect(position).to belong_to(:certification) }
-
   end # describe 'ActiveRecord associations'
 
   describe 'callsign should be forced upper case' do
@@ -262,9 +268,8 @@ RSpec.describe Position, type: :model do
     expect(position.identification).to eq 'Test Position'
   end
 
-	it 'titleizes the name' do
-		position = build(:position, name: 'test position')
-		expect(position.name).to eq 'Test Position'
-	end
-
+  it 'titleizes the name' do
+    position = build(:position, name: 'test position')
+    expect(position.name).to eq 'Test Position'
+  end
 end

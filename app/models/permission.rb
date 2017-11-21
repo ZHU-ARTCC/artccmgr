@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Permission < ApplicationRecord
   has_many :assignments
   has_many :groups, through: :assignments
@@ -7,5 +9,4 @@ class Permission < ApplicationRecord
   def to_s
     name
   end
-
 end

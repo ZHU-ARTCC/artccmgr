@@ -31,6 +31,14 @@ allow_failures:
 
 jobs:
   include:
+    - stage: Lint
+      rvm: 2.3.3
+      env:
+        - "RUBOCOP=true"
+      before_script: /bin/true
+      script:
+        - bundle exec rubocop
+
     - stage: Coverage & security
       rvm: 2.3.3
       env:

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryGirl.define do
   factory :feedback do
     sequence(:cid)      { |c| c }
@@ -23,11 +25,11 @@ FactoryGirl.define do
     end
 
     trait :anonymous do
-	    anonymous { true }
-	    cid      { nil }
-	    name     { nil }
-	    email    { nil }
-	    callsign { nil }
+      anonymous { true }
+      cid      { nil }
+      name     { nil }
+      email    { nil }
+      callsign { nil }
     end
 
     trait :published do

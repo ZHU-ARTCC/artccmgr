@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class PositionsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
   after_action :verify_authorized
 
   def index
@@ -64,5 +66,4 @@ class PositionsController < ApplicationController
       render :edit
     end
   end
-
 end

@@ -1,4 +1,6 @@
-# cronotab.rb — Crono configuration file
+# frozen_string_literal: true
+
+# Crono configuration file
 #
 # Here you can specify periodic jobs and schedule.
 # You can use ActiveJob's jobs from `app/jobs/`
@@ -21,18 +23,18 @@ VatsimOnlineJob.perform_now
 
 # Update METAR every hours specified in settings.yml
 Crono.perform(MetarJob).every(
-	Settings.metar_update_interval.hours,
-	at: {min: Settings.metar_update_time}
+  Settings.metar_update_interval.hours,
+  at: { min: Settings.metar_update_time }
 )
 
 # Update Airport information as specified in settings.yml
 Crono.perform(AirportUpdateJob).every(
-    Settings.airport_update_interval.days,
-    at: Settings.airport_update_time
+  Settings.airport_update_interval.days,
+  at: Settings.airport_update_time
 )
 
 # Synchronize VATUSA roster as specified in settings.yml
 Crono.perform(VatusaRosterSyncJob).every(
-		Settings.vatusa_roster_sync_interval.hours,
-		at: {min: Settings.vatusa_roster_sync_time}
+  Settings.vatusa_roster_sync_interval.hours,
+  at: { min: Settings.vatusa_roster_sync_time }
 )

@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Event::Pilot, type: :model do
-
   it 'has a valid factory' do
     expect(build(:event_pilot)).to be_valid
   end
@@ -9,7 +10,6 @@ RSpec.describe Event::Pilot, type: :model do
   let(:event_pilot) { build(:event_pilot) }
 
   describe 'ActiveModel validations' do
-
     # Basic validations
     it { expect(event_pilot).to validate_presence_of(:event) }
     it { expect(event_pilot).to validate_presence_of(:user) }
@@ -21,26 +21,20 @@ RSpec.describe Event::Pilot, type: :model do
     it { expect(event_pilot).to_not allow_value(nil).for(:event) }
     it { expect(event_pilot).to_not allow_value(nil).for(:user) }
     it { expect(event_pilot).to_not allow_value(nil).for(:callsign) }
-
   end # describe 'ActiveModel validations'
 
   describe 'ActiveRecord associations' do
-
     it { expect(event_pilot).to belong_to(:event) }
     it { expect(event_pilot).to belong_to(:user) }
-
   end # describe 'ActiveRecord associations'
 
   describe 'callsign' do
-
     it 'should capitalize the callsign' do
       expect(build(:event_pilot, callsign: 'testing').callsign).to eq 'TESTING'
     end
-
   end
 
   describe 'already signed up' do
-
     it 'should not be allowed to sign up again' do
       event_pilot_sign_up = create(:event_pilot)
       event = event_pilot_sign_up.event
@@ -54,17 +48,20 @@ RSpec.describe Event::Pilot, type: :model do
       user  = controller_sign_up.user
       expect(build(:event_pilot, event: event, user: user)).to_not be_valid
     end
-
   end
 
   it 'prohibits registering for events after they have ended' do
-    event = build(:event, start_time: Time.now + 5.minutes, end_time: Time.now + 10.minutes)
-    Timecop.travel(Time.now + 20.minutes)
+    event = build(
+      :event,
+      start_time: Time.now.utc + 5.minutes,
+      end_time: Time.now.utc + 10.minutes
+    )
+
+    Timecop.travel(Time.now.utc + 20.minutes)
     expect(build(:event_pilot, event: event)).to_not be_valid
   end
 
   describe '#has_user?' do
-
     it 'returns true when the user has already registered for the event' do
       event_pilot_sign_up = create(:event_pilot)
       event = event_pilot_sign_up.event
@@ -78,7 +75,5 @@ RSpec.describe Event::Pilot, type: :model do
       user  = create(:user)
       expect(event.pilots.has_user?(user)).to be false
     end
-
   end
-
 end

@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/LineLength
+# rubocop:disable Metrics/MethodLength
 require 'vatusa'
 
 class VatusaRosterSyncJob < ApplicationJob
   queue_as :default
 
-  def perform(*args)
+  def perform(*_args)
     url = Rails.application.secrets.vatusa_api_url
     key = Rails.application.secrets.vatusa_api_key
 
@@ -16,7 +20,8 @@ class VatusaRosterSyncJob < ApplicationJob
         process_roster(roster.members)
         sync_staff(roster)
       else
-        raise StandardError, "Roster ICAO (#{roster.id}) did not match ARTCC ICAO (#{Settings.artcc_icao})"
+        e = "Roster ICAO (#{roster.id}) did not match ARTCC ICAO (#{Settings.artcc_icao})"
+        raise StandardError, e
       end
     rescue => e
       Rails.logger.error "VatusaRosterSyncJob: #{e}"
@@ -35,7 +40,7 @@ class VatusaRosterSyncJob < ApplicationJob
       user.name_last  = member.lname
       user.email      = member.email
       user.rating     = Rating.find_by(number: member.rating.to_i)
-      user.reg_date   = Time.now if user.reg_date.nil?
+      user.reg_date   = Time.now.utc if user.reg_date.nil?
 
       # Do not change groups if they were already assigned
       # except for the Guest role or if they are a new user
@@ -52,27 +57,26 @@ class VatusaRosterSyncJob < ApplicationJob
   end
 
   # Synchronize staff members with VATUSA
-  #
+  # rubocop:disable Metrics/CyclomaticComplexity
   def sync_staff(roster)
-    %w{atm datm ta ec wm fe}.each do |position|
+    %w[atm datm ta ec wm fe].each do |position|
       user = User.find_by(cid: roster.send(position.to_sym).to_i)
-      unless user.nil?
-        case position
-          when 'atm'
-            user.group = Group.find_by(name: 'Air Traffic Manager')
-          when 'datm'
-            user.group = Group.find_by(name: 'Deputy Air Traffic Manager')
-          when 'ta'
-            user.group = Group.find_by(name: 'Training Administrator')
-          when 'wm'
-            user.group = Group.find_by(name: 'Webmaster')
-          when 'fe'
-            user.group = Group.find_by(name: 'Facility Engineer')
-        end
-
-        user.save if user.changed?
+      next if user.nil?
+      case position
+      when 'atm'
+        user.group = Group.find_by(name: 'Air Traffic Manager')
+      when 'datm'
+        user.group = Group.find_by(name: 'Deputy Air Traffic Manager')
+      when 'ta'
+        user.group = Group.find_by(name: 'Training Administrator')
+      when 'wm'
+        user.group = Group.find_by(name: 'Webmaster')
+      when 'fe'
+        user.group = Group.find_by(name: 'Facility Engineer')
       end
+
+      user.save if user.changed?
     end
   end
-
+  # rubocop:enable Metrics/CyclomaticComplexity
 end

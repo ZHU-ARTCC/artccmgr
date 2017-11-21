@@ -1,7 +1,8 @@
-class PositionPolicy < ApplicationPolicy
+# frozen_string_literal: true
 
+class PositionPolicy < ApplicationPolicy
   def index?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'position read'
   end
 
@@ -14,7 +15,7 @@ class PositionPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'position create'
   end
 
@@ -23,16 +24,16 @@ class PositionPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'position update'
   end
 
   def destroy?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'position delete'
   end
 
   def permitted_attributes
-    [ :name, :frequency, :callsign, :identification, :beacon_codes, :major, :primary ]
+    %i[name frequency callsign identification beacon_codes major primary]
   end
 end

@@ -1,7 +1,8 @@
-class AirportPolicy < ApplicationPolicy
+# frozen_string_literal: true
 
+class AirportPolicy < ApplicationPolicy
   def index?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'airport read'
   end
 
@@ -14,7 +15,7 @@ class AirportPolicy < ApplicationPolicy
   end
 
   def new?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'airport create'
   end
 
@@ -23,16 +24,16 @@ class AirportPolicy < ApplicationPolicy
   end
 
   def edit?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'airport update'
   end
 
   def destroy?
-    @user.nil? ? group = Group.find_by(name: 'Public') : group = @user.group
+    group = @user.nil? ? Group.find_by(name: 'Public') : @user.group
     group.permissions.pluck('name').include? 'airport delete'
   end
 
   def permitted_attributes
-    [ :icao, :name, :show_metar ]
+    %i[icao name show_metar]
   end
 end

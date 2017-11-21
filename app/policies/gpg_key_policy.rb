@@ -1,5 +1,6 @@
-class GpgKeyPolicy < ApplicationPolicy
+# frozen_string_literal: true
 
+class GpgKeyPolicy < ApplicationPolicy
   def initialize(user, obj)
     @user = user
     @reg  = obj
@@ -30,10 +31,10 @@ class GpgKeyPolicy < ApplicationPolicy
   end
 
   def destroy?
-    @user == @reg.user #|| @user.group.permissions.pluck('name').include?('user update')
+    @user == @reg.user
   end
 
   def permitted_attributes
-  	[:key]
+    [:key]
   end
 end

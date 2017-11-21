@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe GpgKey, type: :model do
-
   it 'has a valid factory' do
     expect(build(:gpg_key)).to be_valid
   end
@@ -9,11 +10,9 @@ RSpec.describe GpgKey, type: :model do
   let(:gpg_key) { build(:gpg_key) }
 
   describe 'ActiveModel validations' do
-
     # Basic validations
     it { expect(gpg_key).to validate_presence_of(:user) }
     it { expect(gpg_key).to validate_presence_of(:key) }
-
   end # describe 'ActiveModel validations'
 
   describe '#destroy' do
@@ -26,10 +25,8 @@ RSpec.describe GpgKey, type: :model do
     end
 
     it 'removes the key from the keychain' do
-      keys = GPGME::Key.find(:public,gpg_key.user.email)
+      keys = GPGME::Key.find(:public, gpg_key.user.email)
       expect(keys).to be_empty
     end
-
   end
-
 end

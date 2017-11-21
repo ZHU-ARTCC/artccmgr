@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe ApplicationMailer, type: :mailer do
-
   before :each do
     @mailer = ApplicationMailer.new
   end
@@ -17,7 +18,7 @@ RSpec.describe ApplicationMailer, type: :mailer do
     end
 
     context 'user without GPG key' do
-      let(:user){ create(:user) }
+      let(:user) { create(:user) }
 
       it 'does not modify the subject' do
         expect(@result.subject).to eq "#{Settings.artcc_name} Notification"
@@ -29,10 +30,12 @@ RSpec.describe ApplicationMailer, type: :mailer do
     end
 
     context 'user with GPG key' do
-      let(:user){ create(:user, :gpg_key) }
+      let(:user) { create(:user, :gpg_key) }
 
       it 'modifies the subject' do
-        expect(@result.subject).to eq 'Encrypted Notification from ARTCC Manager'
+        expect(
+          @result.subject
+        ).to eq 'Encrypted Notification from ARTCC Manager'
       end
 
       it 'encrypts the body' do
@@ -46,7 +49,9 @@ RSpec.describe ApplicationMailer, type: :mailer do
         end
 
         it 'modifies the subject' do
-          expect(@result.subject).to eq 'Encrypted Notification from ARTCC Manager'
+          expect(
+            @result.subject
+          ).to eq 'Encrypted Notification from ARTCC Manager'
         end
 
         it 'encrypts the body' do
@@ -55,5 +60,4 @@ RSpec.describe ApplicationMailer, type: :mailer do
       end
     end
   end # describe '#mail'
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddShortNameToCertification < ActiveRecord::Migration[5.1]
   def change
     add_column :certifications, :short_name, :string, limit: 5, null: false

@@ -1,13 +1,16 @@
+# frozen_string_literal: true
+
 require 'vatusa'
 
 class RosterController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: %i[index show]
   after_action :verify_authorized
 
   def index
-    @controllers = User.local_controllers.order(:name_last, :name_first)
-    @visiting_controllers = User.visiting_controllers.order(:name_last, :name_first)
+    @controllers = User.local_controllers
+    @visiting_controllers = User.visiting_controllers
 
+    # rubocop:disable LineLength
     @major_certifications = Certification.where(major: true, show_on_roster: true)
     @minor_certifications = Certification.where(major: false, show_on_roster: true)
 
@@ -33,6 +36,7 @@ class RosterController < ApplicationController
     end
   end
 
+  # rubocop:disable MethodLength, PerceivedComplexity
   def destroy
     authorize User, :destroy?
     @user = policy_scope(User).friendly.find(params[:id])
@@ -42,7 +46,9 @@ class RosterController < ApplicationController
       api_key = Rails.application.secrets.vatusa_api_key
       api = VATUSA::API.new(api_url, api_key)
       begin
-        api_success = api.roster_delete(@user.cid, current_user.cid, params['vatusa_reason'])
+        api_success = api.roster_delete(@user.cid,
+                                        current_user.cid,
+                                        params['vatusa_reason'])
       rescue
         api_success = false
       end
@@ -55,14 +61,18 @@ class RosterController < ApplicationController
         flash['success'] = 'User has been deleted successfully'
         redirect_to users_path
       else
-        redirect_to users_path, alert: 'Unable to delete user locally but user removed from VATUSA roster'
+        redirect_to users_path,
+                    alert: 'Unable to delete user locally, removed from VATUSA roster'
       end
     else
-      redirect_to users_path, alert: 'Unable to remove user from VATUSA, local remove aborted'
+      redirect_to users_path,
+                  alert: 'Unable to remove user from VATUSA, local remove aborted'
     end
   end
+  # rubocop:enable MethodLength, PerceivedComplexity
 
-  # Allows appropriate Roster administrators to delete two-factor authentication for users
+  # Allows appropriate Roster administrators to delete
+  # two-factor authentication for users
   #
   def disable_2fa
     authorize User, :update?
@@ -70,11 +80,11 @@ class RosterController < ApplicationController
 
     if @user.disable_two_factor!
       flash['success'] = "Two-factor Authentication for #{@user.name_full} disabled."
-      redirect_to users_path
     else
       flash['alert'] = "Unable to disable two-factor authentication for #{@user.name_full}!"
-      redirect_to users_path
     end
+
+    redirect_to users_path
   end
 
   def edit
@@ -112,6 +122,7 @@ class RosterController < ApplicationController
     end
   end
 
+  # rubocop:disable MethodLength
   def user_info
     authorize User, :create?
 
@@ -127,7 +138,7 @@ class RosterController < ApplicationController
         rating = Rating.find_by(number: vatusa.rating.to_i)
         user = { name_first: vatusa.fname, name_last: vatusa.lname, email: '', rating: rating.id }
       rescue VATUSA::API::ResponseError
-        render :json => {status: 'CID not found'}.to_json, status: 200
+        render json: { status: 'CID not found' }.to_json, status: 200
         return
       end
     else # Guest user was found
@@ -135,10 +146,10 @@ class RosterController < ApplicationController
     end
 
     respond_to do |format|
-      format.json {
-        render :plain => user.to_h.to_json
-      }
+      format.json do
+        render plain: user.to_h.to_json
+      end
     end
   end
-
+  # rubocop:enable MethodLength
 end

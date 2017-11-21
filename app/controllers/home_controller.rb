@@ -1,7 +1,10 @@
-class HomeController < ApplicationController
+# frozen_string_literal: true
 
+class HomeController < ApplicationController
   def index
-    @events = Event.where('end_time > ?', Time.now).order(start_time: :asc).limit(3)
+    @events = Event.where('end_time > ?', Time.now.utc) \
+                   .order(start_time: :asc) \
+                   .limit(3)
     authorize @events
 
     @news = Rails.cache.fetch('news-feed', expires_in: 30.minutes) do
@@ -12,5 +15,4 @@ class HomeController < ApplicationController
       end
     end
   end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddDataToAirports < ActiveRecord::Migration[5.1]
   def change
     add_column :airports, :latitude,  :decimal, precision: 9, scale: 6

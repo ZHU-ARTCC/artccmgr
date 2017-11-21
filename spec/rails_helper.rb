@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
-abort("The Rails environment is running in production mode!") if Rails.env.production?
+if Rails.env.production?
+  abort('The Rails environment is running in production mode!')
+end
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'devise'
@@ -77,24 +81,29 @@ RSpec.configure do |config|
 
   # VATSIM Online Status
   config.before(:each) do
-	  stub_request(:get, /status.vatsim.net/).to_rack(FakeVATSIMStatus)
+    stub_request(:get, /status.vatsim.net/).to_rack(FakeVATSIMStatus)
   end
 
   config.before(:each) do
-    stub_request(:get, /.*\/vatsim-data.txt/).to_rack(FakeVATSIMStatus)
+    stub_request(:get, %r{.*\/vatsim-data.txt}).to_rack(FakeVATSIMStatus)
   end
 
   # VATUSA API Stub
   #
-  # vatusa_api_url should be configured to: http://localhost:3000/fakeapi/VATUSA
-  # in config/environments/test.rb. This exists merely to stop requests from ever
-  # making it to api.vatusa.net. If vatusa_api_url is changed in test, Specs will fail!
+  # vatusa_api_url should be configured to:
+  # http://localhost:3000/fakeapi/VATUSA
+  # in config/environments/test.rb. This exists merely to stop requests
+  # from ever making it to api.vatusa.net. If vatusa_api_url is changed
+  # in test, Specs will fail!
   config.before(:each) do
-	  stub_request(:any, /api.vatusa.net/).to_rack(FakeVATUSAAPI)
+    stub_request(:any, /api.vatusa.net/).to_rack(FakeVATUSAAPI)
   end
 
   config.before(:each) do
-    stub_request(:any, /localhost:3000\/fakeapi\/VATUSA/).to_rack(FakeVATUSAAPI)
+    stub_request(
+      :any,
+      %r{localhost:3000\/fakeapi\/VATUSA}
+    ).to_rack(FakeVATUSAAPI)
   end
 
   # VATUSA Forums RSS Stub

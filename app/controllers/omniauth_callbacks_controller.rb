@@ -1,15 +1,20 @@
+# frozen_string_literal: true
+
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   include AuthenticatesWithTwoFactor
 
   # Callback method to handle SSO failures
   #
   def failure
-    set_flash_message(:notice, :failure, kind: 'VATSIM', reason: 'OAuth failure.')
+    set_flash_message(:notice,
+                      :failure,
+                      kind:   'VATSIM',
+                      reason: 'OAuth failure.')
     redirect_to root_path
   end
 
   # Callback method to handle the SSO callback from Omniauth/VATSIM SSO
-  #
+  # rubocop:disable MethodLength
   def vatsim
     sso_data = request.env['omniauth.auth']
 
@@ -34,8 +39,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
         sign_in_and_redirect @user, event: :authentication
       end
     else
-      #reason = "Member not found on website"
-      #set_flash_message(:notice, :failure, kind: 'VATSIM', reason: reason)
+      # reason = "Member not found on website"
+      # set_flash_message(:notice, :failure, kind: 'VATSIM', reason: reason)
 
       # Create a new User object
       @user = User.new
@@ -67,5 +72,4 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     user.save if user.changed?
   end
-
 end

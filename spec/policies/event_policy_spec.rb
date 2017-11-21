@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe EventPolicy do
@@ -10,18 +12,18 @@ describe EventPolicy do
   end
 
   context 'user with event create permission' do
-    let(:user){ create(:user, group: create(:group, :perm_event_create)) }
+    let(:user) { create(:user, group: create(:group, :perm_event_create)) }
 
     it { is_expected.to permit_new_and_create_actions }
 
     it { is_expected.to forbid_edit_and_update_actions }
-    it { is_expected.to forbid_actions([:index, :destroy, :show]) }
+    it { is_expected.to forbid_actions(%i[index destroy show]) }
   end
 
   context 'group with event read permission' do
-    let(:user){ create(:user, group: create(:group, :perm_event_read)) }
+    let(:user) { create(:user, group: create(:group, :perm_event_read)) }
 
-    it { is_expected.to permit_actions([:index, :show]) }
+    it { is_expected.to permit_actions(%i[index show]) }
 
     it { is_expected.to forbid_new_and_create_actions }
     it { is_expected.to forbid_edit_and_update_actions }
@@ -29,22 +31,21 @@ describe EventPolicy do
   end
 
   context 'user with event update permission' do
-    let(:user){ create(:user, group: create(:group, :perm_event_update)) }
+    let(:user) { create(:user, group: create(:group, :perm_event_update)) }
 
     it { is_expected.to permit_edit_and_update_actions }
 
     it { is_expected.to forbid_new_and_create_actions }
-    it { is_expected.to forbid_actions([:index, :destroy, :show]) }
+    it { is_expected.to forbid_actions(%i[index destroy show]) }
   end
 
   context 'user with event delete permission' do
-    let(:user){ create(:user, group: create(:group, :perm_event_delete)) }
+    let(:user) { create(:user, group: create(:group, :perm_event_delete)) }
 
     it { is_expected.to permit_action(:destroy) }
 
     it { is_expected.to forbid_new_and_create_actions }
     it { is_expected.to forbid_edit_and_update_actions }
-    it { is_expected.to forbid_actions([:index, :show]) }
+    it { is_expected.to forbid_actions(%i[index show]) }
   end
-
 end

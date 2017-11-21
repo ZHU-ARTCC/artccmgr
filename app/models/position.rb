@@ -1,15 +1,24 @@
+# frozen_string_literal: true
+
 class Position < ApplicationRecord
   extend FriendlyId
   friendly_id :callsign
 
   belongs_to :certification, optional: true
 
+  validates :frequency,
+            presence: true,
+            numericality: { greater_than_or_equal_to: 118, less_than: 137 }
+
+  validates :callsign,
+            presence: true,
+            allow_blank: false,
+            uniqueness: { case_sensitive: false }, length: { maximum: 12 }
+
   validates :name, presence: true, allow_blank: false
-  validates :frequency, presence: true, numericality: { greater_than_or_equal_to: 118, less_than: 137}
-  validates :callsign, presence: true, allow_blank: false, uniqueness: {case_sensitive: false}, length: {maximum: 12}
   validates :identification, presence: true, allow_blank: false
-  validates :beacon_codes, allow_blank: true, length: {maximum: 9}
-  validates :major, inclusion: { in: [ true, false ] }
+  validates :beacon_codes, allow_blank: true, length: { maximum: 9 }
+  validates :major, inclusion: { in: [true, false] }
 
   validate :valid_callsign
   validate :valid_certification
@@ -42,24 +51,23 @@ class Position < ApplicationRecord
   private
 
   def valid_callsign
-    unless callsign =~ /^[A-Z]{2,4}_([A-Z0-9]{1,3}_)?[(FSS|CTR|APP|DEP|TWR|GND|DEL)]{3}$/
-      self.errors[:callsign] << 'invalid format'
-    end
+    # rubocop:disable Metrics/LineLength
+    return if callsign =~ /^[A-Z]{2,4}_([A-Z0-9]{1,3}_)?[(FSS|CTR|APP|DEP|TWR|GND|DEL)]{3}$/
+    # rubocop:enable Metrics/LineLength
+    errors[:callsign] << 'invalid format'
   end
 
   def valid_certification
-    unless certification.nil?
-      type = major? ? 'major' : 'minor'
-      self.errors[:certification] << "of #{type} type exists for this position" unless certification.major? == major?
-    end
+    return if certification.nil?
+    type = major? ? 'major' : 'minor'
+
+    return if certification.major? == major?
+    errors[:certification] << "of #{type} type exists for this position"
   end
 
   def valid_frequency
-    unless frequency.nil?
-      unless '%.3f' % frequency =~ /^\d{3}.\d{1}(00|20|25|50|70|75){1}$/
-        self.errors[:frequency] << 'invalid'
-      end
-    end
+    return if frequency.nil?
+    return if format('%.3f', frequency) =~ /^\d{3}.\d{1}(00|20|25|50|70|75){1}$/
+    errors[:frequency] << 'invalid'
   end
-
 end
