@@ -29,10 +29,11 @@ class ApplicationMailer < ActionMailer::Base
       gpg_key      = Rails.application.secrets.gpg_key
       gpg_password = Rails.application.secrets.gpg_passphrase
 
-      # Add the signing key to the keychain if necessary
-      Gitlab::Gpg::CurrentKeyChain.add(gpg_key)
-
       if gpg_key.present?
+        # Add the signing key to the keychain if necessary
+        Gitlab::Gpg::CurrentKeyChain.add(gpg_key)
+
+        # Configure GPG signing
         headers[:gpg][:sign_as]   = Settings.mail_from
         headers[:gpg][:password]  = gpg_password
       end
