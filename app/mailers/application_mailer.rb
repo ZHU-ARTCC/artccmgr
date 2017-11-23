@@ -29,6 +29,9 @@ class ApplicationMailer < ActionMailer::Base
       gpg_key      = Rails.application.secrets.gpg_key
       gpg_password = Rails.application.secrets.gpg_passphrase
 
+      # Add the signing key to the keychain if necessary
+      Gitlab::Gpg::CurrentKeyChain.add(gpg_key)
+
       if gpg_key.present?
         headers[:gpg][:sign_as]   = Settings.mail_from
         headers[:gpg][:password]  = gpg_password
@@ -36,15 +39,14 @@ class ApplicationMailer < ActionMailer::Base
     end
 
     # Render the message
-    Gitlab::Gpg::CurrentKeyChain.add(gpg_key)
     super(headers, &block)
   end
   # rubocop:enable Metrics/MethodLength
 
   def test(recipient)
-    @user = recipient
+    recipient.is_a?(User) ? @email = recipient.email : recipient
 
-    mail(to: @user.email) do |format|
+    mail(to: @email) do |format|
       format.text { render plain: "#{self.class} Test Message" }
     end
   end

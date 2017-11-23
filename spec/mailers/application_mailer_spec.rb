@@ -17,6 +17,28 @@ RSpec.describe ApplicationMailer, type: :mailer do
       @result = subject.test(user)
     end
 
+    context 'to email address with no user object' do
+      let(:user) { create(:user) }
+
+      before do
+        # simulate email address provided in the event email sent to address
+        # and not user object
+        @result = subject.test(user.email)
+      end
+
+      it 'does not modify the subject' do
+        expect(@result.subject).to eq "#{Settings.artcc_name} Notification"
+      end
+
+      it 'does not encrypt the body' do
+        expect(@result.gpg).to be_nil
+      end
+
+      it 'renders the message plaintext' do
+        expect(@result.body.raw_source).to eq 'ApplicationMailer Test Message'
+      end
+    end
+
     context 'user without GPG key' do
       let(:user) { create(:user) }
 
