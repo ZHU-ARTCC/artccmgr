@@ -4,6 +4,7 @@ class Position < ApplicationRecord
   extend FriendlyId
   friendly_id :callsign
 
+  belongs_to :category
   belongs_to :certification, optional: true
 
   validates :frequency,
@@ -15,6 +16,7 @@ class Position < ApplicationRecord
             allow_blank: false,
             uniqueness: { case_sensitive: false }, length: { maximum: 12 }
 
+  validates :category, presence: true
   validates :name, presence: true, allow_blank: false
   validates :identification, presence: true, allow_blank: false
   validates :beacon_codes, allow_blank: true, length: { maximum: 9 }

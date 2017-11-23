@@ -40,6 +40,7 @@ RSpec.describe Position, type: :model do
   end # describe 'ActiveModel validations'
 
   describe 'ActiveRecord associations' do
+    it { expect(position).to belong_to(:category) }
     it { expect(position).to belong_to(:certification) }
   end # describe 'ActiveRecord associations'
 

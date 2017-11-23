@@ -34,6 +34,7 @@ class PositionPolicy < ApplicationPolicy
   end
 
   def permitted_attributes
-    %i[name frequency callsign identification beacon_codes major primary]
+    %i[name frequency callsign identification beacon_codes
+       major primary category_id]
   end
 end

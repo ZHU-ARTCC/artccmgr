@@ -16,6 +16,8 @@ FactoryGirl.define do
 
     major { [true, false].sample }
 
+    category { FactoryGirl.create(:position_category) }
+
     trait :invalid do
       name            { nil }
       frequency       { nil }

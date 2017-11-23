@@ -28,16 +28,19 @@ RSpec.describe PositionsController, type: :controller do
     context 'with valid attributes' do
       before :each do
         sign_in create(:user, group: create(:group, :perm_position_create))
+
+        @attributes = attributes_for(:position)
+        @attributes[:category_id] = @attributes[:category].id
       end
 
       it 'creates a new position' do
         expect do
-          post :create, params: { position: attributes_for(:position) }
+          post :create, params: { position: @attributes }
         end.to change(Position, :count).by 1
       end
 
       it 'redirects to the position #index' do
-        post :create, params: { position: attributes_for(:position) }
+        post :create, params: { position: @attributes }
         expect(response).to redirect_to positions_path
       end
     end

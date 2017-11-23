@@ -13,6 +13,12 @@
 # role.create name: 'event update'
 # role.create name: 'event delete'
 # role.create name: 'event staffing'
+Position::Category.create(name: 'Clearance Delivery', short: 'DEL')
+Position::Category.create(name: 'Ground', short: 'GND')
+Position::Category.create(name: 'Tower', short: 'TWR')
+Position::Category.create(name: 'Approach/Departure', short: 'APP/DEL', can_solo: true)
+Position::Category.create(name: 'Enroute', short: 'CTR', can_solo: true)
+Position::Category.create(name: 'Special Center', short: 'S-CTR')
 
 Rating.create(number: 0,  short_name: 'NA',  long_name: 'None')
 Rating.create(number: 1,  short_name: 'OBS', long_name: 'Observer')
