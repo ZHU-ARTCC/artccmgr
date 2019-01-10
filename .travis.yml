@@ -22,8 +22,7 @@ env:
     - "RAILS_ENV=test"
 
 rvm:
-  - 2.3
-  - 2.4
+  - 2.6.0
   - ruby-head
 
 allow_failures:
@@ -32,7 +31,7 @@ allow_failures:
 jobs:
   include:
     - stage: Lint
-      rvm: 2.3.3
+      rvm: 2.6.0
       env:
         - "RUBOCOP=true"
       before_script: /bin/true
@@ -40,12 +39,12 @@ jobs:
         - bundle exec rubocop
 
     - stage: Coverage & security
-      rvm: 2.3.3
+      rvm: 2.6.0
       env:
         - "COVERAGE=true"
 
     - stage: Coverage & security
-      rvm: 2.3.3
+      rvm: 2.6.0
       env:
         - "BRAKEMAN=true"
       before_script: /bin/true
@@ -53,7 +52,7 @@ jobs:
         - bundle exec brakeman -A
 
     - stage: Code climate
-      rvm: 2.3.3
+      rvm: 2.6.0
       env:
         - "COVERAGE=true"
       skip_cleanup: true
@@ -71,7 +70,7 @@ jobs:
       if: branch = development AND (NOT type = pull_request)
 
     - stage: Staging
-      rvm: 2.3.3
+      rvm: 2.6.0
       before_script: /bin/true
       script: /bin/true
       deploy: &heroku
@@ -82,7 +81,7 @@ jobs:
       if: branch = development AND (NOT type = pull_request)
 
     - stage: Deploy
-      rvm: 2.3.3
+      rvm: 2.6.0
       before_script: /bin/true
       script: /bin/true
       deploy:
